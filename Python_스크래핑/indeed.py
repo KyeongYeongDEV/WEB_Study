@@ -20,7 +20,6 @@ def extract_indeed_pages():
         pages.append(int(link.string))
 
     max_page = pages[-1]
-
     return max_page
 
 
