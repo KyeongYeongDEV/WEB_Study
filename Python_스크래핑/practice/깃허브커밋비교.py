@@ -1,5 +1,4 @@
 import requests
-import re
 from bs4 import BeautifulSoup
 
 user1_url = "https://github.com/KyeongYeongDEV"
