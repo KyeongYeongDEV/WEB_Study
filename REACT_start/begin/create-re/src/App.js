@@ -2,9 +2,11 @@ import React,{Component} from 'react';
 import './App.css';
 import Subject from './con/component/Subject';
 import TOC from './con/component/TOC';
-import Content from './con/component/Content';
 import Control from './con/component/Control';
+import ReadContent from './con/component/ReadContent';
+import CreateContent from './con/component/CreateContent';
 import { __esModule } from '@testing-library/user-event';
+
 class App extends Component{
   constructor(props){
     super(props);
@@ -21,10 +23,11 @@ class App extends Component{
     }
   }
   render(){
-    let _title, _desc = null;
+    let _title, _desc,_article = null;
     if(this.state.mode === 'welcome'){
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContent title ={_title} desc = {_desc}></ReadContent>
     }else if(this.state.mode === 'read'){
       let i =0;
       while(i < this.state.contents.length){
@@ -36,9 +39,13 @@ class App extends Component{
         }
         i++;
       }
+      _article = <ReadContent title ={_title} desc = {_desc}></ReadContent>
+    }else if(this.state.mode === 'create'){
+       _article = <CreateContent></CreateContent>
     }
+    
 
-    return(
+    return( 
       <div className='App'>
          <Subject 
          title ={this.state.subject.title} 
@@ -62,7 +69,7 @@ class App extends Component{
              mode:_mode
            })
          }.bind(this)}></Control>
-         <Content title ={_title} desc = {_desc}></Content>
+         {_article}
       </div>
     );
   }
