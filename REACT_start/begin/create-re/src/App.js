@@ -11,7 +11,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = { 
-      mode:'welcome',
+      mode:'create',
       selected_content_id:2,
       subject:{ title : 'WEB', sub:"World wide Web!" }  ,
       welcome:{title:'Welcome', desc:'Hello, React!!'},
@@ -41,7 +41,7 @@ class App extends Component{
       }
       _article = <ReadContent title ={_title} desc = {_desc}></ReadContent>
     }else if(this.state.mode === 'create'){
-       _article = <CreateContent></CreateContent>
+       _article = <CreateContent ></CreateContent>
     }
     
 
