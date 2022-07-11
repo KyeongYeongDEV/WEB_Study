@@ -5,7 +5,7 @@ import TOC from './con/component/TOC';
 import Control from './con/component/Control';
 import ReadContent from './con/component/ReadContent';
 import CreateContent from './con/component/CreateContent';
-import { __esModule } from '@testing-library/user-event';
+
 
 class App extends Component{
   constructor(props){
