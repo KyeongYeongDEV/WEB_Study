@@ -16,7 +16,7 @@ function Header(props){
 function Article(props){
   return(
     <article>
-        <h2>{props.title}</h2>  
+        <h2>{props.title}</h2> 
         {props.body}
       </article>
   );
@@ -41,6 +41,17 @@ function Nav(props){
   );
 }
 
+function Create(){
+  return<article>
+    <h2>Create</h2>
+    <form>
+      <p><input type = 'text' name = 'title' placeholder='title'/></p>
+      <p><textatea name = 'body' placeholder = 'body'></textatea></p>
+      <p><input type = 'submit' value='Create'></input></p>
+    </form>
+  </article>
+}
+
 function App() {
   const [mode,setMode] = useState('WELCOME');
   const [id, setId] = useState(null);
@@ -62,6 +73,8 @@ function App() {
       }
     }
     content = <Article title ={title} body = {body}></Article>
+  }else if(mode === 'CREATE'){
+    content = <Create></Create>
   }
   return (
     <div>
@@ -73,7 +86,12 @@ function App() {
         setId(_id);
       }}></Nav>
       {content}
-    </div>
+      <a href='/create' onClick ={event=>{
+        event.preventDefault();
+        setMode('create');
+      }
+      }></a>
+      </div>
   );
 }
 
