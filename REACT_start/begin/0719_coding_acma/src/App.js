@@ -1,15 +1,30 @@
 import './App.css';
-import Hello from './component/Hello';
-
+import DayList from './component/DayList';
+import Header from './component/Header';
+import Day from './component/Day';
+import {BrowserRouter , Switch, Route} from 'react-router-dom'
+import EmptyPage from './component/Emptypage';
 
 function App() {
   return (
-    <div className = "App">
-      
-      <Hello age={10}/>
-      <Hello age={20}/>
-      <Hello age={30}/>
-    </div>
+    <BrowserRouter>
+      <div className = "App">
+        <Header />
+        <Switch>
+          <Route exact path = "/">
+            <DayList />
+          </Route>
+          <Route path = "/day/:day">
+            <Day /> 
+          </Route>     
+
+          <Route>
+            <EmptyPage/>
+            </Route>   
+        </Switch>      
+      </div>
+    </BrowserRouter>
+    
   );
 }
 
