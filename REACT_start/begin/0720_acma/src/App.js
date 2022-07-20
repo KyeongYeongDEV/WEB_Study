@@ -1,15 +1,9 @@
-import './App.css';
-import Hello from './conponent/Hello';
-import Welcome from './conponent/Welcome';
-import styles from "./App.module.css";
+import Header from "./conponent/Header";
 
 function App() {
   return (
     <div className="App">
-      <Hello />
-      <div className = {styles.box}>
-        App
-      </div>
+      <Header />
     </div>
   );
 }
