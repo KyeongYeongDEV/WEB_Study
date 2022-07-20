@@ -15,16 +15,14 @@ function App() {
             <DayList />
           </Route>
           <Route path = "/day/:day">
-            <Day /> 
-          </Route>     
-
+            <Day />
+          </Route>
           <Route>
             <EmptyPage/>
-            </Route>   
-        </Switch>      
+            </Route>
+        </Switch>
       </div>
     </BrowserRouter>
-    
   );
 }
 
