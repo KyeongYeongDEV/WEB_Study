@@ -6,5 +6,8 @@
 // let text = confirm("당신은 주인인가요?"); //예 아니요 있음
 // alert(test)
 
-let name = prompt("사용자의 이름은 무엇입니까?",'홍길동');
-alert(`사용자 이름 : ${name}`);
+// let name = prompt("사용자의 이름은 무엇입니까?",'홍길동');
+// alert(`사용자 이름 : ${name}`);
+
+// console.log("-9" - 5) //-14
+// console.log("-9" + 5) // -95
