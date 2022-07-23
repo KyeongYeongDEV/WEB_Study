@@ -10,4 +10,4 @@
 // alert(`사용자 이름 : ${name}`);
 
 // console.log("-9" - 5) //-14
-// console.log("-9" + 5) // -95
+console.log("-9" + 5) // -95
