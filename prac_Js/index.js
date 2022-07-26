@@ -98,11 +98,64 @@
 //     ()=>{alert("취소 버튼을 누르셨습니다.");}
 //     );
 
-//객체
-let user={
-    name:  "john", 
-    age:30,
-    "likes birds" : true //이런 것도 가능
+// //객체
+// let user={
+//     name:  "john", 
+//     age:30,
+//     "likes birds" : true //이런 것도 가능
+// };
+
+// alert(user["likes birds"]);
+
+// let user ={};
+
+// //set
+// user["likes birds"] = true;
+// //get
+// alert(user["likes birds"]);
+// //delete
+// delete user["likes birds"];
+
+
+// // [] 연산 응용하기
+// let user={
+//     name:  "john", 
+//     age:30,
+//     isAdmin:true,
+// };
+
+// let key = prompt("사용자의 어떤 정보를 얻고 싶으신가요?", 'name');
+//  //변수로 접근
+// alert(user[key]);
+
+// function makeUser(name,age){
+//     return {
+//         name, // name : name 과 같음
+//         age,  // age : age 와 같음
+//     };
+// }
+
+// let obj ={
+//     test: undefined
+// };
+
+// alert(obj.test)
+// alert('text' in obj)
+
+// for(let key in user){
+//     alert(key); //name, age isAdmin
+//     alert(user[key])//john, 30, true
+// }
+
+let user = { 
+    name :"john",
+    surname : "smith"
 };
 
-alert(user["likes birds"]);
+user.age = 25; //프로퍼티 하나 추가
+
+//정수 프로퍼티가 아닌 프로터리는 추가된 순서대로 나열된다.
+for(let prop in user){
+    alert(user[prop]); // name, surname, age
+}
+
