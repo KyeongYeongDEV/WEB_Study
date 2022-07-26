@@ -147,15 +147,100 @@
 //     alert(user[key])//john, 30, true
 // }
 
-let user = { 
-    name :"john",
-    surname : "smith"
-};
+// let user = { 
+//     name :"john",
+//     surname : "smith"
+// };
 
-user.age = 25; //프로퍼티 하나 추가
+// user.age = 25; //프로퍼티 하나 추가
 
-//정수 프로퍼티가 아닌 프로터리는 추가된 순서대로 나열된다.
-for(let prop in user){
-    alert(user[prop]); // name, surname, age
+// //정수 프로퍼티가 아닌 프로터리는 추가된 순서대로 나열된다.
+// for(let prop in user){
+//     alert(prop); // name, surname, age
+// }
+
+//-----------------------
+//과제1
+// let user={
+//     name : "John",
+//     surname: "Smith"
+// }
+
+// user["name"] = "Pete";
+// alert(user["name"]);
+
+// delete user.name;
+
+
+//과제2
+// function isEmpty(obj){
+//     for(let o in obj){
+//         return false;
+//     }
+//     return true;
+// }
+
+// let schedule={};
+// alert(isEmpty(schedule)); // true
+// schedule["8:30"] = "get up";
+// alert(isEmpty(schedule)); // false;
+
+
+//과제3
+//const는 user의 겂을 고정하지만, 그 내용은 고정하지 않는다. 
+
+// const user={
+//     name: "john"
+// };
+// user.name='Pete';
+// alert(user.name)
+
+//과제4
+
+// function isEmpty(obj){
+//     for(let o in obj){
+//         return false;
+//     }
+//     return true;
+// };
+
+// function add(objs){
+//     let result = 0;
+//     for(let obj in objs){
+//         result += objs[obj];
+//     }
+//     return result;
+// };
+
+// let salaries={
+//     John:100,
+//     Ann:160,
+//     Pete:130
+// };
+
+// let sum=0;
+// if(!isEmpty(salaries)){ //값이 있을 때
+//     sum = add(salaries);
+// }
+// alert(sum);
+
+//과제 5
+function multiplyNumber(objs){
+    for(let obj in objs){
+        if(typeof objs[obj] == 'number'){
+            objs[obj] *=2;
+        }
+    }
 }
 
+let menu={
+    width:200,
+    heigth:300,
+    title: "my menu"
+};
+
+multiplyNumber(menu);
+
+for(let m in menu){
+    alert(menu[m]);
+}
