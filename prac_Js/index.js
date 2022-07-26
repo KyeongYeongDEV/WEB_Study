@@ -97,3 +97,12 @@
 //     ()=>{alert("동의하셨습니다.");},
 //     ()=>{alert("취소 버튼을 누르셨습니다.");}
 //     );
+
+//객체
+let user={
+    name:  "john", 
+    age:30,
+    "likes birds" : true //이런 것도 가능
+};
+
+alert(user["likes birds"]);
