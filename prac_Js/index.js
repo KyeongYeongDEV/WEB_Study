@@ -225,22 +225,50 @@
 // alert(sum);
 
 //과제 5
-function multiplyNumber(objs){
-    for(let obj in objs){
-        if(typeof objs[obj] == 'number'){
-            objs[obj] *=2;
-        }
-    }
-}
+// function multiplyNumber(objs){
+//     for(let obj in objs){
+//         if(typeof objs[obj] == 'number'){
+//             objs[obj] *=2;
+//         }
+//     }
+// }
 
-let menu={
-    width:200,
-    heigth:300,
-    title: "my menu"
+// let menu={
+//     width:200,
+//     heigth:300,
+//     title: "my menu"
+// };
+
+// multiplyNumber(menu);
+
+// for(let m in menu){
+//     alert(menu[m]);
+// }
+
+// //Object.assign 을 사용하면 간단히 복제할 수 있다
+// let user={
+//     name: "John",
+//     age:30
+// };
+
+// let clone = Object.assign({}, user); 
+// //Obeject.assign 은 얕은 복사를 해준다.
+
+//이럴 땐 어떡하죠?
+let user ={
+    name:"John",
+    sizes:{
+        height: 182,
+        width: 50
+    }
 };
 
-multiplyNumber(menu);
+// alert(user.sizes.height); // 182 
+//clone.size = user.sizes로 복사하는 것은 불가능
+let clone = Object.assign({},user);
+// 이렇게 하면 결국에는 sizes는 같이 공유를 하게 된다.
 
-for(let m in menu){
-    alert(menu[m]);
-}
+let clone1 = _.cloneDeep(user);
+if(user.sizes === clone1.sizes){alert('같')}
+else{alert('틀')}
+
