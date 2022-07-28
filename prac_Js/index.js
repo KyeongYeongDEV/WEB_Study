@@ -255,20 +255,66 @@
 // //Obeject.assign 은 얕은 복사를 해준다.
 
 //이럴 땐 어떡하죠?
-let user ={
-    name:"John",
-    sizes:{
-        height: 182,
-        width: 50
-    }
-};
+// let user ={
+//     name:"John",
+//     sizes:{
+//         height: 182,
+//         width: 50
+//     }
+// };
 
 // alert(user.sizes.height); // 182 
 //clone.size = user.sizes로 복사하는 것은 불가능
-let clone = Object.assign({},user);
+// let clone = Object.assign({},user);
 // 이렇게 하면 결국에는 sizes는 같이 공유를 하게 된다.
 
-let clone1 = _.cloneDeep(user);
-if(user.sizes === clone1.sizes){alert('같')}
-else{alert('틀')}
+// let clone1 = _.cloneDeep(user); //깊은 복사
+// if(user.sizes === clone1.sizes){alert('같')}
+// else{alert('틀')}
+
+//------------------------
+// let user = { 
+//     name: "john",
+//     age:30
+// }
+
+// function sayHi(){
+//     alert("안녕하세요");
+// };
+
+// //선언된 함수를 메서드로 등록
+// user.sayHi = sayHi;
+
+// user.sayHi();
+
+//------------------------
+// let user ={
+//     sayHi: function(){
+//         alert("Hello");
+//     }
+// };
+// //위에 구문과 같지만 더 간결하다
+// user={
+//     sayHi(){
+//         alert("Hello");
+//     }
+// }
+//------------------------
+let num1,num2;
+let calculater={
+    read : ()=> {
+        this.a = +prompt("첫 번째 값 : ", 0);
+        this.b = +prompt("두 번째 값 : ", 0);
+    },
+    sum : ()=>{
+        return this.a + this.b;
+    },
+    mul : ()=>{
+        return this.a * this.b;
+    }
+};
+
+calculater.read();
+alert(calculater.sum());
+alert(calculater.mul());
 
