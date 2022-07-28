@@ -299,22 +299,85 @@
 //         alert("Hello");
 //     }
 // }
-//------------------------
-let num1,num2;
-let calculater={
-    read : ()=> {
-        this.a = +prompt("첫 번째 값 : ", 0);
-        this.b = +prompt("두 번째 값 : ", 0);
-    },
-    sum : ()=>{
-        return this.a + this.b;
-    },
-    mul : ()=>{
-        return this.a * this.b;
+//-----------------------
+// let calculater={
+//     read : ()=> {
+//         this.a = +prompt("첫 번째 값 : ", 0);
+//         this.b = +prompt("두 번째 값 : ", 0);
+//     },
+//     sum : ()=>{
+//         return this.a + this.b;
+//     },
+//     mul : ()=>{
+//         return this.a * this.b;
+//     }
+// };
+
+// calculater.read();
+// alert(calculater.sum());
+// alert(calculater.mul());
+//-----------------------
+
+// let ladder ={
+//     step:0,
+//     up(){
+//         this.step++;
+//         return this; //메서드 체이닝을 하려면 this를 반환해야 한다.
+//     },
+//     down(){
+//         this.step--;
+//         return this;
+//     },
+//     showStep: function(){
+//         alert(this.step);
+//         return this;
+//     }
+// }
+// // ladder.up();
+// // ladder.up();
+// // ladder.down();
+// // ladder.showStep();
+
+// ladder.up().up().down().showStep(); //메서드호출 체이닝
+
+//-----------------------
+// let obj = {};
+// function A(){return obj;};
+// function B(){return obj;};
+
+// let a = new A;
+// let b = new B;
+
+// alert(a==b); //true
+
+//----------------------- 
+// function Calculater(){
+//     this.read = function() {
+//         this.a = +prompt("a?",0);
+//         this.b = +prompt("b?",0);
+//     };
+//     this.sum = function(){
+//         return this.a + this.b;
+//     };
+//     this.mul = function(){
+//         return this.a * this.b;
+//     };
+// }
+
+// let calculater = new Calculater();
+// calculater.read();
+// alert("Sum = " + calculater.sum());
+// alert("Mul = " + calculater.mul());
+
+//----------------------- 
+function Accumulator(startingValue){
+    this.value = startingValue;
+    this.read = function(){
+        this.value += +prompt("더할 값",0);
     }
-};
+}
 
-calculater.read();
-alert(calculater.sum());
-alert(calculater.mul());
-
+let accumulator = new Accumulator(1);
+accumulator.read();
+accumulator.read();
+alert(accumulator.value);
