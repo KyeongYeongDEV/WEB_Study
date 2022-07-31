@@ -370,14 +370,29 @@
 // alert("Mul = " + calculater.mul());
 
 //----------------------- 
-function Accumulator(startingValue){
-    this.value = startingValue;
-    this.read = function(){
-        this.value += +prompt("더할 값",0);
-    }
-}
+// function Accumulator(startingValue){
+//     this.value = startingValue;
+//     this.read = function(){
+//         this.value += +prompt("더할 값",0);
+//     }
+// }
 
-let accumulator = new Accumulator(1);
-accumulator.read();
-accumulator.read();
-alert(accumulator.value);
+// let accumulator = new Accumulator(1);
+// accumulator.read();
+// accumulator.read();
+// alert(accumulator.value);
+
+//----------------------- 
+//symbol
+let user={
+    name: john,
+    money = 1000,
+    [Symbol.toPrimitive](hint){
+        alert(`hint: ${hint}`);
+        return hint == "string" ? `{name : "${this.name}"}` : this.money;
+
+    }
+};
+alert (user);
+alert(+user);
+alert(user +500);
