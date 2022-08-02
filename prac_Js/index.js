@@ -391,8 +391,40 @@
 //         alert(`hint: ${hint}`);
 //         return hint == "string" ? `{name : "${this.name}"}` : this.money;
 
-//     }
+//     
 // };
 // alert (user);
 // alert(+user);
 // alert(user +500);
+
+//-----------------------  value of
+// let user = {name: "john"};
+// alert(user);
+// alert(user.valueOf() === user);
+
+//----------------------- tostring + valueof
+// let user ={
+//     name : "john",
+//     money : 1000,
+
+//     //hint가 string인 경우
+//     toString(){
+//         return `{name: "${this.name}"}`;
+//     },
+//     //hint가 number 나 default인 경우
+//     valueOf(){
+//         return this.money;
+//     }
+// };
+
+// alert(user); 
+// alert(+user);
+// alert(user +500)
+
+//----------------------- 과제1
+let str = 'Hello';
+str.test = 5;
+alert(str.test);
+
+//----------------------- 
+
