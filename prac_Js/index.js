@@ -422,9 +422,40 @@
 // alert(user +500)
 
 //----------------------- 과제1
-let str = 'Hello';
-str.test = 5;
-alert(str.test);
+// let str = 'Hello';
+// str.test = 5;
+// alert(str.test);
 
 //----------------------- 
+// let sum = 0.1 + 0.2;
+// alert(sum.toFixed(2)) // 0.30
+// alert(+sum.toFixed(2)) // 0.3
 
+//-----------------------  isFinite(value) 문자열이 일반 숫자인지 검사
+// let num = +prompt("숫자를 입력하세요");
+// alert(isFinite(num)); //true
+
+//----------------------- 숫자만 반환
+// alert(parseInt(`100px`)); //100
+// alert(parseFloat("12.5em")); //12.5
+// alert(parseInt('12.5'))//12 정수 부분만 반환
+// alert(parseFloat('12.3.4'))//12.3 두 번째 점에서 숫자 읽기를 멈춘다
+
+// alert(parseInt('a123')); //NaN a는 숫자가 아니므로 숫자를 읽는 게 중지됩니다.
+
+//두 번쨰 인수 - 원하는 진수를 지정해 줄 때 사용
+// alert( parseInt('Oxff',16)) //255
+// alert(parseInt('ff',16)) //255
+
+// alert(parseInt('2n9c',36)); // 123456
+
+//----------------------- Math.
+alert( Math.random()); //랜덤
+
+alert(Math.max(3,5,-10,0,1)); //max
+
+alert(Math.min(1,2))//min
+
+alert(Math.pow(2,10))//2의 10제곱  1024
+
+//----------------------- 과제
