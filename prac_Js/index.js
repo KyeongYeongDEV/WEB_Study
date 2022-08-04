@@ -450,12 +450,55 @@
 // alert(parseInt('2n9c',36)); // 123456
 
 //----------------------- Math.
-alert( Math.random()); //랜덤
+// alert( Math.random()); //랜덤
 
-alert(Math.max(3,5,-10,0,1)); //max
+// alert(Math.max(3,5,-10,0,1)); //max
 
-alert(Math.min(1,2))//min
+// alert(Math.min(1,2))//min
 
-alert(Math.pow(2,10))//2의 10제곱  1024
+// alert(Math.pow(2,10))//2의 10제곱  1024
 
-//----------------------- 과제
+//----------------------- 과제1
+
+// let num1 = +prompt("수1",0);
+// let num2 = +prompt("수2",0);
+// alert(num1+num2)
+
+//----------------------- 과제2
+// function readNumber(){
+//     while(true){
+//         let num = prompt("입력",'a');
+//         if(isFinite(num)){return +num;}
+        
+//     }
+// }
+// alert(readNumber());
+
+//----------------------- 과제3 랜덤 정수
+//alert((10 + Math.random() * (15-10)).toFixed(0)); //10-15 정수
+
+//----------------------- String
+// let str = 'Hello';
+
+//첫 번째 글자
+// alert(str[0]);
+// alert(str.charAt(0));
+// alert(str.charAt(1000));//범위를 넘기면 빈 문자열이 출력된다.
+
+//마지막 글자
+// alert(str[str.length-1]);
+//최근에는 대괄호를 많이 쓴다.
+
+//한 번 입력된 문자열은 수정 불가능이다
+//ex) str[0] = 'g'; //동작 안함
+
+//문자열 수정 방법
+// str = str[0]+  str[1]+  str[2]+ 'G';
+// alert(str);
+
+//----------------------- 대소문자
+alert('interface'.toUpperCase()); //전체 대문자
+alert('INTERface'.toLowerCase()); //전체 소문자
+
+alert('interface'[0].toUpperCase()); //I 하나만도 가능
+
