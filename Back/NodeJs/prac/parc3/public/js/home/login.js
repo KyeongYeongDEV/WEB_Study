@@ -10,6 +10,13 @@ function login(){
   const res = {
     id : id.value,
     psw: psword.value
-  }
-  console.log(res);
+  };
+  
+  fetch("/login",{
+    method:"POST",
+    header:{
+      "Content-type": "applicationjson"
+    }, 
+    body: JSON.stringify(req), 
+  })
 }
