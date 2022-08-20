@@ -16,5 +16,5 @@ const process ={
 };
 
 module.exports = { //내보낼 때 이름 같에 하기
-   output,process,
+   output, process,
 };
