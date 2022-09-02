@@ -21,7 +21,7 @@ const cancel = () =>{// 기존에 있던 스케줄을 없애주는 역할
 };
 
 const setScheduler = (s)=>{
-    cancel();
+    cancel()
     set(s);
 };
 
