@@ -23,7 +23,7 @@ const cancel = () =>{// 기존에 있던 스케줄을 없애주는 역할
 const setScheduler = (s)=>{
     cancel();
     set(s);
-}
+};
 
 const scheduleData ={ //요일과 시간 지정
     dayOfWeek: [4,5],//목요일, 금요일  //일요일(0)부터 시작 토욜(6)
