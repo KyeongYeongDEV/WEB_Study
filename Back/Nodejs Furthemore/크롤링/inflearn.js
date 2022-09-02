@@ -19,9 +19,10 @@ const parsing = async(keyword) =>{
 
     let courses = [];
     $courseList.each((idx, node) =>{
-        const title = $(node).find(".course_title:eq(0)").text();//같은 class이름을 가진 노드가 있어 2개를 가지고 온다. ':eq(0)를 이용해 첫 번째 거만 가지고 온다. 
+        const title = $(node).find(".course_title").text();
         courses.push({
-            title : $(node).find(".course_title").text(),
+            //같은 class이름을 가진 노드가 있어 2개를 가지고 온다. ':eq(0)를 이용해 첫 번째 거만 가지고 온다. 
+            title : $(node).find(".course_title:eq(0)").text(),// ':eq(0)'를 지울 시 title에 제목이 두 번 나옴
             instructor: $(node).find(".instructor").text(),
             price: $(node).find(".instructor").text(),            
             rating: $(node).find(".star_solid").css("width"),
