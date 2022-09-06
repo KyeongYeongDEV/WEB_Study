@@ -30,7 +30,7 @@ const parsing = async(keyword) =>{
         })
     });
     console.log(courses);
-}
+};
 
 parsing("자바스크립트");
 
