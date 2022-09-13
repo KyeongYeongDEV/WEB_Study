@@ -21,14 +21,13 @@ const prasing = async()=>{
     //load()
     //인자로 html 문자열을 받아 cheerio 객체 반환
     const $ = cheerio.load(html.data); //JQuery
-    const $RankList = $("div.teamRankTabPanel_0.tmp_wrap tabgroup3");
+    //const $RankList = $("div.teamRankTabPanel_0.tmp_wrap tabgroup3");
 
     let Rankes = [];
     $RankList.each((idx, node)=>{
-        const title  = $(node).find("div.teamRankTabPanel_0.tmp_wrap tabgroup3").text();
         Rankes.push({
             //rank:$(node).find("th"),
-            team: $(node).find("table.tb_type2 tbody tr th").text(),
+            team: $(node).find(".div.tmp_wrap tabgroup3.teamRankTabPanel_0 tbody tr span a").text(),
         })
     });
     console.log(Rankes);
