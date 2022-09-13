@@ -1,8 +1,8 @@
-//한국 2022 KBO리그 순위
+//현재 영화 박스오피스 순위
 const axios = require("axios");
 const cheerio= require("cheerio");
 
-const URL  = "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=+KBO%EB%A6%AC%EA%B7%B8&oquery=%ED%95%9C%EA%B5%AD+2022+KBO%EB%A6%AC%EA%B7%B8&tqi=hx85zlprvxsssZnwoCdssssstYh-345691";
+const URL  = "https://search.naver.com/search.naver?sm=tab_sug.top&where=nexearch&query=%EC%98%81%ED%99%94%EC%88%9C%EC%9C%84&oquery=%EC%98%81%ED%99%94&tqi=hyty1sprvTossEk5Ovosssssssl-009660&acq=%EC%98%81%ED%99%94&acr=1&qdt=0";
 
 const getHTML = async()=>{
     try{
@@ -21,16 +21,18 @@ const prasing = async()=>{
     //load()
     //인자로 html 문자열을 받아 cheerio 객체 반환
     const $ = cheerio.load(html.data); //JQuery
-    //const $RankList = $("div.teamRankTabPanel_0.tmp_wrap tabgroup3");
+    const $NameList = $(".title_box");
 
-    let Rankes = [];
-    $RankList.each((idx, node)=>{
-        Rankes.push({
-            //rank:$(node).find("th"),
-            team: $(node).find(".div.tmp_wrap tabgroup3.teamRankTabPanel_0 tbody tr span a").text(),
-        })
+    let titles = [];
+    let count=0;
+    $NameList.each((idx, node)=>{
+        titles.push({
+            rank: ++count,
+            name: $(node).find(".name").text(),
+        });
+        if(this.rank == 15){return ;}
     });
-    console.log(Rankes);
+    console.log(titles);
 };
 
 prasing();
