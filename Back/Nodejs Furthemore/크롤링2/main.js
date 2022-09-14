@@ -1,4 +1,4 @@
-//현재 영화 박스오피스 순위
+//현재 상영 중인 영화 8개 순위
 const axios = require("axios");
 const cheerio= require("cheerio");
 
@@ -7,7 +7,7 @@ const URL  ="https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt
 const getHTML = async(keyword)=>{
     try{
         //axios 
-        //Node.jd 서버에서 외부의 웹브라우저에 요청해서 특정 HTML을 내려받기 위해 필요한 패키지
+        //Node.js 서버에서 외부의 웹브라우저에 요청해서 특정 HTML을 내려받기 위해 필요한 패키지
         return await axios.get(URL + encodeURI(keyword));
     }catch(err){
         console.error(err); 
@@ -20,6 +20,7 @@ const prasing = async(keyword)=>{
     //가져온 HTML에서 특정 위치(depth)를 가져오기 위해 필요한 패키지
     //load()
     //인자로 html 문자열을 받아 cheerio 객체 반환
+
     const $ = cheerio.load(html.data); //JQuery
     const $NameList = $(".data_box");
 
@@ -28,7 +29,7 @@ const prasing = async(keyword)=>{
     $NameList.each((idx, node)=>{
         titles.push({
             rank: ++count,
-            name: $(node).find(".area_text_box").text(),
+            name: $(node).find(".area_text_box > a").text(),
         });
     });
     console.log(titles);
