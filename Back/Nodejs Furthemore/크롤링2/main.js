@@ -25,14 +25,13 @@ const prasing = async(keyword)=>{
     const $NameList = $(".data_box");
 
     let titles = [];
-    let count=0;
     $NameList.each((idx, node)=>{
         titles.push({
-            rank: ++count,
+            rank: ++idx,
             name: $(node).find(".area_text_box > a").text(),
         });
     });
     console.log(titles);
 };
 
-prasing("현재상영영화");
+prasing("현재상영영화"); //함수 호출
