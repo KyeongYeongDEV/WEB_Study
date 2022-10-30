@@ -1,19 +1,22 @@
 const db = require('../config/db')
 const dotenv = require('dotenv').config()
+const TABLE = process.env.DB_TABLE
 
 module.exports ={
     findUser: (username) => new Promise((resolve, reject)=>{
-        const sql = `select *from member where name = "${username}}"`
+        const sql = `select *from ${TABLE} where mb_name = "${username}}"`
         db.query(sql,(err,result)=>{
             if(err) reject({msg:'false'})
-            if(result.length){
-                resolve({
-                    msg: 'true',
-                    username:result[0].md_name
-                })
-            }
+            
+            resolve({
+                msg: 'true',
+                usergroup:result[0].mb_group
+            })
+            
         })
     }),
+
+    
 
 
 }

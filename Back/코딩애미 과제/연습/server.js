@@ -17,12 +17,14 @@ db.connect((err)=>{
 })
 
 
-app.post('/',(req,res)=>{
-    const username=  req.body.username
+app.post('/read',(req,res)=>{
+    const username=  req.body.md_name
     user.findUser(username).then((values)=>{
+        console.log(values)
         res.send(values)
     })
     .catch((values)=>{
+        console.log(values)
         res.send(values)
     })
 })
