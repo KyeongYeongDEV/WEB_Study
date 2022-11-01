@@ -11,11 +11,16 @@ const db = require('../config/db')
 module.exports = {
     //조회
     findUser:(username)=> new Promise((resolve,reject)=>{
-        console.log('flag1', username)
         const sql = `select * from login where name = "${username}"`
         db.query(sql,(err, result)=>{
             if(err) reject({msg:'false'})
-            console.log(result)
+            if(result.length){
+                resolve({
+                    msg: 'true',
+                    username:result[0].name
+                })
+            }
+            
         })
     })
 }

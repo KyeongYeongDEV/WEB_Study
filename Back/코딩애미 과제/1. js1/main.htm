@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/sheet2.css">
+    <title>main page</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="contents"></div>
+        <button class="logoutBtn">LOGOUT</button>
+    </div>
+    <script>
+        const getUserData=()=>{
+            return localStorage.getItem('userData')
+        }
+        window.addEventListener('DOMContentLoaded',()=>{
+            const userData = JSON.parse(getUserData())
+            document.querySelector('.contents').innerHTML =`
+                Welcome, ${userData['username']} login Succeed
+            `
+        })
+        document.querySelector('.logoutBtn').addEventListener('click',()=>{
+            localStorage.removeItem('userData');
+            alert('logout succeed')
+            location.href = "./index.htm"
+        })
+    </script>
+</body>
+</html>

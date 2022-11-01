@@ -1,0 +1,38 @@
+body{
+    background-color: cornflowerblue;
+}
+.wrapper{
+    height: 40px;
+    width: 412px;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+}
+button{
+    width: 100px;
+    height: 40px;
+    border-style: solid;
+    border-color:  rgb(67, 49, 140);
+    background-color: rgb(69, 74, 225);
+    color: white;
+    border-radius: 10px;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 1.4s;
+}
+button:hover{
+    background-color: rgb(15, 38, 77);
+}
+.modal-win{
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    opacity: 0;
+    width: 40px;
+    height: 35px;
+    border-radius: 10px;
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    white-space: nowrap;
+    overflow: hidden;
+}
