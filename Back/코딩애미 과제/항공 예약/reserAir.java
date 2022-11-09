@@ -61,21 +61,27 @@ class columnOfSeat{
 
             tmp.setNext(newUser);
             
-            System.out.println("티켓이 발행됐습니다. 티켓코드 >> "+newUser.getSeatCode());
+            System.out.println("티켓이 발행됐습니다.\n티켓코드 >> "+newUser.getSeatCode());
         }
     }
-    public boolean cancel(String seatCode){//예약 취소
+    public void cancel(String seatCode){//예약 취소
         User tmp  =headUser;
-        
+        boolean check = false;
+
         for(int i=0; i < 10; i++){
             tmp = tmp.getNext();
-            if(tmp.getSeatCode() == seatCode){
+            if(tmp.getSeatCode().equals(seatCode)){
                 tmp.setName("---");
                 tmp.setSeatCode(" ");
-                return true;
+                check = true;
+                break;
             }
-        }    
-        return false;
+        } 
+        if(check == true){
+            System.out.println("취소 완료");
+        }else{
+            System.out.println("취소에 실패했습니다.");
+        }
         
     }
     public boolean find(String seatCode){// 좌석 찾기
@@ -114,20 +120,16 @@ class rowOfseat{
         if(Airline.equals("대한항공")){ //항공사 검사
             int hashCode = name.hashCode();
             String seatCode = Integer.toString(hashCode) + Airline + Integer.toString(seatNum);
-            
-
-
-            //TODO 좌석 코드 만들기
             rowSeat[0].reserve(name, seatCode, seatNum);
         }
         else if(Airline.equals("아시아나")){
-            String seatCode = "좌석 코드";
-            //TODO 좌석 코드 만들기
+            int hashCode = name.hashCode();
+            String seatCode = Integer.toString(hashCode) + Airline + Integer.toString(seatNum);
             rowSeat[1].reserve(name, seatCode, seatNum);
         }
         else if(Airline.equals("제주항공")){
-            String seatCode = "좌석 코드";
-            //TODO 좌석 코드 만들기
+            int hashCode = name.hashCode();
+            String seatCode = Integer.toString(hashCode) + Airline + Integer.toString(seatNum);
             rowSeat[2].reserve(name, seatCode, seatNum);
         }
     }
@@ -144,7 +146,19 @@ class rowOfseat{
             rowSeat[AirlineNum].printColumn(Airline[AirlineNum]);
         }        
     }
-    //public boolean cancel(){}
+    public void cancel(String seatCode,String airLineName){
+        int AirlineNum = -1;
+
+        if(airLineName.equals("대한항공")) AirlineNum=0;
+        else if(airLineName.equals("아시아나")) AirlineNum =1;
+        else if(airLineName.equals("제주항공")) AirlineNum =2;
+        else System.out.println("찾으시는 항공사가 없습니다."); 
+
+        if( AirlineNum != -1){
+            rowSeat[AirlineNum].cancel(seatCode);
+        }
+
+    }
     //public boolean find(){//세부정보 찾기}
 
 }
@@ -189,7 +203,12 @@ class console{
                     
                     break;
                 case 3: //예약 취소
-                    
+                System.out.println("예약한 항공사를 입력해주세요");
+                String airLineName = s.next();
+                System.out.println("티켓 코드를 입력해주세요");
+                String seatCode = s.next();
+
+                air.cancel(seatCode,airLineName);
                     break;
                 case 4: //세부조회
                     break;
