@@ -84,8 +84,13 @@ class columnOfSeat{
         }
         
     }
-    public boolean find(String seatCode){// 좌석 찾기
-        return true;
+    public User find(String seatCode){
+        User tmp = headUser;
+        for(int i=0; i < 10; i++){ //자리 10개
+            tmp = tmp.getNext();
+            if(tmp.getSeatCode().equals(seatCode))return tmp;
+        }
+        return null;
     }
 
     public void printColumn(String Airline){
@@ -159,7 +164,23 @@ class rowOfseat{
         }
 
     }
-    //public boolean find(){//세부정보 찾기}
+    public void find(String seatCode){//세부정보 찾기
+            User findUser=null;
+            int airLineNum =0;
+
+            for(int i=0; i <3; i++){
+                if(rowSeat[i].find(seatCode) != null){
+                    findUser = rowSeat[i].find(seatCode);
+                    airLineNum = i;
+                    break;
+                }
+            }
+            if(findUser != null){
+                System.out.println("예약자 성함은 : " + findUser.getName()+"\n예약한 항공사는 : " + Airline[airLineNum] );
+            }else{
+                System.out.println("티켓을 찾을 수 없습니다.");
+            }
+    }
 
 }
 
@@ -211,20 +232,21 @@ class console{
                 air.cancel(seatCode,airLineName);
                     break;
                 case 4: //세부조회
+                    System.out.println("티켓번호를 입력해주세요");
+                    String seatcode = s.next();
+
+                    air.find(seatcode);
                     break;
                 case 0://종료
                     return;
             }
-
         }
+        s.close();
     }
-
-
 }
 
 public class reserAir{
     public static void main(String[] args){
         new console().Run();
     }
-
 }
