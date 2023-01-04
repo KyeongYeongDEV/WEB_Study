@@ -77,26 +77,101 @@ class DataBase{
 
     }
 }
-//웹 어플리케이션에서 데이터를 가공해서 서버에 보낸다.
-class WebApplication{
-    private String data;
 
+
+class DO{
+    private DataBase dataBase;
+    String data;
+
+    public DO(){
+        dataBase = new DataBase();
+        data = "";
+    }
+    public void doGet(){
+        System.out.println("DB야 데이터를 다오");
+        this.data = dataBase.DataRes();
+        System.out.println(this.data + " || 데이터 받고 가공중");
+    }
+    public void doPost(){
+        System.out.println("가공 다함 반환할게");
+        
+    }
+}
+
+class Servlet{
+    private DO Do;
+
+    public Servlet(){
+        Do = new DO();
+    }
+
+    public void init(){
+        System.out.println("Servlet 실행 및 초기화");
+    }
+    public void service(){ //doGet() doPost() tlfgod
+        Do.doGet();
+        Do.doPost();
+    }
+    public void destroy(){
+        System.out.println("Servlet 종료!!");
+    }
+
+}
+
+class Thread{
+    private Servlet servlet;
+
+    public Thread(){
+        servlet = new Servlet();
+    }
+
+    public void startServlet(){ //야가 Servlet 실행
+        servlet.init();
+        servlet.service();
+    }
+    public void destroy(){
+        servlet.destroy();
+    }
+
+}
+
+//다이나믹 프로그래밍 JSP, Servlet
+class WebContainer{
+    private Thread thread;
+
+    public WebContainer(){
+        thread = new Thread();
+    }
+    public void HttpServletRequest(){
+        thread.startServlet();;
+    }
+    public void HttpServletResponse(){
+        thread.destroy();
+    }
+}
+
+
+class WebApplication{
+    private WebContainer webContainer;
+    private String data;
+    
     public WebApplication(){
+        webContainer = new WebContainer();
         this.data = "";
     }
 
-    public void DataReq(){
-        System.out.println("WAS : DB야 데이터를 다오");
-    }
     public void setDB(String data){
         this.data = data;
-        System.out.println("(" + this.data + ") 데이터 잘 받았음 ");
+        System.out.println("(" + this.data + ") 원하는 데이터 잘 받았음 ");
     }
-    public void manufactureData(){
-        System.out.println("데이터 가공 중  뚱가뚱가");
+    public void manufactureData(){ //여기에서 스레드 실행
+        webContainer.HttpServletRequest();;
     }
     public void ApplicationRes(){   
-        System.out.println("로직 처리 결과 반환");
+        System.out.println("웹 서버에게 로직 처리 결과 반환");
+    }
+    public void HttpservletRes(){
+        webContainer.HttpServletResponse();
     }
 }
 
@@ -104,23 +179,20 @@ class run{
     private Client client;
     private WebServer webServer;
     private WebApplication was;
-    private DataBase DB;
+    
 
     public run(){
         client = new Client();
         webServer = new WebServer(client.getPortNumber());
         was = new WebApplication();
-        DB = new DataBase();
     }
     
     public void start(){
         client.HttpReq();
         webServer.ApplicationReq();
-        was.DataReq();
-        was.setDB(DB.DataRes());
         was.manufactureData();
+        was.HttpservletRes();
         was.ApplicationRes();
-        webServer.HttpRes();
     }
 }
 
