@@ -9,3 +9,5 @@ testcase도 만들어보기
 js상속 공부 - 인터페이스
 oop
 soild에서 so를 최대한 생각
+
+
