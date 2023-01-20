@@ -32,7 +32,7 @@ route.get("/divide", (req,res)=>{
 
     if(resultOfDivide === false){
         const Error = require("../controller/calculate/Error")
-        res.send(new Error().ZeroDivied())
+        res.send(new Error().ZeroDiviedError())
     }else{
         res.send(resultOfDivide.toString())
     }

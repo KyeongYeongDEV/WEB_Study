@@ -13,17 +13,24 @@ const arithmetic  = new Arithmetic();
 
 
 
+const map = {
+    PLUS : new Addition(),
+    MINUS : new Subtraction(),
+    MULTYPLY: new Multiplication(),
+    DIVIED : new Divition()
+}
+
 class Calculate{
     calculateNumber(a, b, delimiter){
         switch(delimiter){
             case arithmetic.getPlus():
-                return addition.numberOfAddition(a,b)
+                return map.PULS.calculateNumber(a,b)
             case arithmetic.getMinus():
-                return subtraction.numberOfSubtraction(a,b)
+                return subtraction.calculateNumber(a,b)
             case arithmetic.getMultyply():
-                return multiplication.numberOfMultiplication(a,b)
+                return multiplication.calculateNumber(a,b)
             case arithmetic.getDivied():
-                return divition.numberOfDivision(a,b)
+                return divition.calculateNumber(a,b)
         }
     }
 }

@@ -1,9 +1,14 @@
-class Addition{
-    numberOfAddition(a, b){
-        return a + b
-    }
-    stringOfAddition(a, b){
+const ArithmeticCalc = require("./arithmeticCalc")
 
+class Addition extends ArithmeticCalc{
+    constructor(){
+        super('+')
+    }
+    getOperator(){
+        return this.operator
+    }
+    calculateNumber(a, b){
+        return a+b
     }
 }
 
