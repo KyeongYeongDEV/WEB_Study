@@ -1,4 +1,4 @@
-const Error = require("../calculate/Error")
+const Error = require("../../Error")
 
 class ArithmeticCalc{  //추상 클래스
     constructor(operator){

@@ -31,7 +31,7 @@ route.get("/divide", (req,res)=>{
     const resultOfDivide = calculate.calculateNumber(operand1, operand2,arithmetic.getDivied())
 
     if(resultOfDivide === false){
-        const Error = require("../controller/calculate/Error")
+        const Error = require("../Error")
         res.send(new Error().ZeroDiviedError())
     }else{
         res.send(resultOfDivide.toString())
