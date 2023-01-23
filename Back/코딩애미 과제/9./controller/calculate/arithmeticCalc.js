@@ -1,15 +1,12 @@
 const Error = require("../../Error")
 
-class ArithmeticCalc{  //추상 클래스
-    constructor(operator){
-        this.operator = operator
-    }
+class ArithmeticCalc extends Error{  //추상 클래스
 
     getOperator(){ //꼭 오버라이딩을 해야 사용할 수 있게 함
-        throw new Error().NullOperatorError()
+        return this.operator
     }
     calculateNumber(a,b){
-        throw new Error().OverrideFunctionError()
+
     }
 }
 

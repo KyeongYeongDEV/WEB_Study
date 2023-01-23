@@ -1,4 +1,4 @@
-class arithmetic{
+class Arithmetic{
     #PLUS = "+"
     #MINUS = "-"
     #MULTYPLY = "*"
@@ -10,7 +10,7 @@ class arithmetic{
         this.#MULTYPLY = "*"
         this.#DIVIED = "/"
     }
-    
+
     getPlus(){
         return this.#PLUS
     }
@@ -23,14 +23,7 @@ class arithmetic{
     getDivied(){
         return this.#DIVIED
     }
-
-
-
-    // PLUS : "+",
-    // MINUS : "-",
-    // MULTYPLY : "*",
-    // DIVIED : "/"
 }
 
 
-module.exports = arithmetic
+module.exports = Arithmetic

@@ -32,7 +32,7 @@ route.get("/divide", (req,res)=>{
 
     if(resultOfDivide === false){
         const Error = require("../Error")
-        res.send(new Error().ZeroDiviedError())
+        res.send(new Error().showErrorMessage("숫자 0으로 나눌 수 없습니다."))
     }else{
         res.send(resultOfDivide.toString())
     }
