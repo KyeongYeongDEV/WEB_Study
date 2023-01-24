@@ -1,16 +1,15 @@
-class Arithmetic{
-    #PLUS = "+"
-    #MINUS = "-"
-    #MULTYPLY = "*"
-    #DIVIED = "/"
-    
+class ArithmeticOperation{    
+    #PLUS 
+    #MINUS 
+    #MULTYPLY
+    #DIVIDE
+
     constructor(){
         this.#PLUS = "+"
         this.#MINUS = "-"
         this.#MULTYPLY = "*"
-        this.#DIVIED = "/"
+        this.#DIVIDE = "/"
     }
-
     getPlus(){
         return this.#PLUS
     }
@@ -21,9 +20,8 @@ class Arithmetic{
         return this.#MULTYPLY
     }
     getDivied(){
-        return this.#DIVIED
+        return this.#DIVIDE
     }
 }
 
-
-module.exports = Arithmetic
+module.exports = ArithmeticOperation

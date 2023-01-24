@@ -1,10 +1,8 @@
-const ArithmeticCalc = require("./arithmeticCalc")
-const Arithmetic = require("../../model/enum")
-const arithmetic = new Arithmetic()
+const ArithmeticOperation = require("../../model/ArithmemticOperation")
 
-class Addition extends ArithmeticCalc{
+class Addition extends ArithmeticOperation{
     getOperator(){
-        return arithmetic.getPlus()
+        return this.getPlus()
     }
     calculateNumber(a, b){
         return a + b

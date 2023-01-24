@@ -1,8 +1,8 @@
-const ArithmeticCalc = require("./arithmeticCalc")
+const ArithmeticOperation = require("../../model/ArithmemticOperation")
 
-class Multiplication extends ArithmeticCalc{
-    getOperator(){ //꼭 오버라이딩을 해야 사용할 수 있게 함
-        return this.operator
+class Multiplication extends ArithmeticOperation{
+    getOperator(){
+        return this.getMultyply()
     }
     calculateNumber(a,b){
         return a * b

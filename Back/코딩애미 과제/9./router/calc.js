@@ -2,7 +2,7 @@ const route = require("express").Router()
 const express = require("express");
 const Calculate = require("../controller/calculate/calculate")
 const calculate = new Calculate()
-const Arithmetic  = require("../model/enum");
+const Arithmetic  = require("../model/ArithmemticOperation");
 
 const arithmetic = new Arithmetic()
 
@@ -30,13 +30,7 @@ route.get("/divide", (req,res)=>{
     const {operand1, operand2} = req.body
     const resultOfDivide = calculate.calculateNumber(operand1, operand2,arithmetic.getDivied())
 
-    if(resultOfDivide === false){
-        const Error = require("../Error")
-        res.send(new Error().showErrorMessage("숫자 0으로 나눌 수 없습니다."))
-    }else{
-        res.send(resultOfDivide.toString())
-    }
-    
+    res.send(resultOfDivide.toString())
 })
 
 module.exports = route

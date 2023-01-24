@@ -1,15 +1,13 @@
-const Arithmetic = require("./arithmeticCalc")
+const ArithmeticOperation = require("../../model/ArithmemticOperation")
+const ZeroDividedError = require("../../helper/ZeroDividedError")
 
-class Division extends Arithmetic{
-    constructor(){
-        super('/')
-    }
-    getOperator(){ //꼭 오버라이딩을 해야 사용할 수 있게 함
-        return this.operator
+class Division extends  ArithmeticOperation{
+    getOperator(){ 
+        return this.getDivied()
     }
     calculateNumber(a,b){
         if(b === 0)
-            return false
+            return new ZeroDividedError().showError()
         return a / b
     }
 }
