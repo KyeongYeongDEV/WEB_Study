@@ -1,4 +1,4 @@
-const Arithmetic = require("./resultOfCalculate")
+const Arithmetic = require("./findOperator")
 
 class Calculate extends Arithmetic{
     calculateNumber(a, b, delimiter){

@@ -1,4 +1,4 @@
-const ArithmeticOperation = require("../../model/ArithmemticOperation")
+const ArithmeticOperation = require("../../model/AnOperation")
 const ZeroDividedError = require("../../helper/ZeroDividedError")
 
 class Division extends  ArithmeticOperation{

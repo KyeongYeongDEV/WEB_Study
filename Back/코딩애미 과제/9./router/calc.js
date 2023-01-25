@@ -2,7 +2,7 @@ const route = require("express").Router()
 const express = require("express");
 const Calculate = require("../controller/calculate/calculate")
 const calculate = new Calculate()
-const Arithmetic  = require("../model/ArithmemticOperation");
+const Arithmetic  = require("../model/AnOperation");
 
 const arithmetic = new Arithmetic()
 

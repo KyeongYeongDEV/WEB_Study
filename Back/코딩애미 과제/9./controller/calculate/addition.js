@@ -1,4 +1,4 @@
-const ArithmeticOperation = require("../../model/ArithmemticOperation")
+const ArithmeticOperation = require("../../model/AnOperation")
 
 class Addition extends ArithmeticOperation{
     getOperator(){
