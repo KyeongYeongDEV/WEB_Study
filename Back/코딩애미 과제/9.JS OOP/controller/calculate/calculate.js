@@ -6,4 +6,4 @@ class Calculate extends Arithmetic{
     }
 }
 
-module.exports = Calculate
+module.exports = Calculate  
