@@ -4,7 +4,6 @@ const app = express()
 const bodyParser = require("body-parser")
 const { urlencoded } = require("body-parser")
 
-
 class ServerManager{
     constructor(port){
         this.port = port
@@ -21,8 +20,5 @@ class ServerManager{
         app.use(path, route)
     }
 }
-
-
-
 
 module.exports = ServerManager
