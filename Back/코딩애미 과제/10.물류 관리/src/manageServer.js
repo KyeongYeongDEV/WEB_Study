@@ -10,7 +10,7 @@ class ManageServer{
     }
     run(){
         app.listen(this.port, ()=>{
-            console.log("mangeServer Start!")
+            console.log(`mangeServer Start! ${this.port}`)
         })
     }
     setRoute(path, route){

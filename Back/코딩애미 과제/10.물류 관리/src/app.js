@@ -1,18 +1,9 @@
 const dotenv = require("dotenv").config()
+const ManageServer  = require("./manageServer")
+const ManagePORT = process.env.MANAGE_PORT
+const manageServer = new ManageServer(ManagePORT)
 
-const ClientServer = require("../src/clientServer")
-const clientServer = new ClientServer()
-const ClientPORT = process.env.CLIENT_PORT
+const route = require("./router/routes")
 
-const ManageServer  = require("../src/manageServer")
-const manageServer = new ManageServer()
-const ManagePORT = process.env.MANGE_PORT
-
-const route = require("../src/router/routes")
-
-
-clientServer.run(ClientPORT)
-clientServer.setRoute("/", route)
-
-manageServer.run(ManagePORT)
-manageServer.setRoute("/", route)
+manageServer.run()
+manageServer.setRoute("/", route) 
