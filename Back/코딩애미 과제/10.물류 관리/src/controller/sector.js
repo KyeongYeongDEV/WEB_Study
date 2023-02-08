@@ -1,1 +1,7 @@
-//계산할 때 얘를 4개 만들어서 사용
+class Sector{
+    factoryOperation(quantity){
+        return (quantity * 180) + (quantity * 10) // 3분을 초로 계산 + 딜레이
+    }
+}
+
+module.exports = Sector
