@@ -21,3 +21,5 @@ const productSchema = [
         "deadline" : "20230206" 
     }
 ]
+
+module.exports = productSchema
