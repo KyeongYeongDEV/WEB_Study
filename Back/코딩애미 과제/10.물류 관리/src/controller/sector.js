@@ -1,6 +1,8 @@
-class Sector{
+const SecToMin = require("./secToMin")
+
+class Sector extends SecToMin{
     factoryOperation(quantity){
-        return (quantity * 180) + (quantity * 10) // 3분을 초로 계산 + 딜레이
+        return this.secToMin((quantity * 180) + (quantity * 10)) //생산시간  + 딜레이
     }
 }
 

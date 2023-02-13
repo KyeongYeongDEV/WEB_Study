@@ -1,17 +1,10 @@
-const sortOfDeadline = require("./sort/sortOfDeadline")
-const sortOfQuantity = require("./sort/sortOfQuantity")
+const Sort = require("./sort")
 
-class CalcPriority{
-    constructor(list){
-        this.list = list
-    }
 
-    pariority(){
-        new sortOfDeadline().sortOfDeadline(this.list)
-        new sortOfQuantity().sortOfQuantity(this.list)
-    }
-    getFirst(){
-        return this.list[0]
+class CalcPriority extends Sort{
+    getFirst(list){
+        this.startSort(list)
+        return list[0]
     }
 }
 

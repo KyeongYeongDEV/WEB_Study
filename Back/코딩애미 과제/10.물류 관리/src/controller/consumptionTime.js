@@ -1,37 +1,39 @@
 //소모시간 계산
 //섹터당 하나당 5개 생산 가능
 //하나 뽑는 데 평균 3분 소모
-const list = require("../model/productSchema ")
+const list = require("../model/productSchema")
 const Sector = require("./sector")
+const Sectors = [
+    new Sector(),
+    new Sector(),
+    new Sector(),
+    new Sector()
+]
 
 const CalcPriority = require("./calcPriority")
-const calcPriority = new CalcPriority(list)
-calcPriority.pariority()
+const calcPriority = new CalcPriority()
+
+
 
 class ConsumtionTime{
-    constructor(){
-        this.first = calcPriority.getFirst()
-        this.sector1 = new Sector()
-        this.sector2 = new Sector()
-        this.sector3 = new Sector()
-        this.sector4 = new Sector()
-    }
-
     divideQuantity(){
-        const quantity = this.first.quantity
+        const quantity =calcPriority.getFirst(list)
 
+        //수량을 4로 나누고 남는 건 첫 번째 섹터에 할당
         let result =parseInt(quantity / 4)
         let remainder = quantity % 4 
 
         return [result + remainder, result, result, result]
     }
 
-    operateSector(){
+    operateSector(){  //위에서 리스트 형식으로 바꾸면 for로 해보기
         const dividedQuantityList = this.divideQuantity()
-        let result = this.sector1.factoryOperation(dividedQuantityList[0])
-        result += this.sector2.factoryOperation(dividedQuantityList[1])
-        result += this.sector3.factoryOperation(dividedQuantityList[2])
-        result += this.sector4.factoryOperation(dividedQuantityList[3])
+
+        let result =0
+
+        array.forEach(element => {
+            result += Sectors[i].factoryOperation(dividedQuantityList[i])
+        });
         
         return result
     }    
