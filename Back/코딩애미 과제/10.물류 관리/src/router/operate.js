@@ -4,7 +4,12 @@ const ConsumptionTime = require("../controller/consumptionTime")
 const consumptionTime = new ConsumptionTime()
 
 route.get("/operate", (req,res)=>{
-    res.send(consumptionTime.operateSector().toString())
+    const {operand1, operand2} = req.body
+    const c = operand1 + operand2
+    const result = consumptionTime.operateSector()
+    console.log(result)
+    console.log(c)
+    res.send(result.toString())
 })
 
 module.exports = route

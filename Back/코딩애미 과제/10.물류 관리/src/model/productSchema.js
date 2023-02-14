@@ -20,6 +20,6 @@ const productSchema = [
         "quantity" : "120", //물량
         "deadline" : "20230206" 
     }
-] //정렬하면 BAC 순으로 나와야 함
+]
 
 module.exports = productSchema
