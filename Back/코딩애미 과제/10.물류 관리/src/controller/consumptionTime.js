@@ -17,8 +17,8 @@ class ConsumtionTime extends DivideQuantity{
     operateSector(){  //위에서 리스트 형식으로 바꾸면 for로 해보기
         const dividedQuantityList = this.divideQuantity(list)
 
-        var result = 0
-        for(var i = 0; i < 4; i++){
+        let result = 0
+        for(let i = 0; i < 4; i++){ //반복문 다른 걸 써보기
             result += Sectors[i].factoryOperation(dividedQuantityList[i])
         }
         
