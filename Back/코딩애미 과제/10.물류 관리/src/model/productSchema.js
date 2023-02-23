@@ -3,7 +3,7 @@ const productSchema = [
         "type": "A",
         "number":"A123",
         "name" : "삼성",
-        "quantity" : "16", //물량
+        "quantity" : "4", //물량
         "deadline" : "20230212"
     },
     { //위에랑 마감일이 같다 //수량은 더 많다 
@@ -17,7 +17,7 @@ const productSchema = [
         "type": "C",
         "number":"C2212",
         "name" : "애플",
-        "quantity" : "120", //물량
+        "quantity" : "999", //물량
         "deadline" : "20230206" 
     }
 ]
