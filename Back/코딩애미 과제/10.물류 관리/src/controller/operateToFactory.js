@@ -17,7 +17,9 @@ class operateToFactory extends Sort{
 
         let msgList=[]
         for(let i = 0; i < size; i++){ //반복문 다른 걸 써보기
-            const tmpMsg = Sectors[i].factoryOperation(list[i], curTime, i+1)
+            let sectorSequence = i % 4
+            console.log(sectorSequence)
+            const tmpMsg = Sectors[sectorSequence].factoryOperation(list[i], curTime, sectorSequence+1)
             msgList.push(tmpMsg)
         }
 

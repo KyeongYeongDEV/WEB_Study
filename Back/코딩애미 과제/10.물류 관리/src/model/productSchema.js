@@ -20,12 +20,19 @@ const productSchema = [
         "quantity" : "999", //물량
         "deadline" : "20230206" 
     },
-    { //수량 많이 마감일 촉박
+    { 
         "type": "Z",
         "number":"ZzzSe",
         "name" : "샤오미",
         "quantity" : "2222", //물량
         "deadline" : "20230207" 
+    },
+    { 
+        "type": "FFF",
+        "number":"12936490FF",
+        "name" : "제닉스",
+        "quantity" : "734", //물량
+        "deadline" : "20230214" 
     }
 ]
 

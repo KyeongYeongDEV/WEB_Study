@@ -1,9 +1,16 @@
 const CheckOverDeadline  = require("./checkOverDeadline")
+const CompareType = require("./compareType")
+const compareType = new CompareType()
 
 class Sector{
     factoryOperation(list, curTime,num){
-        const delay = list.quantity * 10
+        compareType.setPreviousType(list.type)
         const productTime = list.quantity * 180
+        
+        const delay = list.quantity * 10
+        if(compareType.typeToChanged(list.type)){
+            delay += 20
+        }
     
         const min = Math.round((productTime + delay)/60) //생산시간  + 딜레이 = 총 생산 시간
         
