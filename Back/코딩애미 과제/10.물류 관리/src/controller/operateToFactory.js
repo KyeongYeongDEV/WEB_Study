@@ -13,7 +13,7 @@ const Sectors = [
 class operateToFactory extends Sort{    
     operateSector(curTime){
         this.startSort(list)
-        const size= 3
+        const size= list.length
 
         let msgList=[]
         for(let i = 0; i < size; i++){ //반복문 다른 걸 써보기
