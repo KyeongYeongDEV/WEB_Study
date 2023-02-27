@@ -1,15 +1,15 @@
 const route = require("express").Router()
 
-const ConsumptionTime = require("../controller/consumptionTime")
-const consumptionTime = new ConsumptionTime()
+
+const OperateToFactory = require("../controller/operateToFactory")
+const operateToFactory = new OperateToFactory()
 
 route.get("/", (req,res)=>{
-    const list = consumptionTime.operateSector()
-    let result = '공장 가동 결과\n'
+    const curTime = 20230204    
+    let result = `${curTime}\n공장 가동`
 
-    for(let i =0; i < 5; i++) {
-        result += list[i]
-    }
+    result += operateToFactory.operateSector(curTime)
+
 
     res.send(result)
 

@@ -1,13 +1,13 @@
 class CheckOverDeadline{
-    constructor(Min, deadline){
+    constructor(Min, deadline, curTime){
         this.Min = Min
         this.deadline = deadline
-        this.curTime = 20230204 //임시 현재 날짜
+        this.curTime =  curTime //임시 현재 날짜
     }
     calculate(){
         const hour = Math.round(this.Min / 60)
-        const min = this.Min % 60
-        const availableTime = (this.deadline - this.curTime) * 24 * 60
+        const min = this.Min % 60 
+        const availableTime = (this.deadline - this.curTime) * 24 * 60 //초과한 시간 분단위로 계산
         
         let check = false
         let overTime =0
