@@ -1,8 +1,10 @@
 const CheckOverDeadline  = require("./checkOverDeadline")
+const Sort = require("./sort")
 const CompareType = require("./compareType")
 const compareType = new CompareType()
 
-class Sector{
+
+class Sector extends Sort{
     factoryOperation(list, curTime,num){
         compareType.setPreviousType(list.type)
         const productTime = list.quantity * 180

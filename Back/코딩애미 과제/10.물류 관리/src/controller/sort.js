@@ -11,4 +11,3 @@ class Sort{
 }
 
 module.exports = Sort
-

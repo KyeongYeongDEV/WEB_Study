@@ -32,7 +32,7 @@ const productSchema = [
         "number":"12936490FF",
         "name" : "제닉스",
         "quantity" : "734", //물량
-        "deadline" : "20230214" 
+        "deadline" : "20230205" 
     }
 ]
 

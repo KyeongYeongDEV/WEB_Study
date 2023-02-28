@@ -1,8 +1,7 @@
-const list = require("../model/productSchema")
-const Sort = require("./sort")
-
-
+const lists = require("../model/productSchema")
+const Sort = require("./sort") //기능 완성하면 지우기
 const Sector = require("./sector")
+
 const Sectors = [
     new Sector(),
     new Sector(),
@@ -12,19 +11,23 @@ const Sectors = [
 
 class operateToFactory extends Sort{    
     operateSector(curTime){
-        this.startSort(list)
-        const size= list.length
+        this.startSort(lists)
+        const size= lists.length
 
         let msgList=[]
-        for(let i = 0; i < size; i++){ //반복문 다른 걸 써보기
+        for(let i = 0; i < size; i++){
             let sectorSequence = i % 4
-            console.log(sectorSequence)
-            const tmpMsg = Sectors[sectorSequence].factoryOperation(list[i], curTime, sectorSequence+1)
+            const tmpMsg = Sectors[sectorSequence].factoryOperation(lists[i], curTime, sectorSequence+1)
             msgList.push(tmpMsg)
-        }
+        }       
 
         return msgList
     }    
+
+    tmpfunction(curTime){
+        const sector = new Sector()
+        sector.tmpfunc(lists, curTime,10) //딜레이 기본 10초
+    }
 }
 
 module.exports = operateToFactory

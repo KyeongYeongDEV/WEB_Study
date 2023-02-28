@@ -1,6 +1,5 @@
 const route = require("express").Router()
 
-
 const OperateToFactory = require("../controller/operateToFactory")
 const operateToFactory = new OperateToFactory()
 
