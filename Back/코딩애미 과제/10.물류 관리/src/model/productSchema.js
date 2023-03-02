@@ -28,11 +28,18 @@ const productSchema = [
         "deadline" : "20230207" 
     },
     { 
-        "type": "FFF",
-        "number":"12936490FF",
-        "name" : "제닉스",
-        "quantity" : "734", //물량
-        "deadline" : "20230205" 
+        "type": "ssssss",
+        "number":"ssaasa",
+        "name" : "마이프로틴",
+        "quantity" : "2221", //물량
+        "deadline" : "20230207" 
+    },
+    { 
+        "type": "inje",
+        "number":"20192665",
+        "name" : "최경영",
+        "quantity" : "19", //물량
+        "deadline" : "20230207" 
     }
 ]
 

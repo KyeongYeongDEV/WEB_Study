@@ -3,37 +3,38 @@ const Sort = require("./sort")
 const CompareType = require("./compareType")
 const compareType = new CompareType()
 
+const createSector = require("./createSector")
 
-class Sector extends Sort{
+
+class tmpSector extends Sort{
     constructor(list, curTime, delay, secterNumber){
         this.list = list
         this.curTime = curTime
         this.typeChangedDelay = delay
         this.sectorNumber = secterNumber
     }
-    tmpfunc(lists, curTime){
-        const orderVolume = lists.length 
 
-        if(orderVolume == 1){
-            const msg = this.factoryOperation(lists,curTime,lists.length)
-            return msg
-        }
-        else {
+    tmpfunc(){
+        //ToDo: 
+        const orderVolume = lists.length 
+        let msg = []
+        const tmpMsg = this.factoryOperation(this.list,this.curTime,lists.length)
+
+        msg.push(tmpMsg)
+        
+        if(orderVolume > 1){
             this.startSort(lists)
 
-
-            let addSectorSize = orderVolume
-            if(orderVolume > 4){
-                addSectorSize = 4
-            }
+            
 
             let Sectors=[]
-            for(let i = 2; i <= addSectorSize; i++){
+            for(let i = 2; i <= addSectorSize; i++){//섹터 생성 및 가동
                 Sectors.push(new Sector(this.list[i-1], this.curTime, this.delay, i))
+                msg.push(Sectors[i-1].factoryOperation())
             }
-        
+            
+            return msg
         }
-
     }
     factoryOperation(){
         compareType.setPreviousType(this.list.type)
@@ -53,4 +54,4 @@ class Sector extends Sort{
     }
 }
 
-module.exports = Sector
+module.exports =tmpSector

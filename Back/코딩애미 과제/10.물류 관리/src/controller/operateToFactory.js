@@ -1,33 +1,49 @@
 const lists = require("../model/productSchema")
 const Sort = require("./sort") //기능 완성하면 지우기
 const Sector = require("./sector")
+const CreateSector = require("./createSector")
 
-const Sectors = [
-    new Sector(),
-    new Sector(),
-    new Sector(),
-    new Sector()
-]
-
-class operateToFactory extends Sort{    
+class operateToFactory extends Sort{  
     operateSector(curTime){
-        this.startSort(lists)
-        const size= lists.length
+        const orderVolume = lists.length
+        
+        let sectors = new Sector()
+        if(orderVolume > 1) {
+            this.listSort(lists)
+            sectors = new CreateSector().createOtherSector(orderVolume)
+        }
 
         let msgList=[]
-        for(let i = 0; i < size; i++){
-            let sectorSequence = i % 4
-            const tmpMsg = Sectors[sectorSequence].factoryOperation(lists[i], curTime, sectorSequence+1)
-            msgList.push(tmpMsg)
-        }       
+        if(orderVolume <= 4){ //주문이 4개 이하일 때
+            for(let i = 0; i < orderVolume; i++){
+                const tmpMsg = sectors[i].factoryOperation(lists[i], curTime, i+1)
+                msgList.push(tmpMsg)
+            }    
+        }else{ 
+            let ProdectTimeList = [{sectorNumber : 0, productTime : 0},{sectorNumber : 1, productTime : 0},{sectorNumber : 2, productTime : 0},{sectorNumber : 3, productTime : 0}] //[섹터번호, 소모시간]
+            let tmpProductTimeList = []
+            for(let i=0; i < orderVolume; i++){
+                let num = i % 4
+                let SectorNumber = ProdectTimeList[num].sectorNumber
+                let tmpMsg = sectors[SectorNumber].factoryOperation(lists[i], curTime, SectorNumber+1)
 
+                msgList.push(tmpMsg)                
+                
+                let tmpMin = sectors[SectorNumber].getproductTime(lists[i])
+                
+                tmpProductTimeList.push({sectorNumber : SectorNumber, productTime : tmpMin})    
+                
+                if(i != 0 && i % 3 === 0){
+                    tmpProductTimeList = this.productTimeSort(tmpProductTimeList)
+                    ProdectTimeList = tmpProductTimeList
+                    tmpProductTimeList = []
+                }
+            }
+        }
+        
         return msgList
-    }    
-
-    tmpfunction(curTime){
-        const sector = new Sector()
-        sector.tmpfunc(lists, curTime,10) //딜레이 기본 10초
     }
 }
+
 
 module.exports = operateToFactory
