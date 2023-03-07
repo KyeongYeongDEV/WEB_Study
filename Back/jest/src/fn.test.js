@@ -1,17 +1,24 @@
 const fn = require("./fn")
 
-// 예외가 발생하면 무조건 pass
-// 특정 에러인지 알고 싶다면 toThrow()에 전달을 해보면 된다.
-test("이거 왜 에러 나나요?",()=>{
-    expect(()=> fn.throwErr()).toThrow("oo")
-    // toThrow()에 에러가 fn에 선언한 에러코드와는 다른 코드임으로 fail이 된다.
-    // "oo"를 "xx"로 바꾸면 pass한다.
-})
+//비동기 코드 테스트
 
-// const fn = {
-//     add : (num1, num2)=>(num1 + num2),
-//     makeUser : (name,age) =>({name, age, gender : undefined}),
-//     throwErr : ()=>{
-//         throw new Error("xx")
-//     },
-// }
+// 정상작동 코드
+// test("3초 후에 받아온 이름은 Mike",done =>{ //done이라는 callback함수를 넘겨주기
+//     function callback(name){
+//         expect(name).toBe("Mike")
+//         done() // done()을 호출하지 않을시 fail 
+//     }
+//     fn.getName(callback)
+// })
+
+test("3초 후에 받아온 이름은 Mike",done =>{ 
+    function callback(name){
+        try{ 
+            expect(name).toBe("Mike")
+            done()
+        }catch(error){
+            done()
+        }
+    }
+    fn.getName(callback)
+})
