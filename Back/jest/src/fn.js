@@ -10,8 +10,8 @@ const fn = {
         const age = 30
         return new Promise((res,rej) =>{ //Promise로 return 을 하면 jest 는 resolve 될 때까지 기다려 준다.
             setTimeout(()=>{
-                //res(age)
-                rej('error')
+                res(age)
+                // rej('error')
             },3000)
         })
     }
