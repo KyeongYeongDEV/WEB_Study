@@ -1,27 +1,20 @@
 const fn = require("./fn")
 
-test('이름과 나이를 전달 받아서 객체를 반환해줘', ()=>{
-    expect(fn.makeUser("Mike", 30)).toEqual({ //gender가 test에 없음에도 테스트가 통과한다.
-        name :"Mike",
-        age : 30,
-    }) 
-    
+// toBeGreaterThan 크다
+// toBeGreaterThanOrEqual 크거나 같다
+// toBelessThan 작다
+// toBeLessThanEqual 작거나 같다
+
+test("ID는 10자 이하여야 합니다.", ()=>{
+    const id = "THE_BLACK"
+    expect(id.length).toBeLessThanOrEqual(10)
 })
 
-test('이름과 나이를 전달 받아서 객체를 반환해줘', ()=>{
-    expect(fn.makeUser("Mike", 30)).toStrictEqual({ //좀 더 엄격하게 테스트를 하고 싶다면 toStrictEqual()로 test를 해줘야 한다.
-        name :"Mike",
-        age : 30,
-    })
+test("비밀번호 4자리", ()=>{
+    const pw = "1234"
+    expect(pw.length).toBe(4)
 })
 
-/* 
-fn.js
-
-const fn = {
-    add : (num1, num2)=>(num1 + num2),
-    makeUser : (name,age) =>({name, age, gender : undefined}),
-}
-
-module.exports = fn
-*/
+test("0.1 더하기 0.2는 0.3입니다.", ()=>{
+    expect(fn.add(0.1,0.2)).toBeCloseTo(0.3)
+})
