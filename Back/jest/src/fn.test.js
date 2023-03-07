@@ -1,13 +1,16 @@
 const fn = require("./fn")
 
-test('1은 1이야', ()=>{
-    expect(1).toBe(1);
-});
-
-test('2 더하기 3은 5야 ', ()=>{
-    expect(fn.add(2,3)).toBe(5)
+test('이름과 나이를 전달 받아서 객체를 반환해줘', ()=>{
+    expect(fn.makeUser("Mike", 30)).toBe({
+        name :"Mike",
+        age : 30,
+    }) 
+    //조건을 같게 해줘도 객체는 재귀형식으로 검사를 해야 함으로 아래와 같이 해줘야 한다.
 })
 
-test('3더하기 3은 5야',()=>{
-    expect(fn.add(3,3)).not.toBe(5)
+test('이름과 나이를 전달 받아서 객체를 반환해줘', ()=>{
+    expect(fn.makeUser("Mike", 30)).toEqual({ //toBe가 아니라 toEqual() 해줘야 한다.
+        name :"Mike",
+        age : 30,
+    })
 })
