@@ -1,20 +1,19 @@
 const fn = require("./fn")
 
-// toBeGreaterThan 크다
-// toBeGreaterThanOrEqual 크거나 같다
-// toBelessThan 작다
-// toBeLessThanEqual 작거나 같다
-
-test("ID는 10자 이하여야 합니다.", ()=>{
-    const id = "THE_BLACK"
-    expect(id.length).toBeLessThanOrEqual(10)
+//toMatch
+test("Hello world 에 a 라는 글자가 있나?", ()=>{
+    expect("Hello world").toMatch(/a/)
+    // a 라는 문자가 없으므로 실패
+})
+test("Hello world 에 H 라는 글자가 있나?", ()=>{
+    expect("Hello world").toMatch(/h/i)
+    // 대소문자 구분을 없애주기 위해 끝에 i를 붙인다 
 })
 
-test("비밀번호 4자리", ()=>{
-    const pw = "1234"
-    expect(pw.length).toBe(4)
-})
 
-test("0.1 더하기 0.2는 0.3입니다.", ()=>{
-    expect(fn.add(0.1,0.2)).toBeCloseTo(0.3)
+//toCotain
+test("User List 에서 Mike 가 있나",()=>{
+    const user = "Mike"
+    const userList = ["Tom", "Mike", "Kai"]
+    expect(userList).toContain(user) 
 })
