@@ -1,19 +1,17 @@
 const fn = require("./fn")
 
-//toMatch
-test("Hello world 에 a 라는 글자가 있나?", ()=>{
-    expect("Hello world").toMatch(/a/)
-    // a 라는 문자가 없으므로 실패
-})
-test("Hello world 에 H 라는 글자가 있나?", ()=>{
-    expect("Hello world").toMatch(/h/i)
-    // 대소문자 구분을 없애주기 위해 끝에 i를 붙인다 
+// 예외가 발생하면 무조건 pass
+// 특정 에러인지 알고 싶다면 toThrow()에 전달을 해보면 된다.
+test("이거 왜 에러 나나요?",()=>{
+    expect(()=> fn.throwErr()).toThrow("oo")
+    // toThrow()에 에러가 fn에 선언한 에러코드와는 다른 코드임으로 fail이 된다.
+    // "oo"를 "xx"로 바꾸면 pass한다.
 })
 
-
-//toCotain
-test("User List 에서 Mike 가 있나",()=>{
-    const user = "Mike"
-    const userList = ["Tom", "Mike", "Kai"]
-    expect(userList).toContain(user) 
-})
+// const fn = {
+//     add : (num1, num2)=>(num1 + num2),
+//     makeUser : (name,age) =>({name, age, gender : undefined}),
+//     throwErr : ()=>{
+//         throw new Error("xx")
+//     },
+// }
