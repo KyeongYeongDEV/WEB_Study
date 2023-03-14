@@ -25,9 +25,10 @@ class Sector{
     }
 
     getSectorInformation(list, min, curTime, secterNum){
-        const spandTimeMsg = new CheckOverDeadline(min, list.deadline, curTime).calculate()
+        const spendTimeMsg = new CheckOverDeadline(min, list.deadline, curTime).calculate()
         const msg = `\n\n${secterNum}번째 섹터 정보\n이름: ${list.name}\ntype: ${list.type}\n물량: ${list.quantity}개\n마감일: ${list.deadline}\n` 
-        return  msg + spandTimeMsg
+        
+        return  msg + spendTimeMsg
     }
 }
 

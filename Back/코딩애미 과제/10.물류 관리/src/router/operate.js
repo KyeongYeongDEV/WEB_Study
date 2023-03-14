@@ -9,10 +9,7 @@ route.get("/", (req,res)=>{
 
     result += operateToFactory.operateSector(curTime)
 
-
-    res.send(result)
-
-    
+    res.send(result)    
 })
 
 module.exports = route
