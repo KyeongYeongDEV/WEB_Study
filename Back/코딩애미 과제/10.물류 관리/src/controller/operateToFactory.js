@@ -5,29 +5,31 @@ const CreateSector = require("./createSector")
 
 class operateToFactory extends Sort{   
     operateSector(curTime){
+        this.listSort(lists)
+
         const orderVolume = lists.length
         
-        let sectors = new Sector()
-        if(orderVolume > 1) {
-            this.listSort(lists)
-            sectors = new CreateSector().createOtherSector(orderVolume)
-        }
+        let sectors = this.createSctorsAccordingToSize(orderVolume)
 
         let messages = []
-        if(orderVolume <= 4){ //주문이 4개 이하일 때
-            messages.push(this.underFourOrderVolum(sectors, orderVolume, curTime)) 
-        }else{ 
+        if(this.checkOrderVolumOverFour(orderVolume)){
             messages.push(this.overFourOrderVolum(sectors, orderVolume, curTime))
+            return messages
+        }
+        messages.push(this.underFourOrderVolum(sectors, orderVolume, curTime))
+
+        return messages
+    }
+    createSctorsAccordingToSize(orderVolume){
+        if(orderVolume > 1) {
+            const sectors = new CreateSector().createOtherSector(orderVolume)
+            return sectors
         }
 
-        // let messages = []
-        // messages.push(this.underFourOrderVolum(sectors, orderVolume, curTime))
-
-        // if(orderVolume > 4){
-        //     messages.push(this.overFourOrderVolum(sectors, orderVolume, curTime))
-        // }
-        
-        return messages
+        return new Sector()
+    }
+    checkOrderVolumOverFour(orderVolume){
+        return orderVolume > 4 ? 1 : 0
     }
     underFourOrderVolum(sectors, orderVolume, curTime){
         let messages =[]
@@ -38,7 +40,6 @@ class operateToFactory extends Sort{
         return messages
     }
     overFourOrderVolum(sectors, orderVolume, curTime){
-        console.log(lists)
         let messages = []
         let ProductTimes = [{sectorNumber : 0, productTime : 0},{sectorNumber : 1, productTime : 0},{sectorNumber : 2, productTime : 0},{sectorNumber : 3, productTime : 0}] //[섹터번호, 소모시간]
         let tmpProductTimes = []
@@ -53,7 +54,7 @@ class operateToFactory extends Sort{
             
             tmpProductTimes.push({sectorNumber : SectorNumber, productTime : tmpProductTime})    
             
-            if(i != 0 && i % 3 === 0){
+            if(this.checkIndexNotZeroAndMultiplyThree(i)){
                 tmpProductTimes = this.productTimeSort(tmpProductTimes)
                 ProductTimes = tmpProductTimes
                 tmpProductTimes = []
@@ -61,6 +62,10 @@ class operateToFactory extends Sort{
         }
 
         return messages
+    }
+    checkIndexNotZeroAndMultiplyThree(index){
+        if(index != 0 && index % 3 === 0) return 1
+        return 0
     }
 }
 
