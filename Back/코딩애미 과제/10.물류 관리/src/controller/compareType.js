@@ -1,6 +1,3 @@
-//제품 타입을 검사
-// 타입이 바꼈다면 20초 추가
-
 class CompareType{
     #previousType
 

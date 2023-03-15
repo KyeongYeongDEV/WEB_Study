@@ -9,18 +9,18 @@ class operateToFactory extends Sort{
 
         const orderVolume = lists.length
         
-        let sectors = this.createSctorsAccordingToSize(orderVolume)
+        const sectors = this.createSectorsAccordingToSize(orderVolume)
 
-        let messages = []
-        if(this.checkOrderVolumOverFour(orderVolume)){
-            messages.push(this.overFourOrderVolum(sectors, orderVolume, curTime))
-            return messages
+        let message = []
+        if(this.checkOrderVolumeOverFour(orderVolume)){
+            message.push(this.overFourOrderVolume(sectors, orderVolume, curTime))
+            return message
         }
-        messages.push(this.underFourOrderVolum(sectors, orderVolume, curTime))
+        message.push(this.underFourOrderVolume(sectors, orderVolume, curTime))
 
-        return messages
+        return message
     }
-    createSctorsAccordingToSize(orderVolume){
+    createSectorsAccordingToSize(orderVolume){
         if(orderVolume > 1) {
             const sectors = new CreateSector().createOtherSector(orderVolume)
             return sectors
@@ -28,19 +28,19 @@ class operateToFactory extends Sort{
 
         return new Sector()
     }
-    checkOrderVolumOverFour(orderVolume){
+    checkOrderVolumeOverFour(orderVolume){
         return orderVolume > 4 ? 1 : 0
     }
-    underFourOrderVolum(sectors, orderVolume, curTime){
-        let messages =[]
+    underFourOrderVolume(sectors, orderVolume, curTime){
+        let message =[]
         for(let i = 0; i < orderVolume; i++){
             const tmpMsg = sectors[i].factoryOperation(lists[i], curTime, i+1)
-            messages.push(tmpMsg)
+            message.push(tmpMsg)
         }    
-        return messages
+        return message
     }
-    overFourOrderVolum(sectors, orderVolume, curTime){
-        let messages = []
+    overFourOrderVolume(sectors, orderVolume, curTime){
+        let message = []
         let ProductTimes = [{sectorNumber : 0, productTime : 0},{sectorNumber : 1, productTime : 0},{sectorNumber : 2, productTime : 0},{sectorNumber : 3, productTime : 0}] //[섹터번호, 소모시간]
         let tmpProductTimes = []
         for(let i=0; i < orderVolume; i++){
@@ -48,7 +48,7 @@ class operateToFactory extends Sort{
             let SectorNumber = ProductTimes[num].sectorNumber
             let tmpMsg = sectors[SectorNumber].factoryOperation(lists[i], curTime, SectorNumber+1)
 
-            messages.push(tmpMsg)                
+            message.push(tmpMsg)                
             
             let tmpProductTime = sectors[SectorNumber].getproductTime(lists[i])
             
@@ -61,7 +61,7 @@ class operateToFactory extends Sort{
             }
         }
 
-        return messages
+        return message
     }
     checkIndexNotZeroAndMultiplyThree(index){
         if(index != 0 && index % 3 === 0) return 1
