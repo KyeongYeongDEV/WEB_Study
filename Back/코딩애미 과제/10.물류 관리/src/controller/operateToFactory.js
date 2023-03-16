@@ -12,7 +12,7 @@ class operateToFactory extends Sort{
         const sectors = this.createSectorsAccordingToSize(orderVolume)
 
         let message = []
-        if(this.checkOrderVolumeOverFour(orderVolume)){
+        if(this.isOrderVolumeOverFour(orderVolume)){
             message.push(this.overFourOrderVolume(sectors, orderVolume, curTime))
             return message
         }
@@ -21,14 +21,9 @@ class operateToFactory extends Sort{
         return message
     }
     createSectorsAccordingToSize(orderVolume){
-        if(orderVolume > 1) {
-            const sectors = new CreateSector().createOtherSector(orderVolume)
-            return sectors
-        }
-
-        return new Sector()
+        return orderVolume > 1 ? new CreateSector().createOtherSector(orderVolume) : new Sector()
     }
-    checkOrderVolumeOverFour(orderVolume){
+    isOrderVolumeOverFour(orderVolume){
         return orderVolume > 4 ? 1 : 0
     }
     underFourOrderVolume(sectors, orderVolume, curTime){
