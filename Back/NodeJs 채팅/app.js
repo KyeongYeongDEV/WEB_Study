@@ -9,6 +9,8 @@ const app = express()
 const server = http.createServer(app)
 const io = socket(server)
 
+const port= 8080
+
 app.use('/css', express.static('./static/css'))
 app.use('/js', express.static('./static/js'))
 
@@ -20,12 +22,25 @@ app.get("/", (req, res)=>{
         }else{
             res.writeHead(200,{'Content-Type': 'text/html'})
             res.write(data)
-            response.end()
+            res.end()
         }
     })
 })
 
+io.sockets.on('connection',(socket)=>{ // connection이라는 이벤트 발생시 콜백함수 실행
+    console.log("유저 접속됨")    
 
-app.listen(8080, ()=>{
+    socket.on('send', (data)=>{
+        console.log("전달된 메세지:", data.msg)    
+    })
+    
+    socket.on('disconnect', ()=>{
+        console.log('접속 종료')
+    })
+})
+
+
+
+server.listen(port, ()=>{
     console.log("서버 실행")
 })
