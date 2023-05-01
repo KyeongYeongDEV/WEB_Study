@@ -30,12 +30,29 @@ app.get("/", (req, res)=>{
 io.sockets.on('connection',(socket)=>{ // connection이라는 이벤트 발생시 콜백함수 실행
     console.log("유저 접속됨")    
 
-    socket.on('send', (data)=>{
-        console.log("전달된 메세지:", data.msg)    
+    socket.on('newUser', (name)=>{
+        // 소켓에 이름 저장하기
+        socket.name = name
+        
+        // 본인을 포함한 모든 유저에게 전송
+        io.sockets.emit('update', {type:'connect', name: 'SERVER', message:name + '님이 접속하셨습니다.'})
+    })
+
+    // 전송한 메세지 받기
+    socket.on('message', (data)=>{
+        // 받은 데이터에 누가 보냈는지 이름 추가
+        data.name = socket.name
+
+        console.log(data)
+        
+        // 보낸 사람은 제외한 나머지 유저에게 메시지 전송
+        socket.broadcast.emit('updata', data)
     })
     
     socket.on('disconnect', ()=>{
-        console.log('접속 종료')
+        console.log(socket.name + '님이 나가셨니다.')
+        // 나가는 사함을 제외한 나머지 유저에게 메시지 전송
+        socket.broadcast.emit('update', {type :'disconnect', name: 'SERVER', message: socket.name + '님이 나가셨습니다'})
     })
 })
 
