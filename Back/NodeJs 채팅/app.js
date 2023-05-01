@@ -44,9 +44,9 @@ io.sockets.on('connection',(socket)=>{ // connection이라는 이벤트 발생�
         data.name = socket.name
 
         console.log(data)
-        
+
         // 보낸 사람은 제외한 나머지 유저에게 메시지 전송
-        socket.broadcast.emit('updata', data)
+        socket.broadcast.emit('update', data)
     })
     
     socket.on('disconnect', ()=>{
