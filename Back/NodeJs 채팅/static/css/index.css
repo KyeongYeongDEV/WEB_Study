@@ -3,5 +3,13 @@
     margin-top: 100px;
     background-color: lightblue;
     text-align: center;
-    width: 200px;
+    width: 400px;
+    height: 600px;
+}
+
+#input{
+    margin : auto;
+    text-align: center;
+    width: 400px;
+    background-color: yellow;
 }

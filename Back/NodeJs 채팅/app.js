@@ -3,7 +3,6 @@ const socket  = require("socket.io")
 const http = require("http")
 
 const fs = require('fs')
-const { response } = require("express")
 
 const app = express()
 const server = http.createServer(app)
