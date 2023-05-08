@@ -42,6 +42,10 @@ io.sockets.on('connection',(socket)=>{ // connection이라는 이벤트 발생�
         // 받은 데이터에 누가 보냈는지 이름 추가
         data.name = socket.name
 
+        let li = document.createElement('li')
+        li.innerText = `${data.name} : ${data.msg}`
+        chatList.appendChild(li)
+
         console.log(data)
 
         // 보낸 사람은 제외한 나머지 유저에게 메시지 전송

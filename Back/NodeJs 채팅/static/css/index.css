@@ -28,6 +28,11 @@ a {
 .wrap {
     padding: 40px 0;
     background-color: #A8C0D6;
+    margin : auto;
+    margin-top: 100px;    
+    text-align: center;
+    width: 400px;
+    height: 600px;
 }
 
 .wrap .chat {
