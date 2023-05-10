@@ -43,6 +43,8 @@ io.sockets.on('connection',(socket)=>{ // connection이라는 이벤트 발생�
         data.name = socket.name
 
         let li = document.createElement('li')
+        // 이거 참고해서 해보기
+        //https://velog.io/@jaehyeon2/%EC%B1%84%ED%8C%85-%EC%95%B1-%EB%A7%8C%EB%93%A4%EA%B8%B0-socket2
         li.innerText = `${data.name} : ${data.msg}`
         chatList.appendChild(li)
 
