@@ -8,10 +8,9 @@ class operateToFactory extends Sort{
         this.listSort(lists)
 
         const orderVolume = lists.length
-        
         const sectors = this.createSectorsAccordingToSize(orderVolume)
-
         let message = []
+        
         if(this.isOrderVolumeOverFour(orderVolume)){
             message.push(this.overFourOrderVolume(sectors, orderVolume, curTime))
             return message

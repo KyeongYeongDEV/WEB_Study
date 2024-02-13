@@ -5,7 +5,7 @@ const http = require('http')
 const cors = require('cors')
 const router = require('./router')
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5300
 
 const app = express();
 const server = http.createServer(app)
