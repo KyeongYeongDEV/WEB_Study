@@ -22,42 +22,41 @@ export class rspCompare{
             this.computerRsp = "보"
         }
     
-        let msg;
         if(this.userRsp === "가위"){
             if(this.computerRsp === "가위"){
-                msg = "비겼습니다"
+                this.result = "비겼습니다"
             }
             else if(this.computerRsp === "바위"){
-                msg = "졌습니다"
+                this.result = "졌습니다"
             }else{
-                msg = "이겼습니다"
+                this.result = "이겼습니다"
             }
         }
         else if(this.userRsp === "바위"){
             if(this.computerRsp === "가위"){
-                msg = "이겼습니다"
+                this.result = "이겼습니다"
             }
             else if(this.computerRsp === "바위"){
-                msg = "비겼습니다"
+                this.result = "비겼습니다"
             }else{
-                msg = "졌습니다"
+                this.result = "졌습니다"
             }
         }
         else if(this.userRsp === "보"){
             if(this.computerRsp === "가위"){
-                msg = "졌습니다"
+                this.result = "졌습니다"
             }
             else if(this.computerRsp === "바위"){
-                msg = "이겼습니다"
+                this.result = "이겼습니다"
             }else{
-                msg = "비겼습니다"
+                this.result = "비겼습니다"
             }
         }   
         
         const result :rspRequestDto= {
             "userRsp" : this.userRsp,
             "computerRsp" : this.computerRsp,
-            "result" : msg
+            "result" : this.result
         }
 
         return result
