@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import { UserDto } from "./dto/user.data";
 import { UserRequestDto } from "./dto/request/user-dto.request";
 import apiIndex from "./api/index"
+import apiRsp from "./api/rsp"
 
 const app: Application = express();
 
@@ -13,21 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', apiIndex);
+app.use('/rsp',apiRsp)
 
-// app.get("/", (req: Request, res: Response, next: NextFunction) => {
-//     const UserRequestDto : UserRequestDto = req.body;
-
-//     const userDto: UserDto = new UserDto(UserRequestDto);
-//     const testUserDto = new UserDto({
-//         userId : "taehyun11",
-//         userPw : "1234",
-//         userName: "taehyun"
-//     });
-//     console.log(userDto.isEqual(testUserDto));
-//     console.log(userDto.toString());
-// });
-
-//app.use(customErrorMiddleware);
 app.listen(port, () => {
     console.log(`App is listening on port ${port} !`);
 });
