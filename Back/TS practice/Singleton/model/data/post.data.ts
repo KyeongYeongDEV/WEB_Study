@@ -1,4 +1,4 @@
-import postRequestDto from "../../dto/request/post-dto.request";
+import postRequestDto from "../dto/request/post-dto.request";
 
 
 let post : postRequestDto[] =[

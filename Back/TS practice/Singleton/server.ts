@@ -1,6 +1,6 @@
 import express, {Request, Response, NextFunction} from "express"
 
-import apiIndex from "./api/index"
+import apiIndex from "./controller/api/index"
 import { postErrorMiddleware } from "./middleware/post.middleware";
 
 const app = express();
