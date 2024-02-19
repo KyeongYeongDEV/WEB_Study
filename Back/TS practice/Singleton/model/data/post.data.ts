@@ -7,6 +7,11 @@ let post : postRequestDto[] =[
         "content" : "글 내용",
         "author" : "작성자"
     },
+    {
+        "title" : "이것은 글",
+        "content" : "내용은 글",
+        "author" : "최경영"
+    },
 ] 
 
 export default post;
