@@ -1,37 +1,31 @@
-import postRequestDto from "./request/post-dto.request";
-
 export class postDto{
-    private  title: String;
-    private  content: String;
-    private  author: String;
+    private id: string;
+    private postId : number;
+    private content : string;
 
-    constructor(post : postRequestDto){
-        this.title = post.title;
-        this.content = post.content;
-        this.author = post.author;
-    }
-    public setTitle(title : String){
-        this.title = title;
+    constructor(id : string, postId : number, content:string){
+        this.id  = id;
+        this.postId = postId;
+        this.content  = content;
     }
 
-    public setContent(content:String){
+    public getId() : string{
+        return this.id;
+    }
+    public getPostId() : number{
+        return this.postId;
+    }
+    public getContent():string {
+        return this.content;
+    }   
+
+    public setId(id : string){
+        this.id = id
+    }
+    public setPostId (postId : number){
+        this.postId = postId;
+    }
+    public setContent(content : string){
         this.content = content;
     }
-
-    public setAuthor(author : String){
-        this.author = author;
-    }
-
-    public getTitle():String{
-        return this.title;
-    }
-
-    public getContent():String{
-        return this.content;
-    }
-    
-    public getAuthor():String{
-        return this.author;
-    }
-
 }
