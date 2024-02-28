@@ -1,20 +1,18 @@
-import commentRequestDto from "./request/comment-dto.request";
-
 export class commentDto{
     private author : string;
     private postId : number;
     private comment : string;
 
-    constructor(comment : commentRequestDto){
-        this.author = comment.author;
-        this.postId = comment.postId;
-        this.comment  =comment.comment;
+    constructor(author : string, postId:number, comment : string){
+        this.author = author;
+        this.postId = postId;
+        this.comment  =comment;
     }
 
     public getAuthor() : string{
         return this.author;
     }
-    public getPostId() : number{
+    public getPostId():number{
         return this.postId;
     }
     public getComment(): string{
@@ -24,7 +22,7 @@ export class commentDto{
     public setAuthor(author : string){
         this.author = author;
     }
-    public setPostId(postId : number){
+    public setPostId(postId :number){
         this.postId = postId;
     }
     public setComment(comment : string){
