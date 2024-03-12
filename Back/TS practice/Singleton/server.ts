@@ -5,6 +5,7 @@ import { postErrorMiddleware } from "./middleware/post.middleware";
 import userApi from "./controller/api/user.api";
 import postApi from "./controller/api/post.api";
 import commentApi from "./controller/api/comment.api";
+import { connection } from "./config/db";
 
 
 const app = express();
@@ -13,6 +14,14 @@ const port = 3000
 
 app.use(express.json());
 app.use(express.urlencoded({extended :false}));
+
+connection.connect((err)=>{
+    if(err){
+        console.log("fall");
+    }else{
+        console.log("succsses");
+    }
+})
 
 app.use("/user", userApi);
 app.use("/post/:userId", postApi);
