@@ -1,6 +1,9 @@
 import express, {Response, Request, NextFunction} from "express";
 
-import readApi from "./controller/api/Read"
+import createApi from "./controller/api/Create";
+import readApi from "./controller/api/Read";
+import updateApi from "./controller/api/Update";
+import deleteApi from "./controller/api/Delete";
 
 const app = express();
 const port:number = 3000;
@@ -16,7 +19,11 @@ app.get("/", (req:Request, res:Response, next : NextFunction)=>{
     }
 })
 
+
+app.use("/student", createApi);
 app.use("/student", readApi);
+app.use("/student", updateApi);
+app.use("/student", deleteApi);
 
 app.listen(port, () => {
     console.log(`App is listening on port ${port} !`);

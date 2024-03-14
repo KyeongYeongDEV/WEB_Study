@@ -4,11 +4,12 @@ import connection from "../../config/db";
 const router = Router();
 
 router.get("/",(req:Request, res:Response, next : NextFunction)=>{
+    //TODO: 학생 이름을 넘겨 받아 그 학생 정보를 보여주기
     try{
-        const sql = "select *from 학생";
+        const sql = "select *from student";
         connection.query(sql,(error, results, fields) => {
             if (error) {
-                console.error('Error executing query: ', error);
+                res.json(`Error executing query: ${error}`);
                 return;
             } else {
                 res.json(results)
