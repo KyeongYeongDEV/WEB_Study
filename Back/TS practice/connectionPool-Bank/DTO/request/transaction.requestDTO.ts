@@ -3,7 +3,7 @@ interface transactionRequestDto{
     fromAccountNumber : number,
     toName : string,
     toAccountNumber : number,
-    amount : number
+    remittanceAmount : number
 }
 
 export default transactionRequestDto;
