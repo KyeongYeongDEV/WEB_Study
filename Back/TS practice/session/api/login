@@ -1,0 +1,17 @@
+import {Router, Request, Response, NextFunction} from "express";
+import session  from "express-session";
+import connectionPool from "../config/db";
+
+const router = Router();
+
+router.use(session({
+    secret : "암호", // 세션 암호화
+    resave : false, // 세션 데이터를 저장소에 저장하기 전에 변경 여부를 확인 후 'false'로 설정할 경우 변경사항이 없으면 저장을 안한다.
+    saveUninitialized : false // 초기화되지 않은 세션을 저장소에 저장할지 여부를 결정 // false로 설정할 경우 세션데이터가 변경되기 전까지 저장소에 세션을 저장하지 않는다
+    //이렇게 하면 불필요한 세션 데이터를 저장하는 것을 방지하여 성능 향상
+}))
+
+router.post("/" ,(req:Request, res:Response, next: NextFunction)=>{
+    
+})
+
