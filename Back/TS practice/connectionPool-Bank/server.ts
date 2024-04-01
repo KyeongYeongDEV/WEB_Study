@@ -17,6 +17,7 @@ app.get("/", (req:Request, res:Response, next : NextFunction)=>{
     res.send("<h1> main page");
 })
 
+
 app.listen(port, async ()=>{
     console.log("server start");    
     
