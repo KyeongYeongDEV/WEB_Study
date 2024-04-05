@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/", (req:Request, res:Response, next : NextFunction)=>{
     try{
-        const newStudent:studentRequestDto = req.body;
+        const newStudent = req.body;
 
         const sql = `insert into student (id, name, age, score) values (${newStudent.id}, "${newStudent.name}", ${newStudent.age}, ${newStudent.score})`
     
