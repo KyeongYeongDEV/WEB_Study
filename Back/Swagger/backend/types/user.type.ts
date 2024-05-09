@@ -1,13 +1,13 @@
 type User = {
     uid : number,
-    name :  string,
+    userName :  string,
     userId : string,
     userPw : string
 };
 
 type RequestUser = {
     uid : number,
-    name :  string,
+    userName :  string,
     userId : string,
     userPw : string
 };

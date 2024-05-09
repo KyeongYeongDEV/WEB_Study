@@ -1,11 +1,11 @@
 import express from "express";
-import apiIndex from "./apis/index"
+import index from "./apis/index"
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-app.use("/api", apiIndex);
+app.use("/api", index);
 
 export default app;
