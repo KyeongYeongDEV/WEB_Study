@@ -1,10 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
+import axios from "axios";
 
 function Join(){
     const [name, setName] = useState("");
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
+
+    const apiUrl = "http://localhost:8000/api/auth/join";
+
     const handlerName = (e)=>{
         setName(e.target.value);
         console.log(e.target.value)
@@ -17,14 +21,27 @@ function Join(){
         setUserPw(e.target.value);
         console.log(e.target.value)
     }
-    const handlerJoin = (e)=>{
-        e.preventDefault();
-        console.log(name, userId, userPw)
+    const handlerJoin = async (e)=>{
+        try{
+            e.preventDefault();
+            const res = await axios.post(apiUrl,{
+                userName : name,
+                userId : userId,
+                userPw : userPw
+            });
+            if(res.status === 200){
+                alert("성공적으로 가입했습니다");
+            }   
+
+            console.log(res.data)
+        }catch(err){
+            console.log(err);
+            alert(err.response.data.err);
+        }
+        
     }
 
     return (
-        
-
         <div className="container-fluid">
           <div className="row justify-content-center mt-5">
             <div className="col-md-6 col-lg-4">

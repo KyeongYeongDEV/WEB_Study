@@ -1,3 +1,4 @@
+import { configDotenv } from "dotenv";
 import {Request, Response, NextFunction } from "express";
 import AuthService from "../services/auth.service";
 import { RequestUser } from "../types/user.type";
@@ -15,8 +16,11 @@ class AuthController{
             const user : RequestUser = req.body;
             await AuthService.join(user);
             res.status(200).send({msg : "success to join"});
-        }catch(e){
-            res.status(404).send({msg : "fail to join", err : e});
+        }catch(err :any){
+            res.status(404).send({
+                msg : "fail to join", 
+                err : err.message
+            });
         }
     }   
 
