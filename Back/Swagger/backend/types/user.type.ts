@@ -12,4 +12,9 @@ type RequestUser = {
     userPw : string
 };
 
-export  {User, RequestUser};
+type LoginUser ={
+    userId : string,
+    userPw : string
+}
+
+export  {User, RequestUser, LoginUser};

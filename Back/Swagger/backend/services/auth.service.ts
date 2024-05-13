@@ -1,5 +1,5 @@
 import connection from "../configs/db.configs";
-import { RequestUser, User } from "../types/user.type";
+import { LoginUser, RequestUser, User } from "../types/user.type";
 import crypto from "../configs/crypto.configs"
 
 class AuthService{
@@ -7,9 +7,10 @@ class AuthService{
         const [result, feild] = await connection.query(
             "select *from User where userId = ?",
             [userId]) as[User[], object];
+            
         
         if(result.length != 0){
-            throw new Error("User is existed");
+            throw new Error("err : already User exist");
         }
 
         return userId;
@@ -18,9 +19,8 @@ class AuthService{
     async join(user : RequestUser) :Promise<void>{
         try{
             const vaildUser = await this.isExistUser(user.userId);
-            console.log(user);
             const hashedPw = await crypto.hash(user.userPw);
-            console.log(hashedPw)
+            
             await connection.query ("insert into User (userName, userId, userPw) VALUES (?, ?, ?)"
             ,[user.userName, vaildUser, hashedPw]);
             
@@ -28,8 +28,21 @@ class AuthService{
             throw err;
         }
     }
-    login(){
-
+    async login(user : LoginUser){
+        try{
+            const [result, feild] = await connection.query(
+                "select * from User where userId = ?",
+                [user.userId]) as [RequestUser[], object];
+                
+            if(result.length === 0) throw new Error("존재하지 않은 아이디 입니다");
+            
+            if(!(await crypto.isValid(user.userPw, result[0].userPw))){
+                throw new Error("비밀번호가 일치하지 않습니다");
+            }
+        }catch(err){
+            throw err;
+        }
+        
     }
 } 
 
