@@ -6,34 +6,37 @@ function SignUp(){
     const [name, setName] = useState("");
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
-    
+    const [email, setEmail] = useState("");
+    const [code, setCode] =  useState("");
 
     const apiUrl = "http://localhost:8000/api/auth/join";
 
     const handlerName = (e)=>{
-        setName(e.target.value);
-        console.log(e.target.value)
+      setName(e.target.value);
+      console.log(e.target.value)
     }
     const handlerUserId = (e)=>{
-        setUserId(e.target.value);
-        console.log(e.target.value)
+      setUserId(e.target.value);
+      console.log(e.target.value)
     }    
-    const handlerEmail =()=>{
-
+    const handlerEmail =(e)=>{
+      setEmail(e.target.value)
+      console.log(e.target.value)
     }
-   
-    const handlerEmailAuth = ()=>{
-
+  
+    const handlerEmailAuthBtn = (e)=>{
+      
     }
-    const handlerEmailvaild = ()=>{
-
+    const handlerCode = (e)=>{
+      setCode(e.target.value);
+      console.log(e.target.value)
     }
 
     const handlerUserPw = (e)=>{
         setUserPw(e.target.value);
         console.log(e.target.value)
     }
-    const handlerJoin = async (e)=>{
+    const handlerJoinBtn = async (e)=>{
       if(userId === "" || userPw === "" || name === ""){
         alert("빈칸을 채워주세요!");
         return;
@@ -90,8 +93,9 @@ function SignUp(){
                         placeholder="아이디 입력"
                         required 
                     />
-                     <div className="mb-3">
+                    
                 <label htmlFor="userEmail" className="form-label">이메일:</label>
+                <div className="input-group mb-3">
                 <input
                   type="text"
                   id="userEmail"
@@ -101,20 +105,23 @@ function SignUp(){
                   placeholder="이메일 입력"
                   required
                 />
+                <button type="submit" onClick={handlerEmailAuthBtn} className="btn btn-primary btn-block">발송</button>
                 </div>
+
                 <div className="input-group mb-3">
-                <input 
+                  <input 
                     type = 'text'
                     id = "emailAuth"
                     name = 'emailAuth'
-                    onChange={handlerEmailvaild}
+                    onChange={handlerCode}
                     className="form-control" 
                     placeholder = "인증 번호 입력"
-                    />
-                  <button type="submit" onClick={handlerEmailAuth} className="btn btn-primary btn-block">인증</button>
-                </div>
-              
-                    </div>
+                    required
+                  />
+                  <button type="submit" onClick={handlerEmailAuthBtn} className="btn btn-primary btn-block">인증</button>
+                  </div>
+
+                  </div>
                     <div className="mb-3">
                     <label htmlFor="userPW" className="form-label">비밀번호:</label>
                     <input
@@ -127,7 +134,7 @@ function SignUp(){
                         required
                     />
                     </div>
-                    <button type="submit" onClick={handlerJoin} className="btn btn-primary btn-block">가입하기</button>
+                    <button type="submit" onClick={handlerJoinBtn} className="btn btn-primary btn-block">가입하기</button>
                   </form>
                 </div>
               </div>

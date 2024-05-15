@@ -1,6 +1,5 @@
 import mysql from "mysql2";
 import dotenv from "dotenv"
-import { Connection } from "mysql2/typings/mysql/lib/Connection";
 
 dotenv.config();
 

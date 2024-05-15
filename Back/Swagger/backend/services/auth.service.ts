@@ -1,6 +1,9 @@
 import connection from "../configs/db.configs";
 import { LoginUser, RequestUser, User } from "../types/user.type";
 import crypto from "../configs/crypto.configs"
+import dotenv from "dotenv"
+
+dotenv.config();
 
 class AuthService{
     async isExistUser(userId :string){
@@ -42,7 +45,6 @@ class AuthService{
         }catch(err){
             throw err;
         }
-        
     }
 } 
 

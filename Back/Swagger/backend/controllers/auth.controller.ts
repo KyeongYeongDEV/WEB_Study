@@ -33,6 +33,21 @@ class AuthController{
             });
         }
     }   
+
+    async emailCode(req:Request, res:Response, next : NextFunction){
+        try{
+
+        }catch(err : any){
+
+        }
+    }
+    async emailCodeVerify(req:Request, res:Response, next : NextFunction){
+        try{
+
+        }catch(err : any){
+            
+        }
+    }
 }
 
 export default new AuthController;
