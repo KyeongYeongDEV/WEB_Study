@@ -1,15 +1,11 @@
-type User = {
-    uid : number,
-    userName :  string,
-    userId : string,
-    userPw : string
-};
+
 
 type RequestUser = {
-    uid : number,
+
     userName :  string,
     userId : string,
-    userPw : string
+    userPw : string,
+    userEmail : string
 };
 
 type LoginUser ={
@@ -17,4 +13,4 @@ type LoginUser ={
     userPw : string
 }
 
-export  {User, RequestUser, LoginUser};
+export  {RequestUser, LoginUser};

@@ -1,8 +1,10 @@
-import { configDotenv } from "dotenv";
 import {Request, Response, NextFunction } from "express";
+import { LoginUser, RequestUser } from "../types/user.type";
 
 import AuthService from "../services/auth.service";
-import { LoginUser, RequestUser } from "../types/user.type";
+import Mailer from "../services/mail.service"
+import { connect } from "http2";
+
 
 
 
@@ -28,23 +30,41 @@ class AuthController{
             res.status(200).send({msg : "success to join"});
         }catch(err :any){
             res.status(404).send({
-                msg : "fail to join", 
-                err : err.message
+                msg : err.message,
+                err : "fail to join"
             });
         }
     }   
 
-    async emailCode(req:Request, res:Response, next : NextFunction){
+    async sendEmailCode(req:Request, res:Response, next : NextFunction){
         try{
-
+            const userEmail :string = req.body.userEmail;
+            await Mailer.isExistUserEmail(userEmail);
+            Mailer.setMailOption(userEmail);
+            await Mailer.sendEmailCode();
+            
+            res.status(200).send({msg : "Success to send email"});
+            
         }catch(err : any){
-
+            res.status(404).send({
+                msg : "Fail to send email",
+                err : err.message
+            });
         }
     }
-    async emailCodeVerify(req:Request, res:Response, next : NextFunction){
+    async verifyEmailCode(req:Request, res:Response, next : NextFunction){
         try{
+            const userCode = req.body.code;
+            const userEmail = req.body.userEmail;
+            
+            Mailer.verifyEmailCode(userCode, userEmail);
+            res.status(200).send("승인!");
 
         }catch(err : any){
+            res.status(404).send({
+                msg : "인증번호가 틀립니다",
+                err : "Not vaild code"
+            });
             
         }
     }

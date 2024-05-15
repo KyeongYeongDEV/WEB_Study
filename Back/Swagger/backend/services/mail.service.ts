@@ -1,3 +1,5 @@
+import { configDotenv } from "dotenv";
+import { readSync } from "fs";
 import connection from "../configs/db.configs";
 import MailTransporter from "../helpers/mailer.helper";
 
@@ -8,7 +10,7 @@ class Mailer{
 
     constructor(){
         this.target  = "";
-        this.code = this.getCode();;
+        this.code = "";
     }
 
     private getRandNumber(){
@@ -27,7 +29,7 @@ class Mailer{
     }
     public setMailOption(target : string) {
         const from = process.env.NAVER_EMAIL;
-
+        this.code = this.getCode()
         this.target = target;
 
         this.mailOption = {
@@ -40,27 +42,61 @@ class Mailer{
     public getMailOption(){
         return this.mailOption;
     }
-    async sendEmailCode(){
+
+    public async isExistUserEmail(userEmail : string){
+        try{
+            const [result, feild] = await connection.query(
+                "select email from User Where email = ?", [userEmail]) as [any[], object];
+
+            let existEmailCheck :number= 0;
+            if(result[0] === undefined) existEmailCheck = 0;
+            else existEmailCheck = 1;
+            
+
+            if(existEmailCheck) {
+                throw new Error("이미 존재하는 이메일입니다");   
+            }
+        }catch(err){
+            throw err;
+        }
+    }
+
+    public async sendEmailCode(){
         try{
             MailTransporter.sendMail(this.getMailOption(), async(err, info)=>{
                 if(err){
-                    throw new Error();
+                    throw err;
                 }else{
                     await connection.query(
                         "insert into email_status(email, code) values(?,?)"
                         ,[this.target, this.code]); 
-                    console.log(info);
-                    connection.end();
                 }
             })            
         }catch(err){
             throw err;
         }
     }
+
+    public async verifyEmailCode(userCode : string, userEmail : string){
+        try{      
+            //TODO: 트랜젝션 적용시키기
+            const [result, feild] = await connection.query(
+                "select code from email_status where email = ?",[userEmail]  
+            )as [any[], object];
+            
+            if(userCode === result[0].code){ 
+                await connection.query(
+                    "update email_status set status = ?",
+                    ["승인"]
+                )
+            }
+            else{
+                throw new Error("인증 코드가 일치하지 않습니다.");
+            }    
+        }catch(err){
+            throw err;
+        }
+    }
 }
 
-//export default new Mailer();
-
-const m = new Mailer();
-m.setMailOption("cky2662@naver.com");
-m.sendEmailCode();
+export default new Mailer();

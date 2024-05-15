@@ -1,7 +1,7 @@
 import connection from "../configs/db.configs";
-import { LoginUser, RequestUser, User } from "../types/user.type";
-import crypto from "../configs/crypto.configs"
-import dotenv from "dotenv"
+import { LoginUser, RequestUser } from "../types/user.type";
+import crypto from "../configs/crypto.configs";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -9,7 +9,7 @@ class AuthService{
     async isExistUser(userId :string){
         const [result, feild] = await connection.query(
             "select *from User where userId = ?",
-            [userId]) as[User[], object];
+            [userId]) as[RequestUser[], object];
             
         
         if(result.length != 0){
@@ -23,11 +23,26 @@ class AuthService{
         try{
             const vaildUser = await this.isExistUser(user.userId);
             const hashedPw = await crypto.hash(user.userPw);
+
             
-            await connection.query ("insert into User (userName, userId, userPw) VALUES (?, ?, ?)"
-            ,[user.userName, vaildUser, hashedPw]);
+            const [status, feild]  = await connection.query(
+                "select status from email_status where email = ?",
+                [user.userEmail]
+            )as [any[], object];
+                console.log(status[0].status)
+
+            if(status[0].status !== "승인") throw new Error("이메일 인증을 진행해 주세요");
+            
+            
+            await connection.query ("insert into User (userName, userId, userPw, email) VALUES (?, ?, ?, ?)"
+            ,[user.userName, vaildUser, hashedPw, user.userEmail]);
+
+            await connection.query(
+                "delete from email_status where email = ?",
+                [user.userEmail]);
             
         }catch(err){
+            
             throw err;
         }
     }
@@ -38,7 +53,7 @@ class AuthService{
                 [user.userId]) as [RequestUser[], object];
                 
             if(result.length === 0) throw new Error("존재하지 않은 아이디 입니다");
-            
+                
             if(!(await crypto.isValid(user.userPw, result[0].userPw))){
                 throw new Error("비밀번호가 일치하지 않습니다");
             }
