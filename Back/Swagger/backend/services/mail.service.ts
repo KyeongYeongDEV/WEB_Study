@@ -1,6 +1,4 @@
-import { configDotenv } from "dotenv";
-import { readSync } from "fs";
-import connection from "../configs/db.configs";
+import connection from "../configs/db.config";
 import MailTransporter from "../helpers/mailer.helper";
 
 class Mailer{
@@ -84,14 +82,14 @@ class Mailer{
                 "select code from email_status where email = ?",[userEmail]  
             )as [any[], object];
             
-            if(userCode === result[0].code){ 
+            if(userCode == result[0].code){ 
                 await connection.query(
                     "update email_status set status = ?",
                     ["승인"]
                 )
             }
             else{
-                throw new Error("인증 코드가 일치하지 않습니다.");
+                throw new Error();
             }    
         }catch(err){
             throw err;

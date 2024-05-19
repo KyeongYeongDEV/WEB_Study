@@ -1,6 +1,6 @@
-import connection from "../configs/db.configs";
+import connection from "../configs/db.config";
 import { LoginUser, RequestUser } from "../types/user.type";
-import crypto from "../configs/crypto.configs";
+import crypto from "../configs/crypto.config";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -17,6 +17,17 @@ class AuthService{
         }
 
         return userId;
+    }
+    
+    async getUser(userId : string){
+        const [result, field] = await connection.query(
+            "select * from User where userId = ?",
+            [userId]
+        )as [any[], any];
+
+        if(result.length === 0) return null;
+        
+        return result[0];
     }
 
     async join(user : RequestUser) :Promise<void>{
@@ -57,6 +68,7 @@ class AuthService{
             if(!(await crypto.isValid(user.userPw, result[0].userPw))){
                 throw new Error("비밀번호가 일치하지 않습니다");
             }
+            return result[0];
         }catch(err){
             throw err;
         }

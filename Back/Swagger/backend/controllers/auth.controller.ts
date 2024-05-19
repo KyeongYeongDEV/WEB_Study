@@ -1,9 +1,9 @@
-import {Request, Response, NextFunction } from "express";
-import { LoginUser, RequestUser } from "../types/user.type";
+import {Request, Response, NextFunction} from "express";
+import { LoginUser, RequestUser, UserPayload } from "../types/user.type";
 
 import AuthService from "../services/auth.service";
-import Mailer from "../services/mail.service"
-import { connect } from "http2";
+import Mailer from "../services/mail.service";
+import {accessToken, refreshToken} from "../configs/token.config";
 
 
 
@@ -12,9 +12,21 @@ class AuthController{
     async login(req:Request, res:Response, next : NextFunction){
         try{
             const user : LoginUser = req.body;
-            await AuthService.login(user);
+            const foundUser : RequestUser = await AuthService.login(user);
+            const payload :UserPayload = {
+                name :foundUser.userName,
+                userId : foundUser.userId
+                
+            }
 
-            res.status(200).send({msg : "success to login"})
+            const aToken = accessToken.generateToken(payload, "15m");
+            const rToken = refreshToken.generateToken(payload, "15m"); 
+            
+            res.status(200).send({
+                msg : "success to login",
+                accessToken : aToken,
+                refreshToken : rToken
+            });
         }catch(err : any){
             res.status(404).send({
                 msg : "fail to login",
@@ -57,15 +69,15 @@ class AuthController{
             const userCode = req.body.code;
             const userEmail = req.body.userEmail;
             
-            Mailer.verifyEmailCode(userCode, userEmail);
+            await Mailer.verifyEmailCode(userCode, userEmail);
             res.status(200).send("승인!");
-
+            
         }catch(err : any){
+            next();
             res.status(404).send({
                 msg : "인증번호가 틀립니다",
                 err : "Not vaild code"
             });
-            
         }
     }
 }
