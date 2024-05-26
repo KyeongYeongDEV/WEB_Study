@@ -6,6 +6,7 @@ import axios from "axios"
 const Login = () => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
+  const [accessToken, setAeccessToken] = useState("");
 
   const apiUrl = "http://localhost:8000/api/auth/login" 
 
@@ -33,6 +34,8 @@ const Login = () => {
         userPw : userPw
       });
       //TODO: 토큰을 하면 밑에 다 수정
+      setAeccessToken(res.data.accessToken);
+      console.log(accessToken);
       
       if(res.status === 200) {
         alert("로그인 성공");
@@ -46,6 +49,7 @@ const Login = () => {
 
 
   return (
+    (accessToken === ""?<>
     <div className="container-fluid">
     <div className="row justify-content-center mt-5">
       <div className="col-md-6 col-lg-4">
@@ -64,8 +68,7 @@ const Login = () => {
                   placeholder="아이디 입력"
                   required
                 />
-              </div>
-             
+              </div>             
               <div className="mb-3">
                 <label htmlFor="userPW" className="form-label">비밀번호:</label>
                 <input
@@ -86,6 +89,12 @@ const Login = () => {
       </div>
     </div>
   </div>
+  </>:
+     <div>
+     <h1>Success login</h1>
+     
+   </div>
+  )
   );
 }
 

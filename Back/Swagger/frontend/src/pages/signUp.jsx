@@ -6,36 +6,72 @@ function SignUp(){
     const [name, setName] = useState("");
     const [userId, setUserId] = useState("");
     const [userPw, setUserPw] = useState("");
-    const [email, setEmail] = useState("");
+    const [userEmail, setUserEmail] = useState("");
     const [code, setCode] =  useState("");
 
     const apiUrl = "http://localhost:8000/api/auth/join";
+    const sendEamilApiUrl = "http://localhost:8000/api/auth/code";
 
     const handlerName = (e)=>{
       setName(e.target.value);
-      console.log(e.target.value)
     }
     const handlerUserId = (e)=>{
       setUserId(e.target.value);
-      console.log(e.target.value)
     }    
     const handlerEmail =(e)=>{
-      setEmail(e.target.value)
-      console.log(e.target.value)
-    }
-  
-    const handlerEmailAuthBtn = (e)=>{
-      
+      setUserEmail(e.target.value)
     }
     const handlerCode = (e)=>{
       setCode(e.target.value);
-      console.log(e.target.value)
     }
-
     const handlerUserPw = (e)=>{
-        setUserPw(e.target.value);
-        console.log(e.target.value)
+      setUserPw(e.target.value);
     }
+  
+    const handlerSendEmailBtn = async(e)=>{
+      try{
+        e.preventDefault();
+        if(userEmail === ""){
+          alert("이메일을 입력해주세요");
+          return ;
+        }
+        
+              
+        
+        const res = await axios.post(sendEamilApiUrl,{
+            userEmail : userEmail
+        });
+        if(res.status === 200){
+            alert(res.data.msg);
+        }   
+      }catch(err){
+          alert(err.response.data.err);
+      }  
+    }
+    const handlerVerifyEmailCodeBtn = async(e)=>{
+      try{
+        e.preventDefault();
+        const verifyCodeApiUrl = sendEamilApiUrl+ "/verify";
+
+        if(code === ""){
+          alert("인증번호를 입력해주세요");
+          return ;
+        }
+        
+        const res = await axios.post(verifyCodeApiUrl,{
+            code : code,
+            userEmail : userEmail
+        });
+        if(res.status === 200){
+            alert(res.data);
+        }else{
+          throw new Error()
+        }
+      }catch(err){
+          alert(err.response.data.err);
+      }  
+    }
+    
     const handlerJoinBtn = async (e)=>{
       if(userId === "" || userPw === "" || name === ""){
         alert("빈칸을 채워주세요!");
@@ -43,26 +79,22 @@ function SignUp(){
       } 
       try{
         e.preventDefault();
-
         
         const res = await axios.post(apiUrl,{
             userName : name,
             userId : userId,
+            userEmail :userEmail,
             userPw : userPw
         });
         if(res.status === 200){
             alert("성공적으로 가입했습니다");
         }   
-
-        console.log(res.data)
-
-        
       }catch(err){
           console.log(err);
-          alert(err.response.data.err);
+          alert(err.response.data.msg);
       }  
     }
-
+  
     return (
         <div className="container-fluid">
           <div className="row justify-content-center mt-5">
@@ -97,7 +129,7 @@ function SignUp(){
                 <label htmlFor="userEmail" className="form-label">이메일:</label>
                 <div className="input-group mb-3">
                 <input
-                  type="text"
+                  type="email"
                   id="userEmail"
                   name="userEmail"
                   className="form-control" 
@@ -105,7 +137,7 @@ function SignUp(){
                   placeholder="이메일 입력"
                   required
                 />
-                <button type="submit" onClick={handlerEmailAuthBtn} className="btn btn-primary btn-block">발송</button>
+                <button type="submit" onClick={handlerSendEmailBtn} className="btn btn-primary btn-block">발송</button>
                 </div>
 
                 <div className="input-group mb-3">
@@ -118,7 +150,7 @@ function SignUp(){
                     placeholder = "인증 번호 입력"
                     required
                   />
-                  <button type="submit" onClick={handlerEmailAuthBtn} className="btn btn-primary btn-block">인증</button>
+                  <button type="submit" onClick={handlerVerifyEmailCodeBtn} className="btn btn-primary btn-block">인증</button>
                   </div>
 
                   </div>
