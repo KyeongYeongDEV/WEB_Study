@@ -1,18 +1,25 @@
-type signInUser={
+type SignInUser={
     userId : string,
     userPw : string,
 }
 
-type signUpUser ={
-    userID : string,
+type SignUpUser ={
+    userId : string,
     userPw : string,
     userName : string,
     email : string,
 }
 
-type userPayload ={
-    userName : string,
-    userId : string
+type EmailStatus={
+    email : string,
+    status : string,
+    code : string
 }
 
-export {signInUser, signUpUser, userPayload};
+
+type UserPayload = {
+    name : string;
+    userId : string;
+}
+
+export {SignInUser, SignUpUser, UserPayload, EmailStatus};

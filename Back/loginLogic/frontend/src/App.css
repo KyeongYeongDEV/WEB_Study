@@ -1,38 +1,21 @@
-.App {
-  text-align: center;
+/* src/App.css */
+
+/* 기본적인 반응형 스타일을 제공하기 위한 설정 */
+.container {
+  max-width: 100%;
+  padding: 0 15px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 폼과 버튼에 여백을 추가하여 더 보기 좋게 */
+.form-group {
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.btn-block {
+  margin-top: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* 모바일 장치에서의 네비게이션 바 스타일 조정 */
+.navbar-brand, .nav-link {
+  color: #000;
 }
