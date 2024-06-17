@@ -3,6 +3,9 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-app.listen(process.env.SERVER_PORT,async()=>{
-    console.log("server start"); 
+const port = process.env.SERVER_PORT
+
+app.listen(port ,async()=>{
+    console.log(`server port ${port} is start`)
 })
+

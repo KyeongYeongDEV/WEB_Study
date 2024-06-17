@@ -1,5 +1,5 @@
 import JWT from "jsonwebtoken";
-import { userPayload } from "../types/user.type"; 
+import { UserPayload } from "../types/user.type"; 
 
 class Token{
     private secret : string;
@@ -9,7 +9,7 @@ class Token{
         this.secret = secret;
     }
 
-    generateToken(payload : userPayload, expiresIn : string){
+    generateToken(payload : UserPayload, expiresIn : string){
         const token = JWT.sign(payload, this.secret, {expiresIn});
 
         return token;

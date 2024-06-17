@@ -1,15 +1,15 @@
 import Bcrypt from "../configs/bcrypt.config";
 import { connection } from "../configs/db.config";
-import {SignUpUser } from "../types/user.type"
+import {SignUpUser, SignInUser } from "../types/user.type"
 
 
 class AuthService{
-    async signIn(user : SignUpUser) : Promise<SignUpUser>{
+    async signIn(user : SignInUser) : Promise<SignUpUser>{
         try{
             const [signinUser, field] = await connection.query(
                 "select * from user WHERE userId = ?",user.userId) as [SignUpUser[], object];
             connection.end();
-        
+
             if(signinUser.length === 0){
                 throw new Error("user Id is not vaild");
             }

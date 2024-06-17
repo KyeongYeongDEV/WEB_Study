@@ -1,12 +1,12 @@
-// src/components/Login.js
-import { Collapse } from 'bootstrap';
 import React, { useState } from 'react';
+import axios from "axios";
 
-const apiUrl = "http://localhost:8000/"
+const apiUrl = "http://localhost:8000/api/auth/signin"
 
 function Login() {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw]  = useState("");
+  const [accessToken, setAeccessToken] = useState("")
 
   const handleUserId = (e)=>{
     setUserId(e.target.value)
@@ -16,8 +16,24 @@ function Login() {
     setUserPw(e.target.value)
     console.log(e.target.value);
   }
-  const handleSubmitBtn = (e)=>{
-    
+  const handleSubmitBtn = async(e)=>{
+    try{
+      e.preventDefault();
+
+      const res = axios.post(apiUrl,{
+        userId : userId,
+        userPw : userPw
+      })
+      console.log(res.data)
+      if(res.status === 200){
+        alert(res.msg)
+        
+      }else{
+        throw new Error(res.msg);
+      }
+    }catch(err){
+      alert(err);
+    }
   }
 
   
@@ -37,7 +53,7 @@ function Login() {
               <label htmlFor="password">비밀번호</label>
               <input type="password" className="form-control" id="password" placeholder="비밀번호를 입력하세요" onChange={handleUserPw}/>
             </div>
-            <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmitBtn}>로그인</button>
+            <button type="submit" onClick={handleSubmitBtn} className="btn btn-primary btn-block" >로그인</button>
           </form>
         </div>
       </div>
