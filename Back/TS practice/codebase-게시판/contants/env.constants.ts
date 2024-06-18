@@ -7,7 +7,7 @@ type DB_ENV = {
     USER : string;
     PASSWORD : string;
     PORT : number;
-    NAME  :string 
+    NAME  :string;
 };
 
 type SERVER_ENV = {

@@ -19,9 +19,12 @@ class AuthController{
                 
             }
 
-            const aToken = accessToken.generateToken(payload, "15m");
-            const rToken = refreshToken.generateToken(payload, "15m"); 
+            const aToken = accessToken.generateToken(payload, "10m");
+            const rToken = refreshToken.generateToken(payload, "30m"); 
             
+            console.log(rToken);
+            AuthService.saveRefreshToken(rToken);
+
             res.status(200).send({
                 msg : "success to login",
                 accessToken : aToken,
@@ -81,5 +84,8 @@ class AuthController{
         }
     }
 }
+
+const r = new AuthController()
+
 
 export default new AuthController;

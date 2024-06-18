@@ -68,10 +68,26 @@ class AuthService{
             if(!(await crypto.isValid(user.userPw, result[0].userPw))){
                 throw new Error("비밀번호가 일치하지 않습니다");
             }
+
             return result[0];
         }catch(err){
             throw err;
         }
+    }
+
+    async saveRefreshToken(rToken : string){
+        try{
+            await connection.query(
+                "update User set rToken = ?",
+                [rToken]
+            );
+        }catch(err : any){
+            throw err;
+        }
+    }
+
+    async deleteRefreshToken(){
+
     }
 } 
 
