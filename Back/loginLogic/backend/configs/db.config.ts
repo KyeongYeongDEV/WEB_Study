@@ -1,19 +1,19 @@
 import mysql from "mysql2";
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 
-dotenv.config()
-
-const mysqlPool = mysql.createPool({
-    database : process.env.DB_DATABASE || "",
+dotenv.config();
+const port = process.env.DB_PORT || 3306;
+const connectionPool = mysql.createPool({
     host : process.env.DB_HOST || "",
-    port: 3306,
+    database : process.env.DB_DATABASE|| "",
     user : process.env.DB_USER|| "",
-    password : process.env.DB_PASSWORD || "",
+    password : process.env.DB_PASSWORD|| "",
+    port : port as number,
+    connectionLimit : 0,
     waitForConnections : true,
-    connectionLimit : 5,
     queueLimit : 0
 });
 
-const connection = mysqlPool.promise()
+const connection = connectionPool.promise();
 
-export  {connection};
+export default connection;

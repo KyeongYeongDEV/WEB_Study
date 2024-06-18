@@ -1,11 +1,10 @@
-import app from "./app";
-import dotenv from "dotenv"
+import app from "./app"
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-const port = process.env.SERVER_PORT
+const port = process.env.SERVER_PORT;
 
-app.listen(port ,async()=>{
-    console.log(`server port ${port} is start`)
-})
-
+app.listen(port,async ()=>{
+    console.log(`server port ${port} is start`);
+});

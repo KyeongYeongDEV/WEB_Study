@@ -1,4 +1,4 @@
-import nodemiler from "nodemailer";
+import nodeMailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -6,14 +6,14 @@ dotenv.config();
 const user = process.env.NAVER_ID;
 const pass = process.env.NAVER_PW;
 
-const transporter = nodemiler.createTransport({
-    service : "naver",
-    host : "stmp.naver.com",
+const transporter = nodeMailer.createTransport({
+    service:"naver",
+    host: "stmp.naver.com",
     port : 465,
-    auth:{
+    auth : {
         user : user,
         pass : pass
     }
 });
 
-export  {transporter};
+export default transporter;
