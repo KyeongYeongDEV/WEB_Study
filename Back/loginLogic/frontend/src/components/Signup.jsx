@@ -9,59 +9,63 @@ function RegistrationForm() {
   const [userPw, setUserPw] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [code, setCode] = useState('');
+  const passCodeCertification = 0;
 
-  const apiUrl = "http://localhost:8000/api/auth/"
+  const apiUrl = "http://localhost:8000/api/auth"
 
   const handlerName =(e)=>{
     e.preventDefault();
     setName(e.target.value);
-    console.log(e.target.value)
   }
   
   const handlerUserPw = (e)=>{
     e.preventDefault();
     setUserPw(e.target.value)
-    console.log(e.target.value)
   }
   const handlerEmail = (e)=>{
     e.preventDefault();
     setEmail(e.target.value)
-    console.log(e.target.value)
   }
   const handlerComfirmPassword = (e)=>{
     e.preventDefault();
     setConfirmPassword(e.target.value)
-    console.log(e.target.value)
   }
   const handlerCode = (e)=>{
     e.preventDefault();
     setCode(e.target.value)
-    console.log(e.target.value)
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log({name, userId, userPw})
+    if(userId.length === 0 || userPw.length === 0 || name.length === 0 ||email.length === 0){
+      alert("빈칸을 모두 입력해주세요!")
+    }
 
-    // // 회원가입 처리 로직을 여기에 추가하세요
-    // const res = await axios.post(apiUrl,{
-    //   userId : userId,
-    //   userPw : userPw,
-    //   name : name,
-    //   email : email,
-    // })
+    
 
-    // if(res.status === 200){
-    //   alert("회원가입 성공!")
-    // }else{
-    //   alert("회원가입 실패")
-    // }
+    
   };
-  const handleSendEmailCode = ()=>{
-    console.log("코드 발송")
+  const handleSendEmailCode = async(e)=>{
+    e.preventDefault();
+    
+    // 회원가입 처리 로직을 여기에 추가하세요
+    const res = await axios.post(apiUrl + "/code",{
+      email : email
+    })
+
+    if(res.status === 200){
+      alert(res.data.msg)
+    }else{
+      alert(res.data.msg);
+    }
   }
-  const handleConfirmCode =()=>{
-      console.log("코드 확인")
+  const handleConfirmCode = async(e)=>{
+      e.preventDefault();
+
+      const res = await axios.post(apiUrl + "/code" ,{
+        
+      })
+
+
   }
 
   return (
@@ -99,7 +103,7 @@ function RegistrationForm() {
               />
             </Col>
             <Col xs={3} className="text-end">
-              <Button variant="primary" type="button" className="w-100" onClick={handleConfirmCode}>
+              <Button variant="primary" type="button" className="w-100" onClick={handleSendEmailCode}>
                 인증 코드 발송
               </Button>
             </Col>
@@ -118,7 +122,7 @@ function RegistrationForm() {
               />
             </Col>
             <Col xs={3} className="text-end">
-              <Button variant="primary" type="button" className="w-100" onClick={handleSendEmailCode}>
+              <Button variant="primary" type="button" className="w-100" onClick={handleConfirmCode}>
                 확인
               </Button>
             </Col>

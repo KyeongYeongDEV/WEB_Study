@@ -6,6 +6,7 @@ dotenv.config();
 const user = process.env.NAVER_ID;
 const pass = process.env.NAVER_PW;
 
+
 const transporter = nodeMailer.createTransport({
     service:"naver",
     host: "stmp.naver.com",
