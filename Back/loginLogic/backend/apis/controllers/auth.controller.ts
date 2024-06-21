@@ -1,9 +1,16 @@
 import {Request, Response, NextFunction} from  "express";
 
-import AuthService from  "../../services/mail.service";
+import AuthService from  "../../services/auth.service";
 import MailService from "../../services/mail.service";
 
-class AuthController{
+export default class AuthController{
+    private authService : AuthService;
+    private mailService : MailService;
+
+    constructor(authService : AuthService, mailService : MailService){
+        this.authService = authService;
+        this.mailService = mailService;
+    }
     async login(req : Request, res : Response, next : NextFunction){
         
     }
@@ -14,9 +21,10 @@ class AuthController{
         try{
             const userEmail : string = req.body.email;
             
-            await MailService.isExistUSerEmail(userEmail);
-            MailService.setMailOption(userEmail);
-            await MailService.sendEmailCode();
+            await this.mailService.isExistUSerEmail(userEmail);
+            console.log(userEmail);
+            this.mailService.setMailOption(userEmail);
+            await this.mailService.sendEmailCode();
 
             res.status(200).send({
                 msg : "Success send to email"
@@ -24,7 +32,7 @@ class AuthController{
         }catch(err : any){
             res.status(404).send({
                 msg : "Fail send to email",
-                err : err.message
+                err : err
             })
         }
     }
@@ -33,7 +41,7 @@ class AuthController{
             const userInputCode = req.body.userInputCode;
             const userEmail = req.body.userEmail;
 
-            await MailService.verifyEmailCode(userInputCode, userEmail);
+            await this.mailService.verifyEmailCode(userInputCode, userEmail);
 
             res.status(200).send({
                 msg : "success certification"
@@ -47,5 +55,3 @@ class AuthController{
         }
     }
 }
-
-export default new AuthController();

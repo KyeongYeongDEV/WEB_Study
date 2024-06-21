@@ -9,6 +9,7 @@ function RegistrationForm() {
   const [userPw, setUserPw] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [code, setCode] = useState('');
+  const [confirmCode, setConfirmCode] = useState('');
   const passCodeCertification = 0;
 
   const apiUrl = "http://localhost:8000/api/auth"
@@ -16,56 +17,51 @@ function RegistrationForm() {
   const handlerName =(e)=>{
     e.preventDefault();
     setName(e.target.value);
-  }
-  
+  };
+  const handlerUserId = (e)=>{
+    e.preventDefault();
+    setUserId(e.target.value)
+  };
   const handlerUserPw = (e)=>{
     e.preventDefault();
     setUserPw(e.target.value)
-  }
+  };
   const handlerEmail = (e)=>{
     e.preventDefault();
     setEmail(e.target.value)
-  }
+  };
   const handlerComfirmPassword = (e)=>{
     e.preventDefault();
     setConfirmPassword(e.target.value)
-  }
+  };
   const handlerCode = (e)=>{
     e.preventDefault();
     setCode(e.target.value)
-  }
+  };
 
   const handleSubmit = async (e) => {
     if(userId.length === 0 || userPw.length === 0 || name.length === 0 ||email.length === 0){
       alert("빈칸을 모두 입력해주세요!")
     }
-
-    
-
-    
   };
   const handleSendEmailCode = async(e)=>{
     e.preventDefault();
     
-    // 회원가입 처리 로직을 여기에 추가하세요
     const res = await axios.post(apiUrl + "/code",{
       email : email
     })
 
-    if(res.status === 200){
-      alert(res.data.msg)
-    }else{
-      alert(res.data.msg);
-    }
-  }
+    alert(res.data.msg);
+  };
   const handleConfirmCode = async(e)=>{
       e.preventDefault();
 
-      const res = await axios.post(apiUrl + "/code" ,{
-        
-      })
+      const res = await axios.post(apiUrl + "/code/verify" ,{
+        userInputCode : code,
+        userEmail : email
+      });
 
-
+      alert(res.data.msg)
   }
 
   return (
@@ -87,7 +83,7 @@ function RegistrationForm() {
             type="text"
             placeholder="아이디를 입력하세요"
             value={userId}
-        onChange={(e) => setUserId(e.target.value)}
+        onChange={handlerUserId}
           />
         </Form.Group>
         
@@ -118,7 +114,7 @@ function RegistrationForm() {
                 type="text"
                 placeholder="인증코드를 입력하세요"
                 value={code}
-                onChange={handlerCode} // 인증 코드 상태 변경
+                onChange={handlerCode}
               />
             </Col>
             <Col xs={3} className="text-end">

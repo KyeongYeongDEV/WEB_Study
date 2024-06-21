@@ -2,7 +2,7 @@ import connection from "../configs/db.config";
 import MailTransporter from "../helpers/mail.helper";
 import {RequestUser, EmailStatus} from "../types/user.type"
 
-class Mailer{
+export default class Mailer{
     private mailOption : any;
     private target : string;
     private code : string;
@@ -55,8 +55,7 @@ class Mailer{
             if(result.length !== 0){
                 throw new Error("이미 존재하는 이메일 입니다");
             }
-        }catch(err){
-            
+        }catch(err){            
             throw err;
         }
         
@@ -87,8 +86,7 @@ class Mailer{
                     }
                 }
             })
-           
-            
+
             connection.commit;
         }catch(err){
             connection.rollback;
@@ -120,5 +118,3 @@ class Mailer{
         }
     }
 }
-
-export default new Mailer()
