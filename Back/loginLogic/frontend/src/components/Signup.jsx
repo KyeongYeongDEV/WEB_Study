@@ -5,6 +5,8 @@ import axios from "axios"
 function RegistrationForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [confirmPhoneCode, setConfirmPhoneCode] = useState('');
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,6 +32,14 @@ function RegistrationForm() {
     e.preventDefault();
     setEmail(e.target.value)
   };
+  const handlePhoneNumber = (e)=>{
+    e.preventDefault();
+    setPhoneNumber(e.target.value);
+  }
+  const handleConfirmPCode = (e)=>{
+    e.preventDefault();
+    setConfirmPhoneCode(e.target.value);
+  }
   const handlerComfirmPassword = (e)=>{
     e.preventDefault();
     setConfirmPassword(e.target.value)
@@ -63,6 +73,9 @@ function RegistrationForm() {
 
       alert(res.data.msg)
   }
+  const handleConfirmeCode = async(e)=>{
+    
+  };
 
   return (
     <div className="container mt-5">
@@ -105,7 +118,6 @@ function RegistrationForm() {
             </Col>
           </Row>
         </Form.Group> 
-
         <Form.Group controlId="formCode" className="mb-3">
           
           <Row className="align-items-center">
@@ -115,6 +127,44 @@ function RegistrationForm() {
                 placeholder="인증코드를 입력하세요"
                 value={code}
                 onChange={handlerCode}
+              />
+            </Col>
+            <Col xs={3} className="text-end">
+              <Button variant="primary" type="button" className="w-100" onClick={handleConfirmCode}>
+                확인
+              </Button>
+            </Col>
+          </Row>
+        </Form.Group>
+
+        <Form.Group controlId="formEmail" className="mb-3">
+          <Form.Label>핸드폰 번호 ('-' 제외 입력)</Form.Label>
+          <Row className="align-items-center">
+            <Col xs={9}>
+              <Form.Control
+                type="text"
+                placeholder="핸드폰 번호를 입력하세요"
+                value={phoneNumber}
+                onChange={handlePhoneNumber}
+              />
+            </Col>
+            <Col xs={3} className="text-end">
+              <Button variant="primary" type="button" className="w-100" onClick={handleConfirmPCode}>
+                인증 코드 발송
+              </Button>
+            </Col>
+          </Row>
+        </Form.Group> 
+
+        <Form.Group controlId="formCode" className="mb-3">
+          
+          <Row className="align-items-center">
+            <Col xs={9}>
+              <Form.Control
+                type="text"
+                placeholder="인증코드를 입력하세요"
+                value={confirmPhoneCode}
+                onChange={handleConfirmeCode}
               />
             </Col>
             <Col xs={3} className="text-end">

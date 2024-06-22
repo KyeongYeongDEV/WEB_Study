@@ -27,7 +27,7 @@ export default class Mailer{
         return code;
     }
 
-    public setMailOption(target : string){
+    public setMailOption = (target : string) => {
         const from = process.env.NAVER_EMAIL;
 
         this.code = this.getCode();
@@ -45,7 +45,7 @@ export default class Mailer{
         return this.mailOption;
     }
 
-    public async isExistUSerEmail(userEmail : string){
+    public isExistUSerEmail = async (userEmail : string) => {
         try{
             const [result, feild] = await connection.query(
                 "select * from user WHERE email = ?", [userEmail]
@@ -61,7 +61,7 @@ export default class Mailer{
         
     }
 
-    public async sendEmailCode(){
+    public sendEmailCode = async() =>{
         connection.beginTransaction;
         try{
             const statusWait = "대기"
@@ -94,7 +94,7 @@ export default class Mailer{
         }
     }
 
-    public async verifyEmailCode(userCode : string, userEmail : string){
+    public verifyEmailCode = async(userCode : string, userEmail : string) => {
         connection.beginTransaction;
         try{
             const statusAccess = "승인"

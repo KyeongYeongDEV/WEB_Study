@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router,Request, Response, NextFunction } from "express";
 
 import AuthService from "../../../services/auth.service";
 import MailService from "../../../services/mail.service";
@@ -10,7 +10,9 @@ const authController = new AuthController(authService, mailService);
 
 const router = Router();
 
-router.post("/code",authController.sendEmailCode.bind(authController));
-router.post("/code/verify", authController.verifyEmailCode.bind(authController))
+router.post("/code",authController.sendEmailCode);
+router.post("/code/verify", authController.verifyEmailCode)
+
+
 
 export default router;  

@@ -17,7 +17,7 @@ export default class AuthController{
     async signup(req : Request, res : Response, next : NextFunction){
         
     }
-    async sendEmailCode(req : Request, res : Response, next : NextFunction){
+    sendEmailCode = async (req : Request, res : Response, next : NextFunction)=>{
         try{
             const userEmail : string = req.body.email;
             
@@ -36,7 +36,7 @@ export default class AuthController{
             })
         }
     }
-    async verifyEmailCode(req : Request, res : Response, next : NextFunction){
+    verifyEmailCode = async (req : Request, res : Response, next : NextFunction) => {
         try{
             const userInputCode = req.body.userInputCode;
             const userEmail = req.body.userEmail;
