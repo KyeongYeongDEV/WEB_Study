@@ -5,6 +5,6 @@ dotenv.config();
 
 const port = process.env.SERVER_PORT;
 
-app.listen(port,async ()=>{
+app.listen(port, ()=>{
     console.log(`server port ${port} is start`);
 });

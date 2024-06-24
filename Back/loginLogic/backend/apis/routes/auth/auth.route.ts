@@ -11,8 +11,9 @@ const authController = new AuthController(authService, mailService);
 const router = Router();
 
 router.post("/code",authController.sendEmailCode);
-router.post("/code/verify", authController.verifyEmailCode)
+router.post("/code/verify", authController.verifyEmailCode);
 
-
+router.post("/login", authController.login);
+router.post("/signup", authController.signup);
 
 export default router;  

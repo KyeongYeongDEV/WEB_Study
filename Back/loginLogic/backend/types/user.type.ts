@@ -6,9 +6,21 @@ type RequestUser = {
     rtoken : string
 }
 
+type UserPayload = {
+    name : string,
+    userId : string
+}
+
 type SigninUser ={
     userId : string,
     userPw : string
+}
+
+type SignupUser = {
+    userName : string,
+    userId : string,
+    userPw : string,
+    userEmail : string
 }
 
 type EmailStatus = {
@@ -18,4 +30,4 @@ type EmailStatus = {
     code : string
 }
 
-export {RequestUser, SigninUser, EmailStatus}
+export {RequestUser, UserPayload, SigninUser, SignupUser, EmailStatus}
