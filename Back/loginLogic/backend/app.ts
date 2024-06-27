@@ -12,7 +12,7 @@ app.use(cors())
 app.use("/api",index);
 
 app.get("/",(req,res)=>{
-    res.send("<h1>main page");
+    res.status(200).send("<h1>main page");
 })
 
 export default app;

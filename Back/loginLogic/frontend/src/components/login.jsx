@@ -1,44 +1,60 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+import axios from 'axios';
 
-  const handleSubmit = (e) => {
+const apiUrl = "http://localhost:8000/api/auth"
+
+function Login() {
+  const [userId, setUserId] = useState('');
+  const [userPw, setUserPw] = useState('');
+  let aToken;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 로그인 처리 로직을 추가합니다.
-    console.log({ email, password });
+    
+    const res = await axios.post(apiUrl + "/login", {
+      userId : userId,
+      userPw : userPw
+    });
+
+    if(res.status === 200){
+      aToken = res.data.accessToken;
+      console.log(aToken);
+      alert(res.data.msg)
+
+    }else if(res.status === 404){
+      alert(res.data.err)
+    }
   };
 
   return (
     <div className="container">
       <h2>로그인</h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formEmail">
-          <Form.Label>이메일 주소</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="이메일을 입력하세요"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
+    
+      <Form.Group controlId="formId">
+        <Form.Label>아이디</Form.Label>
+        <Form.Control
+          type="id"
+          placeholder="아이디를 입력하세요"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+        />
+      </Form.Group>
 
-        <Form.Group controlId="formPassword">
-          <Form.Label>비밀번호</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+      <Form.Group controlId="formPassword">
+        <Form.Label>비밀번호</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="비밀번호를 입력하세요"
+          value={userPw}
+          onChange={(e) => setUserPw(e.target.value)}
+        />
+      </Form.Group>
 
-        <Button variant="primary" type="submit" className="mt-3">
-          로그인
-        </Button>
-      </Form>
+      <Button variant="primary" type="submit" className="mt-3" onClick = {handleSubmit}>
+        로그인
+      </Button>
     </div>
   );
 }

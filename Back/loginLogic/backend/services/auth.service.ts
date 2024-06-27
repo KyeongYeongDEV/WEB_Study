@@ -6,7 +6,7 @@ import {RequestUser, SigninUser, SignupUser} from "../types/user.type"
 dotenv.config();
 
 export default class AuthService{
-    async isExistUser(userId :string){
+    public isExistUser = async (userId :string)=>{
         try{
             const [result, feild] = await connection.query(
                 "select * from User WHERE userId = ?", [userId]
@@ -22,7 +22,7 @@ export default class AuthService{
         }
     }
 
-    async getUser(userId : string){
+    public getUser = async(userId : string)=>{
         try{
             const [result, feild] = await connection.query(
                 "select * from User WHERE userId = ?", [userId]
@@ -36,7 +36,7 @@ export default class AuthService{
         }
     }
 
-    async signUp(user : SignupUser) : Promise<void> {
+    public signUp = async(user : SignupUser) => {
         connection.beginTransaction;
         try{    
             const vailedUser = await this.isExistUser(user.userId);
@@ -65,23 +65,24 @@ export default class AuthService{
         }
     }
 
-    async login(user : SigninUser){
+    public login = async(user : SigninUser) => {
         try{
             const [result, feild] = await connection.query(
                 "select * from User Where userId = ? ", [user.userId]
             )as [RequestUser[], object];
 
-            if(result.length === 0) throw new Error("존재하지 않은 아이디입니다.");
+            
+            if(result.length === 0) throw new Error("존재하지 않은 아이디입니다."); 
 
             if(!(crypto.isVailed(user.userPw, result[0].userPw)))
-
+            console.log(result[0]);
             return result[0];
         }catch(err){
             throw err;
         }
     }
 
-    async saveRefreshToken(rToken : string){
+    public saveRefreshToken = async(rToken : string) => {
         try{
             await connection.query(
                 "update User set rToken = ?", [rToken]

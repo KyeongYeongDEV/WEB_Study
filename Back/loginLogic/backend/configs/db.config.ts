@@ -2,7 +2,9 @@ import mysql from "mysql2";
 import dotenv from "dotenv"
 
 dotenv.config();
+
 const port = process.env.DB_PORT || 3306;
+
 const connectionPool = mysql.createPool({
     host : process.env.DB_HOST || "",
     database : process.env.DB_DATABASE|| "",

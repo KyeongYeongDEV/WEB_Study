@@ -12,7 +12,7 @@ function RegistrationForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [code, setCode] = useState('');
   const [confirmCode, setConfirmCode] = useState('');
-  const passCodeCertification = 0;
+  let passCodeCertification = 0;
 
   const apiUrl = "http://localhost:8000/api/auth"
 
@@ -50,28 +50,65 @@ function RegistrationForm() {
   };
 
   const handleSubmit = async (e) => {
-    if(userId.length === 0 || userPw.length === 0 || name.length === 0 ||email.length === 0){
-      alert("빈칸을 모두 입력해주세요!")
+    try{
+      if(userId.length === 0 || userPw.length === 0 || name.length === 0 
+        ||email.length === 0 || handlerComfirmPassword.length === 0){
+        alert("빈칸을 모두 입력해주세요!");
+      }else if(!passCodeCertification){
+        alert("이메일 인증을 진행해 주세요!");
+      }else if(userPw !== confirmPassword) {
+        alert("비밀번호와 확인이 일치하지 않습니다")
+      }
+  
+      const data = {
+        userName : name,
+        userId : userId,
+        userPw  : userPw,
+        userEmail : email,
+      }
+      const res = await axios.post(apiUrl+"/signup",data)
+  
+      if(res.status === 200){
+        alert(res.data.msg)
+      }else if( res.status === 404){
+        throw new Error();
+      }
+    }catch(err){
+      alert(err)
     }
   };
   const handleSendEmailCode = async(e)=>{
-    e.preventDefault();
+    try{
+      e.preventDefault();
     
-    const res = await axios.post(apiUrl + "/code",{
-      email : email
-    })
+      const res = await axios.post(apiUrl + "/code",{
+        userEmail : email
+      })
 
-    alert(res.data.msg);
+      alert(res.data.msg);
+    }catch(err){
+      alert(err);
+    }
   };
   const handleConfirmCode = async(e)=>{
+    try{
       e.preventDefault();
 
-      const res = await axios.post(apiUrl + "/code/verify" ,{
+      const data = {
         userInputCode : code,
         userEmail : email
-      });
+      }
+      const res = await axios.post(apiUrl + "/code/verify" , data);
 
-      alert(res.data.msg)
+      if(res.status === 200){
+        passCodeCertification = 1
+        alert(res.data.msg)  
+      }else{
+        throw new Error(res.data.msg);
+      }
+    }catch(err){
+      alert(err)
+    }
   }
   const handleConfirmeCode = async(e)=>{
     

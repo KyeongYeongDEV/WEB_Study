@@ -50,7 +50,7 @@ export default class Mailer{
             const [result, feild] = await connection.query(
                 "select * from user WHERE email = ?", [userEmail]
             )as [RequestUser[], object];
-            
+
             
             if(result.length !== 0){
                 throw new Error("이미 존재하는 이메일 입니다");

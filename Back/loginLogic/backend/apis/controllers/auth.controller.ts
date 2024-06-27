@@ -2,7 +2,7 @@ import {Request, Response, NextFunction} from  "express";
 import { accessToken, refreshToken } from "../../configs/token.config";
 import AuthService from  "../../services/auth.service";
 import MailService from "../../services/mail.service";
-import { RequestUser, SigninUser, SignupUser, UserPayload } from "../../types/user.type";
+import { SigninUser, SignupUser, UserPayload } from "../../types/user.type";
 
 export default class AuthController{
     private authService : AuthService;
@@ -12,19 +12,19 @@ export default class AuthController{
         this.authService = authService;
         this.mailService = mailService;
     }
-    async login(req : Request, res : Response, next : NextFunction){
+    public login = async (req : Request, res : Response, next : NextFunction) => {
         try{
             const user : SigninUser = req.body;
-            const foundUser : any = this.authService.login(user);
+            const foundUser : any = await this.authService.login(user);
+
             const payload : UserPayload = {
                 name : foundUser.userName,
                 userId : foundUser.userId
             }
-
             const aToken = accessToken.generateToken(payload, "10m");
             const rToekn = refreshToken.generateToken(payload, "10m");
 
-            this.authService.saveRefreshToken(rToekn);
+            await this.authService.saveRefreshToken(rToekn);
 
             res.status(200).send({
                 msg : "sucess to login",
@@ -34,15 +34,13 @@ export default class AuthController{
         }catch(err : any){
             res.status(404).send({
                 msg : "fail to login",
-                err : err
+                err : err.message
             });
         }
     }
-    async signup(req : Request, res : Response, next : NextFunction){
+    public signup = async(req : Request, res : Response, next : NextFunction) => {
         try{
             const user : SignupUser = req.body;
-            
-            console.log("ssdfsdfsdf")
             await this.authService.signUp(user);
 
             res.status(200).send({
@@ -51,18 +49,18 @@ export default class AuthController{
         }catch(err : any){
             res.status(404).send(
                 {
-                    msg : err,
-                    err : "fail to signup"
+                    msg : "fail to signup",
+                    err : err.message
                 }
             )
         }
     }
-    sendEmailCode = async (req : Request, res : Response, next : NextFunction)=>{
+    public sendEmailCode = async (req : Request, res : Response, next : NextFunction)=>{
         try{
-            const userEmail : string = req.body.email;
+            const userEmail : string = req.body.userEmail;
             
             await this.mailService.isExistUSerEmail(userEmail);
-            console.log(userEmail);
+
             this.mailService.setMailOption(userEmail);
             await this.mailService.sendEmailCode();
 
@@ -72,11 +70,11 @@ export default class AuthController{
         }catch(err : any){
             res.status(404).send({
                 msg : "Fail send to email",
-                err : err
+                err : err.message
             })
         }
     }
-    verifyEmailCode = async (req : Request, res : Response, next : NextFunction) => {
+    public verifyEmailCode = async (req : Request, res : Response, next : NextFunction) => {
         try{
             const userInputCode = req.body.userInputCode;
             const userEmail = req.body.userEmail;
