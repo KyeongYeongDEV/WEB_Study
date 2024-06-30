@@ -19,6 +19,7 @@ function RegistrationForm() {
   const handlerName =(e)=>{
     e.preventDefault();
     setName(e.target.value);
+    console.log(name);
   };
   const handlerUserId = (e)=>{
     e.preventDefault();
@@ -68,6 +69,7 @@ function RegistrationForm() {
       }
       const res = await axios.post(apiUrl+"/signup",data)
   
+
       if(res.status === 200){
         alert(res.data.msg)
       }else if( res.status === 404){

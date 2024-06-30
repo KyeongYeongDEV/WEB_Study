@@ -8,7 +8,7 @@ const apiUrl = "http://localhost:8000/api/auth"
 function Login() {
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
-  let aToken;
+  const [aToken, setAToken] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,16 +19,16 @@ function Login() {
     });
 
     if(res.status === 200){
-      aToken = res.data.accessToken;
-      console.log(aToken);
-      alert(res.data.msg)
+      setAToken(res.data.accessToken);
 
+      alert(res.data.msg)
     }else if(res.status === 404){
       alert(res.data.err)
     }
   };
 
   return (
+    (aToken === ""?<>
     <div className="container">
       <h2>로그인</h2>
     
@@ -56,6 +56,11 @@ function Login() {
         로그인
       </Button>
     </div>
+    </>:
+    <div>
+      <h1>Success login</h1>
+    </div>
+    )
   );
 }
 

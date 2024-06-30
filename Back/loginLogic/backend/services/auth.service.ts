@@ -39,23 +39,23 @@ export default class AuthService{
     public signUp = async(user : SignupUser) => {
         connection.beginTransaction;
         try{    
-            const vailedUser = await this.isExistUser(user.userId);
+            const valiedUser : RequestUser = await this.isExistUser(user.userId);
             const hashedPw = await crypto.hash(user.userPw);
 
             const [status, feild] = await connection.query(
                 "select status from email_status WHERE email = ?" ,[user.userEmail]
             )as [any[], object];
 
-            if(status[0] !== "승인"){
+            if(status[0].status !== "승인"){
                 throw new Error("이메일 인증을 진행해 주세요");
             }
 
             await connection.query(
                 "insert into User (userName, userId, userPw, email) values (?, ?, ?, ?)", 
-                [vailedUser.userName, vailedUser.userId , hashedPw, vailedUser.userEmail]
+                [valiedUser.userName, valiedUser.userId , hashedPw, valiedUser.userEmail]
             )
             await connection.query(
-                "delete from email_status WHERE email = ?" , [vailedUser.userEmail]
+                "delete from email_status WHERE email = ?" , [valiedUser.userEmail]
             );
             connection.commit;
         }catch(err){
