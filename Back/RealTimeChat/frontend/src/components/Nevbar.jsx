@@ -12,6 +12,7 @@ function NavigationBar() {
           <Nav.Link as={NavLink} to="/" exact>홈</Nav.Link>
           <Nav.Link as={NavLink} to="/login">로그인</Nav.Link>
           <Nav.Link as={NavLink} to="/signup">회원가입</Nav.Link>
+          <Nav.Link as={NavLink} to="/chat/main">채팅목록</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

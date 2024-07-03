@@ -24,7 +24,7 @@ function Login() {
     if(res.status === 200){
       setAToken(res.data.accessToken);
       alert(res.data.msg)
-      navigate("/chat/main");
+      navigate(`/chat/${userId}/main`);
       
     }else if(res.status === 404){
       alert(res.data.err)
