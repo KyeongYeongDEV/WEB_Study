@@ -1,37 +1,17 @@
-import {createClient, RedisClientType} from "redis";
+import { configDotenv } from "dotenv";
+import Redis from "ioredis";
 
-const redisClient : RedisClientType= createClient();
-
-redisClient.on('error', (err : Error)=>{
-    console.log(`Redis Client Error!\n${err}`);
+const redisClient = new Redis({
+    host : 'localhost',
+    port : 6379
 });
 
-redisClient.on("connect", () =>{
-    console.log("Redis Connected");
+redisClient.on('connect',()=>{
+    console.log("Redis Client connected");
 })
-redisClient.connect();
 
-export const setValue = async (key : string, value : string, expire : number) => {
-    try{
-        await redisClient.set(key, value, {EX : expire});
-    }catch(err){
-        console.log(err);
-    }
-};
-export const getValue = async(key : string)  : Promise<string | null> => {
-    try{
-        return await redisClient.get(key);
-    }catch(err){
-        console.log(err);
-        return null;
-    }
-};
-export const deleteValue = async (key : string) : Promise<number>=> {
-    try{
-        return await redisClient.del(key);   
-    }catch(err){
-        console.log(err);
+redisClient.on('error', (err)=>{
+    console.log("Redis client error ", err);
+})
 
-        return 0;
-    }    
-}
+export default redisClient;

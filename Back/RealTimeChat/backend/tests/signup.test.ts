@@ -1,5 +1,5 @@
 import app from "../app";
-import connection from "../configs/db.config";
+import connection from "../configs/mysql.config";
 import request from "supertest";
 
 describe("AuthController test",()=>{

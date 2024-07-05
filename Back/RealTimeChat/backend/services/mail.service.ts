@@ -1,4 +1,4 @@
-import connection from "../configs/db.config";
+import connection from "../configs/mysql.config";
 import MailTransporter from "../helpers/mail.helper";
 import {RequestUser, EmailStatus} from "../types/user.type"
 

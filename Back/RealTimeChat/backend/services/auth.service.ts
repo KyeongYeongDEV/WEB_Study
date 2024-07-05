@@ -1,4 +1,4 @@
-import connection from "../configs/db.config";
+import connection from "../configs/mysql.config";
 import crypto from "../configs/crypto.config"
 import dotenv from "dotenv";
 import {RequestUser, SigninUser, SignupUser} from "../types/user.type"
