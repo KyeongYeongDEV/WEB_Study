@@ -1,13 +1,6 @@
 import express, {Request, Response, NextFunction} from "express";
 import {MongoClient, ObjectId} from "mongodb"
 
-//타입 정의
-interface User{
-    _id?: Object;
-    name : string;
-    email : string;
-    age : number;
-}
 
 const app = express();
 const PORT = 8000;
