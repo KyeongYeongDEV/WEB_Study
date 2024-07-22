@@ -11,11 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BoardsService = void 0;
 const common_1 = require("@nestjs/common");
-const board_model_1 = require("./board.model");
+const boards_model_1 = require("./boards.model");
 const uuid_1 = require("uuid");
 let BoardsService = class BoardsService {
     constructor() {
-        this.boards = [];
         this.boards = [];
     }
     getAllBoards() {
@@ -27,7 +26,7 @@ let BoardsService = class BoardsService {
             id: (0, uuid_1.v1)(),
             title,
             description,
-            status: board_model_1.BoardStatus.PUBLIC
+            status: boards_model_1.BoardStatus.PUBLIC
         };
         this.boards.push(board);
         return board;

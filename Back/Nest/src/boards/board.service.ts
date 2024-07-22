@@ -5,7 +5,7 @@ import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 export class BoardsService {
-    private boards : Board[]= [];
+    private boards : Board[];
 
     constructor(){
         this.boards = [];

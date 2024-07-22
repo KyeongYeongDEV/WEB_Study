@@ -1,4 +1,4 @@
-import { Board, BoardStatus } from "./board.model";
+import { Board, BoardStatus } from "./boards.model";
 import { CreateBoardDto } from './dto/create-board.dto';
 export declare class BoardsService {
     private boards;

@@ -1,8 +1,8 @@
-import { Board, BoardStatus } from './board.model';
+import { Board, BoardStatus } from './boards.model';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 export declare class BoardsController {
-    private boardsService;
+    private readonly boardsService;
     constructor(boardsService: BoardsService);
     getAllBoard(): Board[];
     getBoardById(id: string): Board;
