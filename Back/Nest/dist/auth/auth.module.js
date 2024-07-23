@@ -14,12 +14,23 @@ const auth_controller_1 = require("./auth.controller");
 const user_repositoty_1 = require("../domain/user/user.repositoty");
 const auth_service_1 = require("./auth.service");
 const user_entity_1 = require("../domain/user/user.entity");
+const passport_1 = require("@nestjs/passport");
+const jwt_1 = require("@nestjs/jwt");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity])],
+        imports: [
+            passport_1.PassportModule.register({ defaultStrategy: 'jwt' }),
+            jwt_1.JwtModule.register({
+                secret: 'secret',
+                signOptions: {
+                    expiresIn: 60 * 60,
+                }
+            }),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity])
+        ],
         controllers: [auth_controller_1.AuthController],
         providers: [
             auth_service_1.AuthService,
