@@ -1,8 +1,6 @@
-import { Body, Controller, Get, HttpCode, Param, ParseBoolPipe, ParseIntPipe, ParseUUIDPipe, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { CreateReadStreamOptions } from 'fs/promises';
+import { Body, Controller, Get, Headers, HttpCode, Param, ParseBoolPipe, ParseIntPipe, ParseUUIDPipe, Patch, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreatePropertyDto } from './dto/createProperty.dto';
 import { createPropertySchema, CreatePropertyZodDto } from './dto/createPropertyZod';
-import { IdParamDto } from './dto/idParam.dto';
 import { ParseIdPipe } from './pips/parseId.pipe';
 import { ZodValidationPipe } from './pips/zodValidationPipe';
 
@@ -62,7 +60,9 @@ export class PropertyController {
     update(
         @Param("id", ParseIdPipe) id,
         @Body() 
-        body : CreatePropertyDto ){
-        return body;
+        body : CreatePropertyDto,
+        @Headers("host") header
+    ){
+        return header;
     }
 }

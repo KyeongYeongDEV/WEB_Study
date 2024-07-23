@@ -1,10 +1,24 @@
 import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { DataSource } from "typeorm";
 import { BoardsController } from "./board.controller";
+import { BoardEntity } from "./board.entitiy";
 import { BoardsRepository } from "./board.repository";
-import { BoardService } from "./board.service";
+import { BoardsService } from "./board.service";
+
 
 @Module({
-  controllers : [BoardsController],
-  providers : [BoardService, BoardsRepository],
+  imports: [TypeOrmModule.forFeature([BoardEntity])],
+  controllers: [BoardsController],
+  providers: [
+      BoardsService,
+      {
+          provide: 'BoardsRepository',
+          useFactory: (dataSource: DataSource) => {
+              return new BoardsRepository(dataSource);
+          },
+          inject: [DataSource],
+      },
+  ],
 })
-export class BoardsModule{}
+export class BoardsModule {}

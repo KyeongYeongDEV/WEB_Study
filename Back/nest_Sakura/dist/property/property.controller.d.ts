@@ -9,5 +9,5 @@ export declare class PropertyController {
         description?: string;
         area?: number;
     };
-    update(id: any, body: CreatePropertyDto): CreatePropertyDto;
+    update(id: any, body: CreatePropertyDto, header: any): any;
 }

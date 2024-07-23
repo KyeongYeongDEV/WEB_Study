@@ -33,8 +33,8 @@ let PropertyController = class PropertyController {
     create(body) {
         return body;
     }
-    update(id, body) {
-        return body;
+    update(id, body, header) {
+        return header;
     }
 };
 exports.PropertyController = PropertyController;
@@ -73,8 +73,9 @@ __decorate([
     (0, common_1.Patch)(":id"),
     __param(0, (0, common_1.Param)("id", parseId_pipe_1.ParseIdPipe)),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Headers)("host")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, createProperty_dto_1.CreatePropertyDto]),
+    __metadata("design:paramtypes", [Object, createProperty_dto_1.CreatePropertyDto, Object]),
     __metadata("design:returntype", void 0)
 ], PropertyController.prototype, "update", null);
 exports.PropertyController = PropertyController = __decorate([

@@ -1,26 +1,35 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
+import { Inject, Injectable } from "@nestjs/common";
+import { BoardStatus } from "./board-status.enum";
 import { BoardEntity } from "./board.entitiy";
 import { BoardsRepository } from "./board.repository";
 import { CreateBoardDto } from "./dto/create-board.dto";
 
 @Injectable()
-export class BoardService {
+export class BoardsService {
     constructor(
-        @InjectRepository(BoardsRepository)
-        private boardRepostitory : BoardsRepository,
-    ){}
+        @Inject('BoardsRepository')
+        private boardsRepository: BoardsRepository,
+    ) {}
 
-    async getBoardById(id : number) : Promise<BoardEntity>{
-        const found = await this.boardRepostitory.findOne(id);
+    async getBoardById (id : number) : Promise<BoardEntity>{
+        return this.boardsRepository.getBoardById(id);
+    }
 
-        if(!found){
-            throw new NotFoundeException(`Can't find Board with id ${id}`)
-        }
+    async getAllBoards() : Promise<BoardEntity[]>{
+        return this.boardsRepository.getAllBoards();
+    }
 
-        return found;
-    }   
-    create(createBoardDto : CreateBoardDto){
-        return 'This action adds a new board';
+    async createBoard(createBoardDto: CreateBoardDto): Promise<BoardEntity> {
+        return this.boardsRepository.createBoard(createBoardDto);
+    }
+
+    async deletetBoard( id : number) : Promise<void> {
+        this.boardsRepository.delete(id);
+
+        return;
+    }
+
+    async updateBoardStatus(id: number, status: BoardStatus): Promise<BoardEntity> {
+        return this.boardsRepository.updateBoardStatus(id, status);
     }
 }
