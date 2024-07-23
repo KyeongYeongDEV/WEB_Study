@@ -1,5 +1,5 @@
 import { BoardStatus } from './board-status.enum';
-import { BoardEntity } from './board.entitiy';
+import { BoardEntity } from '../domain/board/board.entitiy';
 import { BoardsService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 export declare class BoardsController {

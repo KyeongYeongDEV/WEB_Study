@@ -1,8 +1,8 @@
 import { NotFoundException } from "@nestjs/common";
 import { DataSource, Repository } from "typeorm";
-import { BoardStatus } from "./board-status.enum";
+import { BoardStatus } from "../../boards/board-status.enum";
 import {BoardEntity} from "./board.entitiy"
-import { CreateBoardDto } from "./dto/create-board.dto";
+import { CreateBoardDto } from "../../boards/dto/create-board.dto";
 
 
 export class BoardsRepository extends Repository<BoardEntity> {

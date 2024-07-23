@@ -2,8 +2,8 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { BoardsController } from "./board.controller";
-import { BoardEntity } from "./board.entitiy";
-import { BoardsRepository } from "./board.repository";
+import { BoardEntity } from "../domain/board/board.entitiy";
+import { BoardsRepository } from "../domain/board/board.repository";
 import { BoardsService } from "./board.service";
 
 

@@ -4,7 +4,7 @@ exports.BoardsRepository = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("typeorm");
 const board_status_enum_1 = require("./board-status.enum");
-const board_entitiy_1 = require("./board.entitiy");
+const board_entitiy_1 = require("../domain/board/board.entitiy");
 class BoardsRepository extends typeorm_1.Repository {
     constructor(dataSource) {
         super(board_entitiy_1.BoardEntity, dataSource.createEntityManager());

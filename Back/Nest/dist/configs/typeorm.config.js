@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.typeORMConfig = void 0;
-const user_entity_1 = require("../auth/user.entity");
-const board_entitiy_1 = require("../boards/board.entitiy");
+const user_entity_1 = require("../domain/user/user.entity");
+const board_entitiy_1 = require("../domain/board/board.entitiy");
 const typeorm_1 = require("typeorm");
 exports.typeORMConfig = new typeorm_1.DataSource({
     type: "postgres",

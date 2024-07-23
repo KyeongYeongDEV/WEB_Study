@@ -1,6 +1,6 @@
 import { DataSource, Repository } from "typeorm";
 import { BoardStatus } from "./board-status.enum";
-import { BoardEntity } from "./board.entitiy";
+import { BoardEntity } from "../domain/board/board.entitiy";
 import { CreateBoardDto } from "./dto/create-board.dto";
 export declare class BoardsRepository extends Repository<BoardEntity> {
     constructor(dataSource: DataSource);

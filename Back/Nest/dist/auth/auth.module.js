@@ -11,9 +11,9 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const auth_controller_1 = require("./auth.controller");
-const user_repositoty_1 = require("./user.repositoty");
+const user_repositoty_1 = require("../domain/user/user.repositoty");
 const auth_service_1 = require("./auth.service");
-const user_entity_1 = require("./user.entity");
+const user_entity_1 = require("../domain/user/user.entity");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;

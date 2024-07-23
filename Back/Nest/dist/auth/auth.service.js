@@ -14,13 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const user_repositoty_1 = require("./user.repositoty");
+const user_repositoty_1 = require("../domain/user/user.repositoty");
+const bcrypt = require("bcryptjs");
 let AuthService = class AuthService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     async signUp(authCredentialsDto) {
         return this.userRepository.createUser(authCredentialsDto);
+    }
+    async signIn(authCredentialsDto) {
+        const { username, password } = authCredentialsDto;
+        const user = await this.userRepository.findOne({ where: { username } });
+        if (user && (await bcrypt.compare(password, user.password))) {
+            return 'login success';
+        }
+        else {
+            throw new common_1.UnauthorizedException('login failed');
+        }
     }
 };
 exports.AuthService = AuthService;

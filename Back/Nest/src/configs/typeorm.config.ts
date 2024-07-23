@@ -1,5 +1,5 @@
-import { UserEntity } from "src/auth/user.entity";
-import { BoardEntity } from "src/boards/board.entitiy";
+import { UserEntity } from "src/domain/user/user.entity";
+import { BoardEntity } from "src/domain/board/board.entitiy";
 import { DataSource } from "typeorm"
 
 export const typeORMConfig  = new DataSource({
