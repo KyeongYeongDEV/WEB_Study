@@ -19,7 +19,6 @@ class UserRepository extends typeorm_1.Repository {
             throw new common_1.ConflictException('Username already exists');
         }
         try {
-            await this.save(user);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException();

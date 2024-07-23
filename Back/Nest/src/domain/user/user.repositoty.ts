@@ -20,13 +20,13 @@ export class UserRepository extends Repository<UserEntity> {
         // 중복 확인
         const existingUser = await this.findOne({ where: { username } });
         if (existingUser) {
-        throw new ConflictException('Username already exists');
+            throw new ConflictException('Username already exists');
         }
 
         try {
-        await this.save(user);
+            
         } catch (error) {
-        throw new InternalServerErrorException();
+            throw new InternalServerErrorException();
         }
     }
 }

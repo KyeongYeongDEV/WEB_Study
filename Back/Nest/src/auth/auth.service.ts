@@ -13,7 +13,7 @@ export class AuthService {
     ) {}
 
     async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.userRepository.createUser(authCredentialsDto);
+        return this.userRepository.createUser(authCredentialsDto);
     }
 
     async signIn(authCredentialsDto : AuthCredentialsDto) : Promise<{accessToken : string}> {
@@ -24,7 +24,6 @@ export class AuthService {
             //유저토큰 생성 (Secret + Payload)
             const payload = {username}    //비밀번호 같이 중요한 정보 빼고 넣어줄 수 있다
             const accessToken = await this.jwtService.sign(payload);
-
 
             return {accessToken};
         }else{

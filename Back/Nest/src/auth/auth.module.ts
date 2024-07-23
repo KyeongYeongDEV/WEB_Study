@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { UserEntity } from '../domain/user/user.entity';
 import {PassportModule} from '@nestjs/passport';
 import {JwtModule} from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -29,6 +30,14 @@ import {JwtModule} from '@nestjs/jwt';
       },
       inject: [DataSource],
     },
+    JwtStrategy,{
+      provide: 'UserRepository',
+      useFactory: (dataSource: DataSource) => {
+        return new UserRepository(dataSource);
+      },
+      inject: [DataSource],
+    }
   ],
+  exports : [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

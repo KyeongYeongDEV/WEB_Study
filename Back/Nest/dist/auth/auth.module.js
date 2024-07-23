@@ -16,6 +16,7 @@ const auth_service_1 = require("./auth.service");
 const user_entity_1 = require("../domain/user/user.entity");
 const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
+const jwt_strategy_1 = require("./jwt.strategy");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -41,7 +42,15 @@ exports.AuthModule = AuthModule = __decorate([
                 },
                 inject: [typeorm_2.DataSource],
             },
+            jwt_strategy_1.JwtStrategy, {
+                provide: 'UserRepository',
+                useFactory: (dataSource) => {
+                    return new user_repositoty_1.UserRepository(dataSource);
+                },
+                inject: [typeorm_2.DataSource],
+            }
         ],
+        exports: [jwt_strategy_1.JwtStrategy, passport_1.PassportModule],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map
