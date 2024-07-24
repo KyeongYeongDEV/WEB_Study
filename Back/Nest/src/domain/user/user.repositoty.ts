@@ -24,7 +24,7 @@ export class UserRepository extends Repository<UserEntity> {
         }
 
         try {
-            
+            this.save(user);
         } catch (error) {
             throw new InternalServerErrorException();
         }

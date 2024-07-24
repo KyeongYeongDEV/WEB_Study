@@ -14,12 +14,16 @@ const board_controller_1 = require("./board.controller");
 const board_entitiy_1 = require("../domain/board/board.entitiy");
 const board_repository_1 = require("../domain/board/board.repository");
 const board_service_1 = require("./board.service");
+const auth_module_1 = require("../auth/auth.module");
 let BoardsModule = class BoardsModule {
 };
 exports.BoardsModule = BoardsModule;
 exports.BoardsModule = BoardsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([board_entitiy_1.BoardEntity])],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([board_entitiy_1.BoardEntity]),
+            auth_module_1.AuthModule
+        ],
         controllers: [board_controller_1.BoardsController],
         providers: [
             board_service_1.BoardsService,
