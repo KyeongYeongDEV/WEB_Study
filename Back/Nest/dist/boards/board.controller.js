@@ -24,14 +24,17 @@ const get_user_decorator_1 = require("../auth/get-user.decorator");
 let BoardsController = class BoardsController {
     constructor(boardsService) {
         this.boardsService = boardsService;
+        this.logger = new common_1.Logger('BoardController');
     }
     getBoardById(id) {
         return this.boardsService.getBoardById(id);
     }
     getAllBoard(user) {
+        this.logger.verbose(`user ${user.username} trying all boards`);
         return this.boardsService.getAllBoards(user);
     }
     createBoard(createBoardDto, user) {
+        this.logger.verbose(`User ${user.username} createing a new board.\nPayload : ${JSON.stringify(createBoardDto)}`);
         return this.boardsService.createBoard(createBoardDto, user);
     }
     deleteBoard(id, user) {

@@ -5,6 +5,7 @@ import { CreateBoardDto } from './dto/create-board.dto';
 import { UserEntity } from 'src/domain/user/user.entity';
 export declare class BoardsController {
     private readonly boardsService;
+    private logger;
     constructor(boardsService: BoardsService);
     getBoardById(id: number): Promise<BoardEntity>;
     getAllBoard(user: UserEntity): Promise<BoardEntity[]>;
