@@ -7,7 +7,7 @@ export declare class BoardsService {
     private boardsRepository;
     constructor(boardsRepository: BoardsRepository);
     getBoardById(id: number): Promise<BoardEntity>;
-    getAllBoards(): Promise<BoardEntity[]>;
+    getAllBoards(user: UserEntity): Promise<BoardEntity[]>;
     createBoard(createBoardDto: CreateBoardDto, user: UserEntity): Promise<BoardEntity>;
     deletetBoard(id: number): Promise<void>;
     updateBoardStatus(id: number, status: BoardStatus): Promise<BoardEntity>;

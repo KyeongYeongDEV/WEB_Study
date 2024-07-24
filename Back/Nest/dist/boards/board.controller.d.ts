@@ -7,7 +7,7 @@ export declare class BoardsController {
     private readonly boardsService;
     constructor(boardsService: BoardsService);
     getBoardById(id: number): Promise<BoardEntity>;
-    getAllBoard(): Promise<BoardEntity[]>;
+    getAllBoard(user: UserEntity): Promise<BoardEntity[]>;
     createBoard(createBoardDto: CreateBoardDto, user: UserEntity): Promise<BoardEntity>;
     deleteBoard(id: any): Promise<void>;
     updateBoardStatus(id: number, status: BoardStatus): Promise<BoardEntity>;

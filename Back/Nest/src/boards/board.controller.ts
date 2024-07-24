@@ -20,8 +20,10 @@ export class BoardsController {
     }
 
     @Get()
-    getAllBoard(){
-        return this.boardsService.getAllBoards();
+    getAllBoard(
+        @GetUser() user : UserEntity
+    ){
+        return this.boardsService.getAllBoards(user);
     }
 
     @Post()

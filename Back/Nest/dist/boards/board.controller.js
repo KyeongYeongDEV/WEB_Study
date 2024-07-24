@@ -28,8 +28,8 @@ let BoardsController = class BoardsController {
     getBoardById(id) {
         return this.boardsService.getBoardById(id);
     }
-    getAllBoard() {
-        return this.boardsService.getAllBoards();
+    getAllBoard(user) {
+        return this.boardsService.getAllBoards(user);
     }
     createBoard(createBoardDto, user) {
         return this.boardsService.createBoard(createBoardDto, user);
@@ -51,8 +51,9 @@ __decorate([
 ], BoardsController.prototype, "getBoardById", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, get_user_decorator_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [user_entity_1.UserEntity]),
     __metadata("design:returntype", void 0)
 ], BoardsController.prototype, "getAllBoard", null);
 __decorate([

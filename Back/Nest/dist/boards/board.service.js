@@ -22,8 +22,11 @@ let BoardsService = class BoardsService {
     async getBoardById(id) {
         return this.boardsRepository.getBoardById(id);
     }
-    async getAllBoards() {
-        return this.boardsRepository.getAllBoards();
+    async getAllBoards(user) {
+        const query = this.boardsRepository.createQueryBuilder('board');
+        query.where('board.userId = :userId', { userId: user.id });
+        const boards = await query.getMany();
+        return boards;
     }
     async createBoard(createBoardDto, user) {
         return this.boardsRepository.createBoard(createBoardDto, user);
