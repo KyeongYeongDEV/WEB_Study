@@ -9,6 +9,6 @@ export declare class BoardsService {
     getBoardById(id: number): Promise<BoardEntity>;
     getAllBoards(user: UserEntity): Promise<BoardEntity[]>;
     createBoard(createBoardDto: CreateBoardDto, user: UserEntity): Promise<BoardEntity>;
-    deletetBoard(id: number): Promise<void>;
+    deletetBoard(id: number, user: UserEntity): Promise<void>;
     updateBoardStatus(id: number, status: BoardStatus): Promise<BoardEntity>;
 }

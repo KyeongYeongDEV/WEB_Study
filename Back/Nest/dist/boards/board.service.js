@@ -31,8 +31,11 @@ let BoardsService = class BoardsService {
     async createBoard(createBoardDto, user) {
         return this.boardsRepository.createBoard(createBoardDto, user);
     }
-    async deletetBoard(id) {
-        this.boardsRepository.delete(id);
+    async deletetBoard(id, user) {
+        const result = await this.boardsRepository.delete({ id, user });
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException(`Can't find Board with id ${id}`);
+        }
         return;
     }
     async updateBoardStatus(id, status) {

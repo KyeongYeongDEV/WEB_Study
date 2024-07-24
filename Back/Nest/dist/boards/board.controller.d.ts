@@ -9,6 +9,6 @@ export declare class BoardsController {
     getBoardById(id: number): Promise<BoardEntity>;
     getAllBoard(user: UserEntity): Promise<BoardEntity[]>;
     createBoard(createBoardDto: CreateBoardDto, user: UserEntity): Promise<BoardEntity>;
-    deleteBoard(id: any): Promise<void>;
+    deleteBoard(id: any, user: UserEntity): Promise<void>;
     updateBoardStatus(id: number, status: BoardStatus): Promise<BoardEntity>;
 }
