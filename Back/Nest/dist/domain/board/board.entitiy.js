@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BoardEntity = void 0;
 const typeorm_1 = require("typeorm");
 const board_status_enum_1 = require("../../boards/board-status.enum");
+const user_entity_1 = require("../user/user.entity");
 let BoardEntity = class BoardEntity extends typeorm_1.BaseEntity {
 };
 exports.BoardEntity = BoardEntity;
@@ -31,6 +32,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], BoardEntity.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(type => user_entity_1.UserEntity, user => user.boards, { eager: false }),
+    __metadata("design:type", user_entity_1.UserEntity)
+], BoardEntity.prototype, "user", void 0);
 exports.BoardEntity = BoardEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], BoardEntity);
