@@ -5,6 +5,8 @@ import { BoardsService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 import { AuthGuard } from "@nestjs/passport";
+import { UserEntity } from 'src/domain/user/user.entity';
+import { GetUser } from 'src/auth/get-user.decorator';
 
 
 @Controller('boards')
@@ -24,8 +26,9 @@ export class BoardsController {
 
     @Post()
     @UsePipes(ValidationPipe)
-    createBoard(@Body() createBoardDto: CreateBoardDto): Promise<BoardEntity> {
-        return this.boardsService.createBoard(createBoardDto);
+    createBoard(@Body() createBoardDto: CreateBoardDto,
+    @GetUser() user : UserEntity): Promise<BoardEntity> {
+        return this.boardsService.createBoard(createBoardDto, user);
     }
 
     @Delete()

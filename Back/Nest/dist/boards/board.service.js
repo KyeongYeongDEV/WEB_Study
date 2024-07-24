@@ -25,8 +25,8 @@ let BoardsService = class BoardsService {
     async getAllBoards() {
         return this.boardsRepository.getAllBoards();
     }
-    async createBoard(createBoardDto) {
-        return this.boardsRepository.createBoard(createBoardDto);
+    async createBoard(createBoardDto, user) {
+        return this.boardsRepository.createBoard(createBoardDto, user);
     }
     async deletetBoard(id) {
         this.boardsRepository.delete(id);

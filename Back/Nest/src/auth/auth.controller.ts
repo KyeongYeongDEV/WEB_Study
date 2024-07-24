@@ -2,7 +2,7 @@ import { Body, Controller, Post, Req, UseGuards, ValidationPipe } from '@nestjs/
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { AuthGuard } from "@nestjs/passport"
-import { GetUser } from './get0user.decorator';
+import { GetUser } from './get-user.decorator';
 import { UserEntity } from 'src/domain/user/user.entity';
 
 @Controller('auth')
