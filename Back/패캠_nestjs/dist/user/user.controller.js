@@ -15,33 +15,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const req_dto_1 = require("../common/dto/req.dto");
+const req_dto_2 = require("./dto/req.dto");
 const user_service_1 = require("./user.service");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    findAll() {
+    findAll({ page, size }) {
         return this.userService.findAll();
     }
-    findOne(id) {
+    findOne({ id }) {
         return this.userService.findOne(id);
     }
 };
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [req_dto_1.PageReqDto]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [req_dto_2.FindUserReqDto]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findOne", null);
 UserController = __decorate([
     (0, swagger_1.ApiTags)('User'),
+    (0, swagger_1.ApiExtraModels)(req_dto_2.FindUserReqDto),
     (0, common_1.Controller)('api/users'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);

@@ -11,18 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SigninReqDto = exports.SignupReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class SignupReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, example: 'nestjs@fastcampus.com' }),
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.MaxLength)(30),
     __metadata("design:type", String)
 ], SignupReqDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, example: 'Password1!' }),
+    (0, class_validator_1.Matches)(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{10,30}$/),
     __metadata("design:type", String)
 ], SignupReqDto.prototype, "password", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, example: 'Password1!' }),
+    (0, class_validator_1.Matches)(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{10,30}$/),
     __metadata("design:type", String)
 ], SignupReqDto.prototype, "passwordConfirm", void 0);
 exports.SignupReqDto = SignupReqDto;
@@ -30,10 +35,13 @@ class SigninReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, example: 'nestjs@fastcampus.com' }),
+    (0, class_validator_1.IsEmail)(),
+    (0, class_validator_1.MaxLength)(30),
     __metadata("design:type", String)
 ], SigninReqDto.prototype, "email", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true, example: 'Password1!' }),
+    (0, class_validator_1.Matches)(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{10,30}$/),
     __metadata("design:type", String)
 ], SigninReqDto.prototype, "password", void 0);
 exports.SigninReqDto = SigninReqDto;

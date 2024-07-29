@@ -14,54 +14,61 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VideoController = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
+const common_3 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const req_dto_1 = require("../common/dto/req.dto");
+const req_dto_2 = require("./dto/req.dto");
 const video_service_1 = require("./video.service");
 let VideoController = class VideoController {
     constructor(videoService) {
         this.videoService = videoService;
     }
-    upload() {
+    upload(createVideoReqDto) {
         return this.videoService.create();
     }
-    findAll() {
+    findAll({ page, size }) {
         return this.videoService.findAll();
     }
-    findOne(id) {
+    findOne({ id }) {
         return this.videoService.findOne(id);
     }
-    async download(id) {
+    async download({ id }) {
         return this.videoService.download(id);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_3.Post)(),
+    __param(0, (0, common_2.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [req_dto_2.CreateVideoReqDto]),
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "upload", null);
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_3.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [req_dto_1.PageReqDto]),
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_3.Get)(':id'),
+    __param(0, (0, common_3.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [req_dto_2.FindVideoReqDto]),
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Get)(':id/download'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_3.Get)(':id/download'),
+    __param(0, (0, common_3.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [req_dto_2.FindVideoReqDto]),
     __metadata("design:returntype", Promise)
 ], VideoController.prototype, "download", null);
 VideoController = __decorate([
     (0, swagger_1.ApiTags)('Video'),
-    (0, common_1.Controller)('api/videos'),
+    (0, swagger_1.ApiExtraModels)(req_dto_2.FindVideoReqDto, req_dto_1.PageReqDto),
+    (0, common_3.Controller)('api/videos'),
     __metadata("design:paramtypes", [video_service_1.VideoService])
 ], VideoController);
 exports.VideoController = VideoController;
