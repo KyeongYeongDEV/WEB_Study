@@ -18,6 +18,7 @@ const auth_service_1 = require("./auth.service");
 const swagger_1 = require("@nestjs/swagger");
 const req_dto_1 = require("./dto/req.dto");
 const res_dto_1 = require("./dto/res.dto");
+const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -35,6 +36,7 @@ __decorate([
             allOf: [{ $ref: (0, swagger_1.getSchemaPath)(res_dto_1.SignupResDto) }],
         }
     }),
+    (0, swagger_decorator_1.ApiPostResponse)(res_dto_1.SignupResDto),
     (0, common_1.Post)('signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -42,6 +44,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "signup", null);
 __decorate([
+    (0, swagger_decorator_1.ApiPostResponse)(res_dto_1.SigninResDto),
     (0, common_1.Post)('signin'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -50,7 +53,7 @@ __decorate([
 ], AuthController.prototype, "signin", null);
 AuthController = __decorate([
     (0, swagger_1.ApiTags)('Auth'),
-    (0, swagger_1.ApiExtraModels)(res_dto_1.SignupResDto, req_dto_1.SignupReqDto),
+    (0, swagger_1.ApiExtraModels)(res_dto_1.SignupResDto, req_dto_1.SignupReqDto, res_dto_1.SigninResDto),
     (0, common_1.Controller)('api/auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);
