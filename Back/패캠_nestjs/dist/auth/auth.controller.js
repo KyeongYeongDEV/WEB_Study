@@ -19,15 +19,19 @@ const swagger_1 = require("@nestjs/swagger");
 const req_dto_1 = require("./dto/req.dto");
 const res_dto_1 = require("./dto/res.dto");
 const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
+const common_2 = require("@nestjs/common");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async signup(signupReqDto) {
-        return this.authService.signup('email', 'password');
+    async signup({ email, password, passwordConfirm }) {
+        if (password !== passwordConfirm)
+            throw new common_2.BadRequestException();
+        const { id } = await this.authService.signup(email, password);
+        return { id };
     }
-    async signin(signinReqDto) {
-        return this.authService.signin({});
+    async signin({ email, password }) {
+        return this.authService.signin(email, password);
     }
 };
 __decorate([

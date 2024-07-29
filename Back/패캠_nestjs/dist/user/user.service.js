@@ -28,10 +28,13 @@ let UserService = class UserService {
         return 'find user';
     }
     async create(email, password) {
-        return 'create user';
+        const user = this.userRepository.create({ email, password });
+        await this.userRepository.save(user);
+        return user;
     }
     async findOneByEmail(email) {
-        return 'find user by email';
+        const user = await this.userRepository.findOneBy({ email });
+        return user;
     }
 };
 UserService = __decorate([

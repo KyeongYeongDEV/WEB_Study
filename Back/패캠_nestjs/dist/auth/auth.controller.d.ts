@@ -3,6 +3,10 @@ import { SigninReqDto, SignupReqDto } from './dto/req.dto';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
-    signup(signupReqDto: SignupReqDto): Promise<void>;
-    signin(signinReqDto: SigninReqDto): Promise<void>;
+    signup({ email, password, passwordConfirm }: SignupReqDto): Promise<{
+        id: string;
+    }>;
+    signin({ email, password }: SigninReqDto): Promise<{
+        accessToken: string;
+    }>;
 }

@@ -4,6 +4,7 @@ import { ApiCreatedResponse, ApiExtraModels, ApiTags, getSchemaPath } from '@nes
 import { SigninReqDto, SignupReqDto } from './dto/req.dto';
 import { SigninResDto, SignupResDto } from './dto/res.dto';
 import { ApiPostResponse } from 'src/common/decorator/swagger.decorator';
+import { BadRequestException } from '@nestjs/common';
 
 @ApiTags('Auth')
 @ApiExtraModels(SignupResDto, SignupReqDto, SigninResDto)
@@ -19,13 +20,16 @@ export class AuthController {
 
   @ApiPostResponse(SignupResDto)
   @Post('signup')
-  async signup(@Body() signupReqDto : SignupReqDto) {
-    return this.authService.signup('email', 'password');
+  async signup(@Body()  {email, password, passwordConfirm} : SignupReqDto) {
+    if (password !== passwordConfirm) throw new BadRequestException();
+    const {id} = await this.authService.signup(email, password);
+
+    return {id};
   }
 
   @ApiPostResponse(SigninResDto)
   @Post('signin')
-  async signin(@Body() signinReqDto : SigninReqDto) {
-    return this.authService.signin({});
+  async signin(@Body() {email, password} : SigninReqDto) {
+    return this.authService.signin(email, password);
   }
 }
