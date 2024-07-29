@@ -18,6 +18,7 @@ const common_2 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
+const user_decorator_1 = require("../common/decorator/user.decorator");
 const req_dto_1 = require("../common/dto/req.dto");
 const req_dto_2 = require("./dto/req.dto");
 const res_dto_1 = require("./dto/res.dto");
@@ -26,7 +27,8 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    findAll({ page, size }) {
+    findAll({ page, size }, user) {
+        console.log(user);
         return this.userService.findAll();
     }
     findOne({ id }) {
@@ -39,8 +41,9 @@ __decorate([
     (0, common_2.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_2.Query)()),
+    __param(1, (0, user_decorator_1.User)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [req_dto_1.PageReqDto]),
+    __metadata("design:paramtypes", [req_dto_1.PageReqDto, Object]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 __decorate([

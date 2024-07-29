@@ -41,6 +41,7 @@ let VideoController = class VideoController {
     }
 };
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_decorator_1.ApiPostResponse)(res_dto_2.CreateVideoResDto),
     (0, common_3.Post)(),
     __param(0, (0, common_2.Body)()),
@@ -49,6 +50,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "upload", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_decorator_1.ApiGetItensResponse)(req_dto_2.FindVideoReqDto),
     (0, common_3.Get)(),
     __param(0, (0, common_1.Query)()),
@@ -57,6 +59,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "findAll", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_decorator_1.ApiGetResponse)(res_dto_2.FindVideoResDto),
     (0, common_3.Get)(':id'),
     __param(0, (0, common_3.Param)('id')),
@@ -65,6 +68,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], VideoController.prototype, "findOne", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_3.Get)(':id/download'),
     __param(0, (0, common_3.Param)('id')),
     __metadata("design:type", Function),

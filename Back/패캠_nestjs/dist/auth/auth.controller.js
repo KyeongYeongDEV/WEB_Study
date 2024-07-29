@@ -20,6 +20,7 @@ const req_dto_1 = require("./dto/req.dto");
 const res_dto_1 = require("./dto/res.dto");
 const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
 const common_2 = require("@nestjs/common");
+const public_decorator_1 = require("../common/decorator/public.decorator");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -41,6 +42,7 @@ __decorate([
         }
     }),
     (0, swagger_decorator_1.ApiPostResponse)(res_dto_1.SignupResDto),
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)('signup'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -49,6 +51,7 @@ __decorate([
 ], AuthController.prototype, "signup", null);
 __decorate([
     (0, swagger_decorator_1.ApiPostResponse)(res_dto_1.SigninResDto),
+    (0, public_decorator_1.Public)(),
     (0, common_1.Post)('signin'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

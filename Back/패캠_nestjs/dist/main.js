@@ -13,8 +13,13 @@ async function bootstrap() {
         .setVersion('1.0')
         .addBearerAuth()
         .build();
+    const customOptions = {
+        swaggerOptions: {
+            persistAuthorization: true,
+        }
+    };
     const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('docs', app, document);
+    swagger_1.SwaggerModule.setup('docs', app, document, customOptions);
     app.useGlobalPipes(new common_1.ValidationPipe({
         transform: true,
     }));

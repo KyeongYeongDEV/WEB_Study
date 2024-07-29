@@ -5,6 +5,8 @@ import { SigninReqDto, SignupReqDto } from './dto/req.dto';
 import { SigninResDto, SignupResDto } from './dto/res.dto';
 import { ApiPostResponse } from 'src/common/decorator/swagger.decorator';
 import { BadRequestException } from '@nestjs/common';
+import { Public } from 'src/common/decorator/public.decorator';
+import { publicDecrypt } from 'crypto';
 
 @ApiTags('Auth')
 @ApiExtraModels(SignupResDto, SignupReqDto, SigninResDto)
@@ -19,6 +21,7 @@ export class AuthController {
   })
 
   @ApiPostResponse(SignupResDto)
+  @Public()
   @Post('signup')
   async signup(@Body()  {email, password, passwordConfirm} : SignupReqDto) {
     if (password !== passwordConfirm) throw new BadRequestException();
@@ -28,6 +31,7 @@ export class AuthController {
   }
 
   @ApiPostResponse(SigninResDto)
+  @Public()
   @Post('signin')
   async signin(@Body() {email, password} : SigninReqDto) {
     return this.authService.signin(email, password);
