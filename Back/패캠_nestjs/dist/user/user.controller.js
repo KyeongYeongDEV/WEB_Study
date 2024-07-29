@@ -14,7 +14,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const common_2 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
 const req_dto_1 = require("../common/dto/req.dto");
 const req_dto_2 = require("./dto/req.dto");
@@ -32,17 +34,19 @@ let UserController = class UserController {
     }
 };
 __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_decorator_1.ApiGetItensResponse)(res_dto_1.FindUserResDto),
-    (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)()),
+    (0, common_2.Get)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_2.Query)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [req_dto_1.PageReqDto]),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "findAll", null);
 __decorate([
     (0, swagger_decorator_1.ApiGetResponse)(res_dto_1.FindUserResDto),
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)()),
+    (0, common_2.Get)(':id'),
+    __param(0, (0, common_2.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [req_dto_2.FindUserReqDto]),
     __metadata("design:returntype", void 0)
@@ -50,7 +54,7 @@ __decorate([
 UserController = __decorate([
     (0, swagger_1.ApiTags)('User'),
     (0, swagger_1.ApiExtraModels)(req_dto_2.FindUserReqDto, res_dto_1.FindUserResDto),
-    (0, common_1.Controller)('api/users'),
+    (0, common_2.Controller)('api/users'),
     __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 exports.UserController = UserController;
