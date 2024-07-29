@@ -12,6 +12,11 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./entity/user.entity");
 const user_controller_1 = require("./user.controller");
 const user_service_1 = require("./user.service");
+const UserMockService = {
+    findAll: () => {
+        return 'find mock users';
+    },
+};
 let UserModule = class UserModule {
 };
 UserModule = __decorate([
@@ -19,7 +24,12 @@ UserModule = __decorate([
         imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])],
         exports: [user_service_1.UserService],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService],
+        providers: [
+            {
+                provide: user_service_1.UserService,
+                useValue: UserMockService,
+            }
+        ],
     })
 ], UserModule);
 exports.UserModule = UserModule;
