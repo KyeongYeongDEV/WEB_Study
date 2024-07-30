@@ -13,21 +13,39 @@ const analytics_module_1 = require("./analytics/analytics.module");
 const user_module_1 = require("./user/user.module");
 const video_module_1 = require("./video/video.module");
 const auth_module_1 = require("./auth/auth.module");
+const config_1 = require("@nestjs/config");
+const postgres_config_1 = require("./config/postgres.config");
+const jwt_config_1 = require("./config/jwt.config");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5434,
-                username: 'postgres',
-                password: 'postgres',
-                database: 'postgres',
-                autoLoadEntities: true,
-                synchronize: true,
-                logging: true,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                load: [postgres_config_1.default, jwt_config_1.default],
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                inject: [config_1.ConfigService],
+                useFactory: async (configService) => {
+                    let obj = {
+                        type: 'postgres',
+                        host: configService.get('postgres.host'),
+                        port: configService.get('postgres.port'),
+                        database: configService.get('postgres.database'),
+                        username: configService.get('postgres.username'),
+                        password: configService.get('postgres.password'),
+                        autoLoadEntities: true
+                    };
+                    if (configService.get('STAGE') === 'local') {
+                        console.info('Sync postres');
+                        obj = Object.assign(obj, {
+                            synchonize: true,
+                            logging: true
+                        });
+                    }
+                    return obj;
+                },
             }),
             auth_module_1.AuthModule,
             user_module_1.UserModule,
