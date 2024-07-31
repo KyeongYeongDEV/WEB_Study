@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SigninResDto = exports.SignupResDto = void 0;
+exports.RefreshResDto = exports.SigninResDto = exports.SignupResDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class SignupResDto {
 }
@@ -29,4 +29,15 @@ __decorate([
     __metadata("design:type", String)
 ], SigninResDto.prototype, "refreshToken", void 0);
 exports.SigninResDto = SigninResDto;
+class RefreshResDto {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    __metadata("design:type", String)
+], RefreshResDto.prototype, "accessToken", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    __metadata("design:type", String)
+], RefreshResDto.prototype, "refreshToken", void 0);
+exports.RefreshResDto = RefreshResDto;
 //# sourceMappingURL=res.dto.js.map

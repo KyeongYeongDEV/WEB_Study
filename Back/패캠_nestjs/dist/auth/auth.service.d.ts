@@ -11,7 +11,13 @@ export declare class AuthService {
     signup(email: string, password: string): Promise<import("../user/entity/user.entity").User>;
     signin(email: string, password: string): Promise<{
         accessToken: string;
+        refreshToken: string;
     }>;
+    refresh(token: string, userId: string): Promise<{
+        accessToken: string;
+        refreshToken: string;
+    }>;
+    private generateAccessToken;
     private generateRefreshToken;
     private createRefreshTokenUsingUser;
 }

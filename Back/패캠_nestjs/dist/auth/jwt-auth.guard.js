@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
+const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const public_decorator_1 = require("../common/decorator/public.decorator");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
-    constructor(refelctor) {
+    constructor(refelctor, jwtService) {
         super();
         this.refelctor = refelctor;
+        this.jwtService = jwtService;
     }
     canActivate(context) {
         const isPublic = this.refelctor.getAllAndOverride(public_decorator_1.IS_PUBLIC_KEY, [
@@ -27,12 +29,19 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         if (isPublic) {
             return true;
         }
+        const http = context.switchToHttp();
+        const { url, headers } = http.getRequest();
+        const token = /Bearer\s(.+)/.exec(headers['authorization'])[1];
+        const decoded = this.jwtService.decode(token);
+        if (url !== '/api/auth/refresh' && decoded['tokenType'] === 'refresh') {
+            console.error('accessToken is required');
+        }
         return super.canActivate(context);
     }
 };
 JwtAuthGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [core_1.Reflector])
+    __metadata("design:paramtypes", [core_1.Reflector, jwt_1.JwtService])
 ], JwtAuthGuard);
 exports.JwtAuthGuard = JwtAuthGuard;
 //# sourceMappingURL=jwt-auth.guard.js.map

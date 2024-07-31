@@ -47,8 +47,23 @@ let AuthService = class AuthService {
         const refreshToken = await this.generateRefreshToken(user.id);
         await this.createRefreshTokenUsingUser(user.id, refreshToken);
         return {
-            accessToken: this.jwtService.sign({ sub: user.id })
+            accessToken: this.generateAccessToken(user.id),
+            refreshToken,
         };
+    }
+    async refresh(token, userId) {
+        const refreshTokenEntity = await this.refreshTokenRepository.findOneBy({ token });
+        if (!refreshTokenEntity)
+            throw new common_1.BadRequestException();
+        const accessToken = this.generateAccessToken(userId);
+        const refreshToken = this.generateRefreshToken(userId);
+        refreshTokenEntity.token = refreshToken;
+        await this.refreshTokenRepository.save(refreshTokenEntity);
+        return { accessToken, refreshToken };
+    }
+    generateAccessToken(userId) {
+        const payload = { sub: userId, tokenType: 'access' };
+        return this.jwtService.sign(payload, { expiresIn: '1d' });
     }
     generateRefreshToken(userId) {
         const payload = { sub: userId, tokenType: 'refresh' };
