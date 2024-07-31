@@ -2,7 +2,7 @@ import { Query } from '@nestjs/common';
 import { Body } from '@nestjs/common';
 import { Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiExtraModels, ApiTags } from '@nestjs/swagger';
-import { ApiGetItensResponse, ApiGetResponse, ApiPostResponse } from 'src/common/decorator/swagger.decorator';
+import { ApiGetItemsResponse, ApiGetResponse, ApiPostResponse } from 'src/common/decorator/swagger.decorator';
 import { PageReqDto } from 'src/common/dto/req.dto';
 import { PageResDto } from 'src/common/dto/res.dto';
 import { CreateVideoReqDto, FindVideoReqDto } from './dto/req.dto';
@@ -24,7 +24,7 @@ export class VideoController {
   }
 
   @ApiBearerAuth()
-  @ApiGetItensResponse(FindVideoReqDto)
+  @ApiGetItemsResponse(FindVideoReqDto)
   @Get()
   findAll(@Query() {page, size} : PageReqDto) {
     return this.videoService.findAll();

@@ -3,4 +3,5 @@ export declare class SignupResDto {
 }
 export declare class SigninResDto {
     accessToken: string;
+    refreshToken: string;
 }

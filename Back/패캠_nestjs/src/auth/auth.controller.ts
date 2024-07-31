@@ -6,7 +6,6 @@ import { SigninResDto, SignupResDto } from './dto/res.dto';
 import { ApiPostResponse } from 'src/common/decorator/swagger.decorator';
 import { BadRequestException } from '@nestjs/common';
 import { Public } from 'src/common/decorator/public.decorator';
-import { publicDecrypt } from 'crypto';
 
 @ApiTags('Auth')
 @ApiExtraModels(SignupResDto, SignupReqDto, SigninResDto)

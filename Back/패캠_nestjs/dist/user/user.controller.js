@@ -38,7 +38,7 @@ let UserController = class UserController {
 };
 __decorate([
     (0, swagger_1.ApiBearerAuth)(),
-    (0, swagger_decorator_1.ApiGetItensResponse)(res_dto_1.FindUserResDto),
+    (0, swagger_decorator_1.ApiGetItemsResponse)(res_dto_1.FindUserResDto),
     (0, common_2.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_2.Query)()),

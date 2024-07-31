@@ -24,5 +24,9 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
     __metadata("design:type", String)
 ], SigninResDto.prototype, "accessToken", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    __metadata("design:type", String)
+], SigninResDto.prototype, "refreshToken", void 0);
 exports.SigninResDto = SigninResDto;
 //# sourceMappingURL=res.dto.js.map

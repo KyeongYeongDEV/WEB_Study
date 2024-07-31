@@ -51,7 +51,7 @@ __decorate([
 ], VideoController.prototype, "upload", null);
 __decorate([
     (0, swagger_1.ApiBearerAuth)(),
-    (0, swagger_decorator_1.ApiGetItensResponse)(req_dto_2.FindVideoReqDto),
+    (0, swagger_decorator_1.ApiGetItemsResponse)(req_dto_2.FindVideoReqDto),
     (0, common_3.Get)(),
     __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
