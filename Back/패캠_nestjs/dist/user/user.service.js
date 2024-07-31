@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const user_enum_1 = require("../auth/enum/user.enum");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entity/user.entity");
 let UserService = class UserService {
@@ -35,6 +36,10 @@ let UserService = class UserService {
     async findOneByEmail(email) {
         const user = await this.userRepository.findOneBy({ email });
         return user;
+    }
+    async checkUserIdAdmin(id) {
+        const user = await this.userRepository.findOneBy({ id });
+        return user.role === user_enum_1.Role.Admin;
     }
 };
 UserService = __decorate([

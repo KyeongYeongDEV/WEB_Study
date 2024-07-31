@@ -15,11 +15,14 @@ const core_1 = require("@nestjs/core");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const public_decorator_1 = require("../common/decorator/public.decorator");
+const role_decorator_1 = require("../common/decorator/role.decorator");
+const user_service_1 = require("../user/user.service");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
-    constructor(refelctor, jwtService) {
+    constructor(refelctor, jwtService, userService) {
         super();
         this.refelctor = refelctor;
         this.jwtService = jwtService;
+        this.userService = userService;
     }
     canActivate(context) {
         const isPublic = this.refelctor.getAllAndOverride(public_decorator_1.IS_PUBLIC_KEY, [
@@ -36,12 +39,22 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         if (url !== '/api/auth/refresh' && decoded['tokenType'] === 'refresh') {
             console.error('accessToken is required');
         }
+        const requireRoles = this.refelctor.getAllAndOverride(role_decorator_1.ROLES_KEY, [
+            context.getHandler(),
+            context.getClass()
+        ]);
+        if (requireRoles) {
+            const userId = decoded['sub'];
+            return this.userService.checkUserIdAdmin(userId);
+        }
         return super.canActivate(context);
     }
 };
 JwtAuthGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [core_1.Reflector, jwt_1.JwtService])
+    __metadata("design:paramtypes", [core_1.Reflector,
+        jwt_1.JwtService,
+        user_service_1.UserService])
 ], JwtAuthGuard);
 exports.JwtAuthGuard = JwtAuthGuard;
 //# sourceMappingURL=jwt-auth.guard.js.map

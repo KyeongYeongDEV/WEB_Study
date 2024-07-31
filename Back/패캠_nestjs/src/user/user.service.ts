@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from 'src/auth/enum/user.enum';
 import { Repository } from 'typeorm';
 import { User } from './entity/user.entity';
 
@@ -24,5 +25,10 @@ export class UserService {
   async findOneByEmail(email: string) {
     const user = await this.userRepository.findOneBy({email}); 
     return user;
+  }
+
+  async checkUserIdAdmin(id : string){
+    const user = await this.userRepository.findOneBy({id});
+    return  user.role === Role.Admin;
   }
 }

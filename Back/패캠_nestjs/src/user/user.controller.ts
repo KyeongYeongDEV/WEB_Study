@@ -1,7 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiExtraModels, ApiTags } from '@nestjs/swagger';
+import { Role } from 'src/auth/enum/user.enum';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/common/decorator/role.decorator';
 import { ApiGetItemsResponse, ApiGetResponse } from 'src/common/decorator/swagger.decorator';
 import { User, UserAfterAuth } from 'src/common/decorator/user.decorator';
 import { PageReqDto } from 'src/common/dto/req.dto';
@@ -17,6 +19,7 @@ export class UserController {
 
   @ApiBearerAuth() //swagger decorator
   @ApiGetItemsResponse(FindUserResDto)
+  @Roles(Role.Admin)
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@Query() {page, size} : PageReqDto, @User() user : UserAfterAuth) {
@@ -31,4 +34,3 @@ export class UserController {
     return this.userService.findOne(id);
   }
 }
- 

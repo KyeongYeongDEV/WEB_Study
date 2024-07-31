@@ -17,7 +17,9 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const user_enum_1 = require("../auth/enum/user.enum");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const role_decorator_1 = require("../common/decorator/role.decorator");
 const swagger_decorator_1 = require("../common/decorator/swagger.decorator");
 const user_decorator_1 = require("../common/decorator/user.decorator");
 const req_dto_1 = require("../common/dto/req.dto");
@@ -39,6 +41,7 @@ let UserController = class UserController {
 __decorate([
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_decorator_1.ApiGetItemsResponse)(res_dto_1.FindUserResDto),
+    (0, role_decorator_1.Roles)(user_enum_1.Role.Admin),
     (0, common_2.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_2.Query)()),
