@@ -17,6 +17,8 @@ const jwt_strategy_1 = require("./jwt.strategy");
 const core_1 = require("@nestjs/core");
 const jwt_auth_guard_1 = require("./jwt-auth.guard");
 const config_1 = require("@nestjs/config");
+const typeorm_1 = require("@nestjs/typeorm");
+const refresh_token_entity_1 = require("./entity/refresh-token.entity");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -33,7 +35,8 @@ AuthModule = __decorate([
                         signOptions: { expiresIn: '1d' },
                     };
                 },
-            })
+            }),
+            typeorm_1.TypeOrmModule.forFeature([refresh_token_entity_1.RefreshToken]),
         ],
         providers: [
             auth_service_1.AuthService,
