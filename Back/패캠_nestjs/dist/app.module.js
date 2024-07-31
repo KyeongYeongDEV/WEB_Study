@@ -17,6 +17,7 @@ const config_1 = require("@nestjs/config");
 const postgres_config_1 = require("./config/postgres.config");
 const jwt_config_1 = require("./config/jwt.config");
 const logger_middleware_1 = require("./common/middleware/logger.middleware");
+const winston_1 = require("winston");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -42,7 +43,6 @@ AppModule = __decorate([
                         autoLoadEntities: true
                     };
                     if (configService.get('STAGE') === 'local') {
-                        console.info('Sync postres');
                         obj = Object.assign(obj, {
                             synchonize: true,
                             logging: true
@@ -56,6 +56,7 @@ AppModule = __decorate([
             video_module_1.VideoModule,
             analytics_module_1.AnalyticsModule,
         ],
+        providers: [winston_1.Logger],
     })
 ], AppModule);
 exports.AppModule = AppModule;

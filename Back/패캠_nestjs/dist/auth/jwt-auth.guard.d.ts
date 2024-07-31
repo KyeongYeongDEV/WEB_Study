@@ -1,3 +1,4 @@
+import { LoggerService } from "@nestjs/common";
 import { ExecutionContext } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { JwtService } from "@nestjs/jwt";
@@ -8,7 +9,8 @@ export declare class JwtAuthGuard extends JwtAuthGuard_base {
     private refelctor;
     private jwtService;
     private userService;
-    constructor(refelctor: Reflector, jwtService: JwtService, userService: UserService);
+    private logger;
+    constructor(refelctor: Reflector, jwtService: JwtService, userService: UserService, logger: LoggerService);
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean>;
 }
 export {};

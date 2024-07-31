@@ -7,8 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import postgresConfig from './config/postgres.config';
 import jwtConfig from './config/jwt.config';
-import { MiddlewareBuilder } from '@nestjs/core';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { Logger } from 'winston';
 
 @Module({
   imports: [
@@ -29,7 +29,6 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
           autoLoadEntities : true
         };
         if (configService.get('STAGE') === 'local') {
-          console.info('Sync postres')
           obj = Object.assign(obj, {
             synchonize : true,
             logging : true
@@ -43,6 +42,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     VideoModule,
     AnalyticsModule,
   ],
+  providers : [Logger],
 })
 export class AppModule implements NestModule{
   configure(consumer : MiddlewareConsumer ) : void {

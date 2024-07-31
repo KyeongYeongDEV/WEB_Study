@@ -44,7 +44,8 @@ AuthModule = __decorate([
             {
                 provide: core_1.APP_GUARD,
                 useClass: jwt_auth_guard_1.JwtAuthGuard,
-            }
+            },
+            common_1.Logger,
         ],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService],

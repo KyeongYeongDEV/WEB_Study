@@ -3,10 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const swagger_1 = require("@nestjs/swagger");
+const nest_winston_1 = require("nest-winston");
+const winston = require("winston");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
     const port = 3000;
-    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const app = await core_1.NestFactory.create(app_module_1.AppModule, {
+        logger: nest_winston_1.WinstonModule.createLogger({
+            transports: [
+                new winston.transports.Console({
+                    level: process.env.STAGE === 'prod' ? 'info' : 'debug',
+                    format: winston.format.combine(winston.format.timestamp(), nest_winston_1.utilities.format.nestLike('NestJS', { prettyPrint: true })),
+                }),
+            ],
+        })
+    });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('NestJS project')
         .setDescription('NestJS project API description')
@@ -24,8 +35,8 @@ async function bootstrap() {
         transform: true,
     }));
     await app.listen(port);
-    console.info(`STAGE : ${process.env.STAGE}`);
-    console.info(`listening on port ${port}`);
+    common_1.Logger.log(`STAGE : ${process.env.STAGE}`);
+    common_1.Logger.log(`listening on port ${port}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
