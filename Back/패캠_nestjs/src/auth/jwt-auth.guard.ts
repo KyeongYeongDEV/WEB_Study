@@ -1,57 +1,22 @@
-import { Inject, Injectable, Logger, LoggerService, UnauthorizedException } from "@nestjs/common";
-import { ExecutionContext } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
-import { JwtService } from "@nestjs/jwt";
-import { AuthGuard } from "@nestjs/passport";
-import { ApiUnauthorizedResponse } from "@nestjs/swagger";
-import { Observable } from "rxjs";
-import { IS_PUBLIC_KEY } from "src/common/decorator/public.decorator";
-import { ROLES_KEY } from "src/common/decorator/role.decorator";
-import { UserService } from "src/user/user.service";
-import { Role } from "./enum/user.enum";
+import { ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { AuthGuard } from '@nestjs/passport';
+import { IS_PUBLIC_KEY } from 'src/common/decorator/public.decorator';
 
 @Injectable()
-export class JwtAuthGuard extends AuthGuard('jwt'){
-    constructor(
-        private refelctor : Reflector, 
-        private jwtService : JwtService, 
-        private userService : UserService,
-        @Inject(Logger) private logger : LoggerService,
-        ){
-        super();
+export class JwtAuthGuard extends AuthGuard('jwt') {
+  constructor(private reflector: Reflector) {
+    super();
+  }
+
+  canActivate(context: ExecutionContext) {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic) {
+      return true;
     }
-
-    canActivate(context : ExecutionContext) : boolean | Promise<boolean> | Observable<boolean>{
-        const isPublic = this.refelctor.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
-            context.getHandler(),
-            context.getClass(),
-        ]);
-
-        if (isPublic){
-            return true;
-        }
-        // refresh API를 요청했을 때만 refreshToken를 활용할 수 있도록 함
-        const http = context.switchToHttp();
-        const {url, headers} = http.getRequest<Request>();
-        const token = /Bearer\s(.+)/.exec(headers['authorization'])[1]
-        const decoded = this.jwtService.decode(token);
-
-        if (url !== '/api/auth/refresh' && decoded['tokenType'] === 'refresh') {
-            const error = new UnauthorizedException('accessToken is required');
-            this.logger.error('accessToken is required');
-
-            throw error;
-        }
-
-        const requireRoles = this.refelctor.getAllAndOverride<Role[]>(ROLES_KEY, [
-            context.getHandler(),
-            context.getClass()
-        ]);
-        if (requireRoles) {
-            const userId = decoded['sub'];
-            return this.userService.checkUserIdAdmin(userId);
-        }
-
-        return super.canActivate(context);
-    }
+    return super.canActivate(context);
+  }
 }

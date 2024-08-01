@@ -14,7 +14,6 @@ let AnalyticsModule = class AnalyticsModule {
 AnalyticsModule = __decorate([
     (0, common_1.Module)({
         providers: [analytics_service_1.AnalyticsService],
-        exports: [analytics_service_1.AnalyticsService],
     })
 ], AnalyticsModule);
 exports.AnalyticsModule = AnalyticsModule;

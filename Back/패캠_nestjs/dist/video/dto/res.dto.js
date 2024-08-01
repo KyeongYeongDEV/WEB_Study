@@ -9,9 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FindVideoResDto = exports.FindVideoUserResDto = exports.CreateVideoResDto = void 0;
+exports.FindVideoResDto = exports.VideoUserDto = exports.CreateVideoResDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class CreateVideoResDto {
+    static toDto({ id, title }) {
+        return { id, title };
+    }
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
@@ -22,18 +25,21 @@ __decorate([
     __metadata("design:type", String)
 ], CreateVideoResDto.prototype, "title", void 0);
 exports.CreateVideoResDto = CreateVideoResDto;
-class FindVideoUserResDto {
+class VideoUserDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
     __metadata("design:type", String)
-], FindVideoUserResDto.prototype, "id", void 0);
+], VideoUserDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
     __metadata("design:type", String)
-], FindVideoUserResDto.prototype, "email", void 0);
-exports.FindVideoUserResDto = FindVideoUserResDto;
+], VideoUserDto.prototype, "email", void 0);
+exports.VideoUserDto = VideoUserDto;
 class FindVideoResDto {
+    static toDto({ id, title, user: { id: userId, email } }) {
+        return { id, title, user: { id: userId, email } };
+    }
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
@@ -45,7 +51,7 @@ __decorate([
 ], FindVideoResDto.prototype, "title", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
-    __metadata("design:type", FindVideoResDto)
+    __metadata("design:type", VideoUserDto)
 ], FindVideoResDto.prototype, "user", void 0);
 exports.FindVideoResDto = FindVideoResDto;
 //# sourceMappingURL=res.dto.js.map

@@ -3,9 +3,4 @@ export declare class SignupResDto {
 }
 export declare class SigninResDto {
     accessToken: string;
-    refreshToken: string;
-}
-export declare class RefreshResDto {
-    accessToken: string;
-    refreshToken: string;
 }

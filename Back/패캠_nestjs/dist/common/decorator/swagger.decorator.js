@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiGetItensResponse = exports.ApiPostResponse = exports.ApiGetResponse = void 0;
+exports.ApiGetItemsResponse = exports.ApiPostResponse = exports.ApiGetResponse = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const res_dto_1 = require("../dto/res.dto");
@@ -20,7 +20,7 @@ const ApiPostResponse = (model) => {
     }));
 };
 exports.ApiPostResponse = ApiPostResponse;
-const ApiGetItensResponse = (model) => {
+const ApiGetItemsResponse = (model) => {
     return (0, common_1.applyDecorators)((0, swagger_1.ApiOkResponse)({
         schema: {
             allOf: [
@@ -29,14 +29,13 @@ const ApiGetItensResponse = (model) => {
                     properties: {
                         items: {
                             type: 'array',
-                            items: { $ref: (0, swagger_1.getSchemaPath)(model) }
+                            items: { $ref: (0, swagger_1.getSchemaPath)(model) },
                         },
                     },
-                    required: ['items']
-                }
-            ]
-        }
+                },
+            ],
+        },
     }));
 };
-exports.ApiGetItensResponse = ApiGetItensResponse;
+exports.ApiGetItemsResponse = ApiGetItemsResponse;
 //# sourceMappingURL=swagger.decorator.js.map

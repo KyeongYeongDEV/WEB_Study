@@ -9,14 +9,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VideoModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const analytics_module_1 = require("../analytics/analytics.module");
 const video_entity_1 = require("./entity/video.entity");
 const video_controller_1 = require("./video.controller");
 const video_service_1 = require("./video.service");
+const user_entity_1 = require("../user/entity/user.entity");
 let VideoModule = class VideoModule {
 };
 VideoModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([video_entity_1.Video])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([video_entity_1.Video, user_entity_1.User]), analytics_module_1.AnalyticsModule],
         controllers: [video_controller_1.VideoController],
         providers: [video_service_1.VideoService],
     })

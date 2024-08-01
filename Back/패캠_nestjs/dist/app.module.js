@@ -8,20 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const analytics_module_1 = require("./analytics/analytics.module");
 const user_module_1 = require("./user/user.module");
 const video_module_1 = require("./video/video.module");
 const auth_module_1 = require("./auth/auth.module");
-const config_1 = require("@nestjs/config");
+const core_1 = require("@nestjs/core");
+const jwt_auth_guard_1 = require("./auth/jwt-auth.guard");
 const postgres_config_1 = require("./config/postgres.config");
 const jwt_config_1 = require("./config/jwt.config");
-const logger_middleware_1 = require("./common/middleware/logger.middleware");
-const winston_1 = require("winston");
 let AppModule = class AppModule {
-    configure(consumer) {
-        consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
-    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
@@ -40,23 +37,29 @@ AppModule = __decorate([
                         database: configService.get('postgres.database'),
                         username: configService.get('postgres.username'),
                         password: configService.get('postgres.password'),
-                        autoLoadEntities: true
+                        autoLoadEntities: true,
                     };
-                    if (configService.get('STAGE') === 'local') {
+                    if (configService.get('NODE_ENV') === 'development') {
+                        console.info('Sync TypeORM');
                         obj = Object.assign(obj, {
-                            synchonize: true,
-                            logging: true
+                            synchronize: true,
+                            logging: true,
                         });
                     }
                     return obj;
                 },
             }),
-            auth_module_1.AuthModule,
-            user_module_1.UserModule,
             video_module_1.VideoModule,
             analytics_module_1.AnalyticsModule,
+            user_module_1.UserModule,
+            auth_module_1.AuthModule,
         ],
-        providers: [winston_1.Logger],
+        providers: [
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwt_auth_guard_1.JwtAuthGuard,
+            },
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;

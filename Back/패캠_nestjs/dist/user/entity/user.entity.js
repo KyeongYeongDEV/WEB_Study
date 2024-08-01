@@ -10,14 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
-const refresh_token_entity_1 = require("../../auth/entity/refresh-token.entity");
-const user_enum_1 = require("../../auth/enum/user.enum");
 const video_entity_1 = require("../../video/entity/video.entity");
 const typeorm_1 = require("typeorm");
+const user_enum_1 = require("../enum/user.enum");
 let User = class User {
-    constructor() {
-        this.role = user_enum_1.Role.User;
-    }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -32,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'enum', enum: user_enum_1.Role, nullable: true }),
+    (0, typeorm_1.Column)({ type: 'enum', enum: user_enum_1.UserRole, default: user_enum_1.UserRole.Normal }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 __decorate([
@@ -47,10 +43,6 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => video_entity_1.Video, (video) => video.user),
     __metadata("design:type", Array)
 ], User.prototype, "videos", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => refresh_token_entity_1.RefreshToken, (RefreshToken) => RefreshToken.user),
-    __metadata("design:type", refresh_token_entity_1.RefreshToken)
-], User.prototype, "refreshToken", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);

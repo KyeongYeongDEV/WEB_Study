@@ -16,18 +16,18 @@ const class_validator_1 = require("class-validator");
 class PageReqDto {
     constructor() {
         this.page = 1;
-        this.size = 20;
+        this.size = 50;
     }
 }
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: '페이지.default = 1' }),
-    (0, class_transformer_1.Transform)(param => Number(param.value)),
+    (0, swagger_1.ApiPropertyOptional)({ description: '페이지. Default = 1' }),
+    (0, class_transformer_1.Transform)(({ value }) => Number(value)),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PageReqDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiPropertyOptional)({ description: '페이지당 데이터 갯수. default = 20' }),
-    (0, class_transformer_1.Transform)(param => Number(param.value)),
+    (0, swagger_1.ApiPropertyOptional)({ description: '페이지당 데이터 갯수. min:0, max: 50' }),
+    (0, class_transformer_1.Transform)(({ value }) => Number(value)),
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], PageReqDto.prototype, "size", void 0);

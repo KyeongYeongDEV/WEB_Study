@@ -14,11 +14,11 @@ const swagger_1 = require("@nestjs/swagger");
 class PageResDto {
 }
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true }),
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], PageResDto.prototype, "page", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ required: true }),
+    (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Number)
 ], PageResDto.prototype, "size", void 0);
 exports.PageResDto = PageResDto;

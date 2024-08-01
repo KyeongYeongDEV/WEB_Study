@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class PageResDto<TData> {
-    @ApiProperty({ required: true })
-    page: number;
+  @ApiProperty()
+  page: number;
 
-    @ApiProperty({ required: true })
-    size: number;
+  @ApiProperty()
+  size: number;
 
-    items: TData[];
+  items: TData[];
 }

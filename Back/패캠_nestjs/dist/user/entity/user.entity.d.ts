@@ -1,13 +1,11 @@
-import { RefreshToken } from 'src/auth/entity/refresh-token.entity';
-import { Role } from 'src/auth/enum/user.enum';
 import { Video } from 'src/video/entity/video.entity';
+import { UserRole } from '../enum/user.enum';
 export declare class User {
     id: string;
     email: string;
     password: string;
-    role: Role;
+    role: UserRole;
     createdAt: Date;
     updatedAt: Date;
     videos: Video[];
-    refreshToken: RefreshToken;
 }

@@ -9,16 +9,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
+const jwt_strategy_1 = require("./jwt.strategy");
 const passport_1 = require("@nestjs/passport");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 const user_module_1 = require("../user/user.module");
 const auth_controller_1 = require("./auth.controller");
-const jwt_1 = require("@nestjs/jwt");
-const jwt_strategy_1 = require("./jwt.strategy");
-const core_1 = require("@nestjs/core");
-const jwt_auth_guard_1 = require("./jwt-auth.guard");
-const config_1 = require("@nestjs/config");
-const typeorm_1 = require("@nestjs/typeorm");
-const refresh_token_entity_1 = require("./entity/refresh-token.entity");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -30,23 +26,15 @@ AuthModule = __decorate([
                 inject: [config_1.ConfigService],
                 useFactory: async (configService) => {
                     return {
-                        global: true,
                         secret: configService.get('jwt.secret'),
-                        signOptions: { expiresIn: '1d' },
+                        signOptions: {
+                            expiresIn: '1d',
+                        },
                     };
                 },
             }),
-            typeorm_1.TypeOrmModule.forFeature([refresh_token_entity_1.RefreshToken]),
         ],
-        providers: [
-            auth_service_1.AuthService,
-            jwt_strategy_1.JwtStrategy,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: jwt_auth_guard_1.JwtAuthGuard,
-            },
-            common_1.Logger,
-        ],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
         controllers: [auth_controller_1.AuthController],
         exports: [auth_service_1.AuthService],
     })

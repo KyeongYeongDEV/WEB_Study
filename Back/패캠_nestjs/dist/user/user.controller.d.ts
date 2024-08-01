@@ -1,10 +1,12 @@
-import { UserAfterAuth } from 'src/common/decorator/user.decorator';
+import { UserService } from './user.service';
+import { FindUserResDto } from './dto/res.dto';
 import { PageReqDto } from 'src/common/dto/req.dto';
 import { FindUserReqDto } from './dto/req.dto';
-import { UserService } from './user.service';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    findAll({ page, size }: PageReqDto, user: UserAfterAuth): Promise<string>;
-    findOne({ id }: FindUserReqDto): Promise<string>;
+    findAll({ page, size }: PageReqDto): Promise<{
+        items: FindUserResDto[];
+    }>;
+    findOne({ id }: FindUserReqDto): Promise<FindUserResDto>;
 }

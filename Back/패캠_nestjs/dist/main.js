@@ -2,41 +2,33 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
+const config_1 = require("@nestjs/config");
 const swagger_1 = require("@nestjs/swagger");
-const nest_winston_1 = require("nest-winston");
-const winston = require("winston");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
-    const port = 3000;
-    const app = await core_1.NestFactory.create(app_module_1.AppModule, {
-        logger: nest_winston_1.WinstonModule.createLogger({
-            transports: [
-                new winston.transports.Console({
-                    level: process.env.STAGE === 'prod' ? 'info' : 'debug',
-                    format: winston.format.combine(winston.format.timestamp(), nest_winston_1.utilities.format.nestLike('NestJS', { prettyPrint: true })),
-                }),
-            ],
-        })
-    });
+    const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const configService = app.get(config_1.ConfigService);
+    app.setGlobalPrefix('api/v1');
     const config = new swagger_1.DocumentBuilder()
         .setTitle('NestJS project')
         .setDescription('NestJS project API description')
-        .setVersion('1.0')
+        .setVersion('0.1')
         .addBearerAuth()
         .build();
     const customOptions = {
         swaggerOptions: {
             persistAuthorization: true,
-        }
+        },
     };
     const document = swagger_1.SwaggerModule.createDocument(app, config);
     swagger_1.SwaggerModule.setup('docs', app, document, customOptions);
     app.useGlobalPipes(new common_1.ValidationPipe({
         transform: true,
     }));
+    const port = 3000;
     await app.listen(port);
-    common_1.Logger.log(`STAGE : ${process.env.STAGE}`);
-    common_1.Logger.log(`listening on port ${port}`);
+    console.info(`NODE_ENV: ${configService.get('NODE_ENV')}`);
+    console.info(`listening on port ${port}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

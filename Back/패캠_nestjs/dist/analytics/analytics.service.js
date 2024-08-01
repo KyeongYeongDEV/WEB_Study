@@ -9,6 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalyticsService = void 0;
 const common_1 = require("@nestjs/common");
 let AnalyticsService = class AnalyticsService {
+    async addDownloadCnt(id) {
+    }
 };
 AnalyticsService = __decorate([
     (0, common_1.Injectable)()

@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateVideoReqDto.prototype, "title", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ format: 'binary', type: 'string', required: true }),
+    (0, swagger_1.ApiProperty)({ type: 'string', format: 'binary', required: true }),
     __metadata("design:type", Object)
 ], CreateVideoReqDto.prototype, "video", void 0);
 exports.CreateVideoReqDto = CreateVideoReqDto;

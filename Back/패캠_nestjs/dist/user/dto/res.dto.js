@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindUserResDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 class FindUserResDto {
+    static toDto({ id, email, role, createdAt }) {
+        return { id, email, role: role.toString(), createdAt: createdAt.toISOString() };
+    }
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
@@ -24,6 +27,10 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
     __metadata("design:type", String)
-], FindUserResDto.prototype, "createAt", void 0);
+], FindUserResDto.prototype, "role", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ required: true }),
+    __metadata("design:type", String)
+], FindUserResDto.prototype, "createdAt", void 0);
 exports.FindUserResDto = FindUserResDto;
 //# sourceMappingURL=res.dto.js.map

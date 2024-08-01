@@ -15,18 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const user_enum_1 = require("../auth/enum/user.enum");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("./entity/user.entity");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async findAll() {
-        return 'find users';
+    async findAll(page, size) {
+        const users = this.userRepository.find({ skip: (page - 1) * size, take: size });
+        return users;
     }
     async findOne(id) {
-        return 'find user';
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user)
+            throw new common_1.NotFoundException('No user');
+        return user;
     }
     async create(email, password) {
         const user = this.userRepository.create({ email, password });
@@ -36,10 +39,6 @@ let UserService = class UserService {
     async findOneByEmail(email) {
         const user = await this.userRepository.findOneBy({ email });
         return user;
-    }
-    async checkUserIdAdmin(id) {
-        const user = await this.userRepository.findOneBy({ id });
-        return user.role === user_enum_1.Role.Admin;
     }
 };
 UserService = __decorate([

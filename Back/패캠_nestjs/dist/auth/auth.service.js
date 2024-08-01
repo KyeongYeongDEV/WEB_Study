@@ -8,84 +8,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const common_2 = require("@nestjs/common");
-const common_3 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const typeorm_1 = require("@nestjs/typeorm");
+const bcrypt = require("bcrypt");
 const user_service_1 = require("../user/user.service");
-const typeorm_2 = require("typeorm");
-const refresh_token_entity_1 = require("./entity/refresh-token.entity");
 let AuthService = class AuthService {
-    constructor(userService, jwtService, refreshTokenRepository) {
+    constructor(userService, jwtService) {
         this.userService = userService;
         this.jwtService = jwtService;
-        this.refreshTokenRepository = refreshTokenRepository;
-    }
-    async validateUser(email, password) {
-        return null;
     }
     async signup(email, password) {
         const user = await this.userService.findOneByEmail(email);
         if (user)
-            throw new common_1.BadRequestException();
-        const newUser = await this.userService.create(email, password);
+            throw new common_1.BadRequestException('Email is already existed');
+        const saltOrRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+        const newUser = await this.userService.create(email, hashedPassword);
         return newUser;
     }
     async signin(email, password) {
         const user = await this.userService.findOneByEmail(email);
         if (!user)
-            throw new common_2.UnauthorizedException();
-        const isMatch = password == user.password;
+            throw new common_1.UnauthorizedException();
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch)
-            throw new common_2.UnauthorizedException();
-        const refreshToken = await this.generateRefreshToken(user.id);
-        await this.createRefreshTokenUsingUser(user.id, refreshToken);
+            throw new common_1.UnauthorizedException();
         return {
-            accessToken: this.generateAccessToken(user.id),
-            refreshToken,
+            accessToken: this.jwtService.sign({ sub: user.id }),
         };
-    }
-    async refresh(token, userId) {
-        const refreshTokenEntity = await this.refreshTokenRepository.findOneBy({ token });
-        if (!refreshTokenEntity)
-            throw new common_1.BadRequestException();
-        const accessToken = this.generateAccessToken(userId);
-        const refreshToken = this.generateRefreshToken(userId);
-        refreshTokenEntity.token = refreshToken;
-        await this.refreshTokenRepository.save(refreshTokenEntity);
-        return { accessToken, refreshToken };
-    }
-    generateAccessToken(userId) {
-        const payload = { sub: userId, tokenType: 'access' };
-        return this.jwtService.sign(payload, { expiresIn: '1d' });
-    }
-    generateRefreshToken(userId) {
-        const payload = { sub: userId, tokenType: 'refresh' };
-        return this.jwtService.sign(payload, { expiresIn: '30d' });
-    }
-    async createRefreshTokenUsingUser(userId, refreshToken) {
-        let refreshTokenEntity = await this.refreshTokenRepository.findOneBy({ user: { id: userId } });
-        if (refreshTokenEntity) {
-            refreshTokenEntity.token = refreshToken;
-        }
-        else {
-            refreshTokenEntity = this.refreshTokenRepository.create({ user: { id: userId }, token: refreshToken });
-        }
-        await this.refreshTokenRepository.save(refreshTokenEntity);
     }
 };
 AuthService = __decorate([
-    (0, common_3.Injectable)(),
-    __param(2, (0, typeorm_1.InjectRepository)(refresh_token_entity_1.RefreshToken)),
-    __metadata("design:paramtypes", [user_service_1.UserService,
-        jwt_1.JwtService,
-        typeorm_2.Repository])
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [user_service_1.UserService, jwt_1.JwtService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

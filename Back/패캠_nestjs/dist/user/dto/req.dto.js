@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FindUserReqDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 class FindUserReqDto {
 }
 __decorate([
     (0, swagger_1.ApiProperty)({ required: true }),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], FindUserReqDto.prototype, "id", void 0);
 exports.FindUserReqDto = FindUserReqDto;
