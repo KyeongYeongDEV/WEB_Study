@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { SignUpReqDto } from './dto/req.dto';
 import { UserEntity } from './user.entity';
 
+@Injectable()
 export class UserRepository extends Repository<UserEntity> {
     constructor(dataSource: DataSource) {
     super(UserEntity, dataSource.createEntityManager());
@@ -21,3 +23,4 @@ export class UserRepository extends Repository<UserEntity> {
     }
     }
 }
+ 

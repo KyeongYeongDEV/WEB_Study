@@ -9,11 +9,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './configs/typeorm.config';
 
 
+
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useFactory : async () =>typeORMConfig
-    }),
+    TypeOrmModule.forRoot(typeORMConfig),
     AuthModule
   ],
   controllers: [AppController, AuthController, ChatController],
