@@ -1,13 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './auth.repository';
 import { SignInReqDto, SignUpReqDto } from './dto/req.dto';
+
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(UserRepository)
-        private readonly userRepository : UserRepository
+        private readonly userRepository : UserRepository,
+        private readonly jwtService : JwtService,
     ){}
     
     async signUp( signUpReqDto :SignUpReqDto ) : Promise <any>{
@@ -24,8 +27,14 @@ export class AuthService {
         }
     }
 
-    async signIn( signInDto : SignInReqDto ) : Promise <string>{
-        return this.userRepository.signIn(signInDto);
+    async signIn( signInDto : SignInReqDto ) {
+        const result : Promise<boolean> =  this.userRepository.signIn(signInDto);
+
+        if(result)  {
+            return {accessToken : this.jwtService.sign({sub : signInDto.email})}
+        }else{
+            return {message : "fail to login"};
+        }
     }
 
 }

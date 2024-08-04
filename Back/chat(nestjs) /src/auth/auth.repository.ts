@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { DataSource, Repository } from 'typeorm';
 import { SignInReqDto, SignUpReqDto } from './dto/req.dto';
 import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserRepository extends Repository<UserEntity> {
-    constructor(dataSource: DataSource) {
+    constructor(
+        dataSource: DataSource
+        ) {
         super(UserEntity, dataSource.createEntityManager());
     }
 
@@ -34,12 +37,12 @@ export class UserRepository extends Repository<UserEntity> {
         return false;
     }
 
-    async signIn ( {email , password}: SignInReqDto) : Promise< string> {
+    async signIn ( {email , password}: SignInReqDto) : Promise< boolean>{
         const user = await this.findOne({where : {email : email, password : password}});
 
         if(user){
-            return 'Success login'
+            return true;
         }
-        return 'fail login'
+        return false;
     }
 }
