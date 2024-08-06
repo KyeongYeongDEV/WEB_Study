@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { DataSource, Repository } from 'typeorm';
 import { SignInReqDto, SignUpReqDto } from './dto/req.dto';
-import { UserEntity } from './user.entity';
+import { UserEntity } from '../user/user.entity';
 
 @Injectable()
 export class UserRepository extends Repository<UserEntity> {
@@ -18,9 +17,7 @@ export class UserRepository extends Repository<UserEntity> {
             const user = this.create({ email, name, password });
             await this.save(user);
 
-            return {
-                Success : true
-            }
+            return user.email;
         } catch(error){
             return {
                 error : error,

@@ -1,4 +1,4 @@
-import { UserEntity } from "../auth/user.entity";
+import { UserEntity } from "../user/user.entity";
 import { DataSource } from "typeorm"
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 

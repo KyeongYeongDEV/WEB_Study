@@ -6,6 +6,6 @@ export class SignUpResDto{
 }
 
 export class SignInResDto{
-    @ApiProperty({required : true})
+    @ApiProperty({required : true}) 
     accessToken : string
 }

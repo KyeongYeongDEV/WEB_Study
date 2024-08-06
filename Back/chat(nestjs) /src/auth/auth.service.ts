@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from './auth.repository';
@@ -16,7 +16,7 @@ export class AuthService {
     async signUp( signUpReqDto :SignUpReqDto ) : Promise <any>{
         const { name, email, password, passwordComfirm } = signUpReqDto;
 
-        if(this.userRepository.isExistUserByEmail(email))  throw new Error("이미 존재하는 회원");
+        if(this.userRepository.isExistUserByEmail(email))  throw new BadRequestException("이미 존재하는 회원");
         
         if (password !== passwordComfirm) {
             throw new Error("비밀번호가 일치하지 않습니다");
