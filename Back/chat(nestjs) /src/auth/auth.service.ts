@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRepository } from './auth.repository';
+import { UserEntity } from 'src/domain/entity/user.entity';
+import { UserRepository } from 'src/user/user.repository';
 import { SignInReqDto, SignUpReqDto } from './dto/req.dto';
 
 
@@ -9,14 +10,14 @@ import { SignInReqDto, SignUpReqDto } from './dto/req.dto';
 export class AuthService {
     constructor(
         @InjectRepository(UserRepository)
-        private readonly userRepository : UserRepository,
+        private readonly userRepository  : UserRepository,
         private readonly jwtService : JwtService,
     ){}
     
-    async signUp( signUpReqDto :SignUpReqDto ) : Promise <any>{
-        const { name, email, password, passwordComfirm } = signUpReqDto;
-
-        if(this.userRepository.isExistUserByEmail(email))  throw new BadRequestException("이미 존재하는 회원");
+    async signUp( { name, email, password, passwordComfirm } :SignUpReqDto ) : Promise <any>{
+        const foundUser : Promise<UserEntity> = this.userRepository.findUserByEmail(email)
+        
+        if(!foundUser)  throw new BadRequestException("이미 존재하는 회원");
         
         if (password !== passwordComfirm) {
             throw new Error("비밀번호가 일치하지 않습니다");
@@ -27,14 +28,12 @@ export class AuthService {
         }
     }
 
-    async signIn( signInDto : SignInReqDto ) {
-        const result : Promise<boolean> =  this.userRepository.signIn(signInDto);
+    async signIn( {email, password} : SignInReqDto ) {
+        const foundUser : Promise<UserEntity> = this.userRepository.findUserByEmail(email)
 
-        if(result)  {
-            return {accessToken : this.jwtService.sign({sub : signInDto.email})}
-        }else{
-            return {message : "fail to login"};
-        }
+        if (!foundUser) throw new BadRequestException('존재하지 않은 회원입니다.');
+        if (password !== (await foundUser).password) throw new BadRequestException("비밀번호가 일치하지 않습니다");
+
+        return {accessToken : this.jwtService.sign({sub : (await foundUser).email})}
     }
-
 }

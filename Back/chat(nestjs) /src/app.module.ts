@@ -8,6 +8,7 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { ChatModule } from './chat/chat.module';
 import { MessageModule } from './message/message.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -16,7 +17,8 @@ import { MessageModule } from './message/message.module';
     TypeOrmModule.forRoot(typeORMConfig),
     AuthModule,
     ChatModule,
-    MessageModule
+    MessageModule,
+    UserModule
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],
