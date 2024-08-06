@@ -1,10 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ChatRoomEntity } from "src/domain/entity/chat.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
 export class UserEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id : number;
+    u_id : number;
 
     @Column()
     email : string;
@@ -19,4 +20,7 @@ export class UserEntity extends BaseEntity{
     //board => board.user는 BoardEntity의 user 속성과 연결됨을 나타냄
     // @OneToMany(type => BoardEntity, board => board.user, {eager : true})
     // boards : BoardEntity[]
+
+    @OneToMany(type => ChatRoomEntity, chatRoom => chatRoom.u_id, {eager : true})
+    chatRooms : ChatRoomEntity[]
 }
