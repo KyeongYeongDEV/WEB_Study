@@ -1,11 +1,16 @@
-export class CreateChatRoomRequestDTO {
-    r_id : number;
+export class GetChatRoomRequestDTO {
+    cr_id : number;
     title : string
     participants : string[] //사용자 ID 목록
 }
 
-export class SendMessageRequestDto {
-    r_id : number;
-    sender_id : number;
-    content : string;
+export class CreateChatRoomRequestDTO {
+    cr_id : number;
+    u_id : number; //방장
+    title : string;
+}
+
+export class DeleteChatRoomDTO {
+    cr_id : number;
+    u_id : number;
 }

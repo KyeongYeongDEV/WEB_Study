@@ -1,29 +1,25 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
-import { ApiGetResponse, ApiPostResponse } from 'src/common/decorator/swagger.decorator';
-import { CreateChatRoomRequestDTO, SendMessageRequestDto } from './dto/req.dto';
-import { ChatRoomResponseDTO, GetChatRoomListDTO, MessageResDTo } from './dto/res.dto';
+import { ApiDeleteResponse, ApiGetResponse, ApiPostResponse } from 'src/common/decorator/swagger.decorator';
+import { ChatRoomEntity } from 'src/domain/entity/chat.entity';
+import { GetChatRoomRequestDTO } from './dto/req.dto';
+import { ChatRoomResponseDTO, GetChatRoomListDTO } from './dto/res.dto';
 
 @ApiTags('chat')
-@ApiExtraModels(CreateChatRoomRequestDTO, SendMessageRequestDto, MessageResDTo, ChatRoomResponseDTO, GetChatRoomListDTO)
+@ApiExtraModels(GetChatRoomRequestDTO, ChatRoomResponseDTO, GetChatRoomListDTO)
 @Controller('chat')
 export class ChatController {
     @Post(":u_id/rooms")
     @ApiPostResponse(ChatRoomResponseDTO)
-    async createChatroom(@Body() createChatRoomRequestDTO : CreateChatRoomRequestDTO) {}
-    
-    @Post('rooms/:r_id/messages')
-    @ApiPostResponse(MessageResDTo)
-    async sendMessage(
-        @Param('r_id') roomId : number,
-        @Body() sendMessageRequestDto : SendMessageRequestDto
-    ){ }
-
-    @Get('rooms/:r_id/messages')
-    @ApiGetResponse(MessageResDTo)
-    async getMessages(@Param('r_id') roomId : number) {}
+    async createChatroom(@Body() createChatRoomRequestDTO : GetChatRoomRequestDTO) {}
 
     @Get(':u_id/rooms')
     @ApiGetResponse(GetChatRoomListDTO)
     async getChatRoom(@Param('u_id') u_id : number) {}
+
+    @Delete(':u_id/rooms/r_id')
+    @ApiDeleteResponse(ChatRoomEntity)
+    async deleteChatRoom(@Param() u_id : number, r_id : number) :Promise<void> {
+        
+    }
 }

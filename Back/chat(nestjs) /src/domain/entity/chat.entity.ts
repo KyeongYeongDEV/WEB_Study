@@ -7,10 +7,10 @@ export class ChatRoomEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
     cr_id : number;
     
-    @Column()
+    @Column({nullable : false})
     u_id : number; //방장
 
-    @Column()
+    @Column({nullable : false})
     title : string;
 
     @Column()

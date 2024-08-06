@@ -7,6 +7,7 @@ import { typeORMConfig } from './configs/typeorm.config';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { ChatModule } from './chat/chat.module';
+import { MessageModule } from './message/message.module';
 
 
 
@@ -14,7 +15,8 @@ import { ChatModule } from './chat/chat.module';
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     AuthModule,
-    ChatModule
+    ChatModule,
+    MessageModule
   ],
   controllers: [AppController, UserController],
   providers: [AppService, UserService],

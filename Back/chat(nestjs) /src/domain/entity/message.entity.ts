@@ -6,17 +6,17 @@ export class MessageEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
     m_id : number;
     
-    @Column()
+    @Column({nullable : false})
     cr_id : number;
     
-    @Column()
+    @Column({nullable : false})
     sender_id : number;
 
-    @Column()
+    @Column({nullable : false})
     content : string;
 
     @Column()
-    create_at : string;
+    create_at : Date;
 
     @ManyToOne(type => ChatRoomEntity, chatRoom => chatRoom.messages)
     chatRoom : ChatRoomEntity

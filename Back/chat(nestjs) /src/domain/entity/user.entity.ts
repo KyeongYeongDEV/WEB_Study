@@ -7,13 +7,13 @@ export class UserEntity extends BaseEntity{
     @PrimaryGeneratedColumn()
     u_id : number;
 
-    @Column()
+    @Column({nullable : false})
     email : string;
 
-    @Column()
+    @Column({nullable : false})
     name : string;
 
-    @Column()
+    @Column({nullable : false})
     password : string;
     
     // 회원 한 명이 여러 개의 게시물을 쓸 수 있기 때문에 회원과 게시글의 관계는 1대다이다  

@@ -1,5 +1,5 @@
 import { applyDecorators, Type } from "@nestjs/common";
-import { ApiOkResponse, getSchemaPath } from "@nestjs/swagger";
+import { ApiNoContentResponse, ApiOkResponse, getSchemaPath } from "@nestjs/swagger";
 
 export const ApiGetResponse = <TModel extends Type<any>>(model : TModel) => {
     return applyDecorators(
@@ -19,3 +19,11 @@ export const ApiPostResponse = <TModel extends Type<any>>(model : TModel) => {
         })
     )
 };
+
+export const ApiDeleteResponse = <TModel extends Type<any>>(model : TModel) =>{
+    return applyDecorators(
+        ApiNoContentResponse({
+            description : `${model.name} deleted successfully`,
+        })
+    )
+}
