@@ -27,19 +27,32 @@ export class ChatService {
 
     }
 
-    async createChatRoom ({u_id, title} : CreateChatRoomRequestDTO) : Promise <void> {
+    async createChatRoom (u_id : number, createChatRoomRequestDTO : CreateChatRoomRequestDTO) : Promise <any> {
         const user : UserEntity = await this.userRepository.findOne({where : {u_id : u_id}});
 
         if(!user) throw new NotFoundException('사용자를 찾지 못했습니다.')
 
-        const newChatRoom : ChatRoomEntity = await this.chatRepository.createChatRoom({u_id, title}, user);
-        user.chatRooms.push(await newChatRoom);
+        const newChatRoom : ChatRoomEntity = await this.chatRepository.createChatRoom(createChatRoomRequestDTO, user);
+        user.chatRooms.push(newChatRoom);
 
         await this.userRepository.save(user);
+
+        return {
+            message : "성공적으로 채팅방을 생성했습니다"
+        }
     }
 
-    async deleteChatRoom(u_id : number) : Promise<void> {
-        // if(!foundChatRoom) throw new BadRequestException("잘못된 cr_id 거나 userId가 존재하지 않습니다"); 
-        // if(foundChatRoom.u_id !== u_id) throw new BadRequestException("채팅방 생성자와 로그인 유저의 정보가 일치하지 않습니다."); 
+    async deleteChatRoom(u_id: number, cr_id: number): Promise<any> {
+        const foundChatRoom: ChatRoomEntity = await this.chatRepository.findChatRoomByChatRoomId(cr_id);
+
+        if (!foundChatRoom) throw new NotFoundException("일치하는 채팅방이 없습니다");
+        const chatRoomUser = foundChatRoom.participants.find(user => user.u_id === u_id);
+        if (!chatRoomUser) throw new NotFoundException("해당 채팅방에 접근 권한이 없습니다");
+
+        await this.chatRepository.deleteChatRoom(cr_id);
+
+        return {
+            message: "성공적으로 채팅방을 삭제했습니다"
+        };
     }
 }

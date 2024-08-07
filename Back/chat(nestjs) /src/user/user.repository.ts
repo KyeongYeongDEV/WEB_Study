@@ -31,6 +31,18 @@ export class UserRepository extends Repository<UserEntity> {
         }
     }
 
+    async findUserByUserId(u_id : number) : Promise <UserEntity>{
+        try{
+            const foundUser: UserEntity = await this.findOne({ where: { u_id : u_id } });
+
+            if (!foundUser) throw new NotFoundException("존재하지 않는 회원입니다");
+
+            return foundUser;
+        }catch(error){
+            throw new Error(error);
+        }
+    }
+
     async findAllChatRoomsByUserId(u_id: number): Promise<ChatRoomEntity[]> {
         try {
             const foundUser: UserEntity = await this.findOne({ where: { u_id }, relations: ['chatRooms'] });
@@ -42,4 +54,5 @@ export class UserRepository extends Repository<UserEntity> {
             throw new Error(error);
         }
     }
+
 }

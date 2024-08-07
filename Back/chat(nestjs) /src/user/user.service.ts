@@ -12,10 +12,6 @@ export class UserService {
 
     async isExistUserByEmail (email : string) : Promise <boolean> {
         try{
-            
-  
-            
- 
             return true;
         }catch(error){
             throw new Error(error);

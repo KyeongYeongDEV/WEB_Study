@@ -15,8 +15,9 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
     }
 
  
-    async createChatRoom({ u_id, title} : CreateChatRoomRequestDTO, user : UserEntity) : Promise<ChatRoomEntity>{
+    async createChatRoom(createChatRoomDTO : CreateChatRoomRequestDTO, user : UserEntity) : Promise<ChatRoomEntity>{
         try {
+            const title =  createChatRoomDTO.title;
             const newChatRoom = new ChatRoomEntity();
             newChatRoom.title = title;
             newChatRoom.createdAt = new Date();
@@ -30,7 +31,7 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
         }
     }
 
-    async findChatRoom(cr_id : number): Promise<ChatRoomEntity>{
+    async findChatRoomByChatRoomId(cr_id : number): Promise<ChatRoomEntity>{
         try{
             const foundChatRoom : ChatRoomEntity= await this.findOne({where : {
                 cr_id : cr_id
@@ -46,7 +47,7 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
 
     async deleteChatRoom(cr_id :number) : Promise<void> {
         try{
-            const foundChatRoom : ChatRoomEntity= await this.findChatRoom(cr_id);
+            const foundChatRoom : ChatRoomEntity= await this.findChatRoomByChatRoomId(cr_id);
             this.remove(foundChatRoom);
 
             return;

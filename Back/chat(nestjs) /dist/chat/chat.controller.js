@@ -24,13 +24,16 @@ let ChatController = class ChatController {
     constructor(chatService) {
         this.chatService = chatService;
     }
-    async createChatroom(title, u_id) {
-        this.chatService.createChatRoom({ u_id, title });
+    async createChatroom(createChatRoomRequestDTO, u_id) {
+        return this.chatService.createChatRoom(u_id, createChatRoomRequestDTO);
+    }
+    async joinChatRoom() {
     }
     async getChatRoom(u_id) {
         return this.chatService.findAllChatRoomByUid(u_id);
     }
-    async deleteChatRoom(u_id, r_id) {
+    async deleteChatRoom(u_id, cr_id) {
+        return this.chatService.deleteChatRoom(u_id, cr_id);
     }
 };
 exports.ChatController = ChatController;
@@ -40,9 +43,15 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('u_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:paramtypes", [req_dto_1.CreateChatRoomRequestDTO, Number]),
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "createChatroom", null);
+__decorate([
+    (0, common_1.Post)(':u_id/rooms/:cr_id'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ChatController.prototype, "joinChatRoom", null);
 __decorate([
     (0, common_1.Get)(':u_id/rooms'),
     (0, swagger_decorator_1.ApiGetResponse)(res_dto_1.GetChatRoomListDTO),
@@ -52,7 +61,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "getChatRoom", null);
 __decorate([
-    (0, common_1.Delete)(':u_id/rooms/r_id'),
+    (0, common_1.Delete)(':u_id/rooms/:cr_id'),
     (0, swagger_decorator_1.ApiDeleteResponse)(chat_entity_1.ChatRoomEntity),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),

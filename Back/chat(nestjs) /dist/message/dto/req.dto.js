@@ -1,7 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SendMessageRequestDto = void 0;
-class SendMessageRequestDto {
+exports.getMessageRequestDTO = exports.SendMessageRequestDTO = void 0;
+class SendMessageRequestDTO {
 }
-exports.SendMessageRequestDto = SendMessageRequestDto;
+exports.SendMessageRequestDTO = SendMessageRequestDTO;
+class getMessageRequestDTO {
+}
+exports.getMessageRequestDTO = getMessageRequestDTO;
 //# sourceMappingURL=req.dto.js.map

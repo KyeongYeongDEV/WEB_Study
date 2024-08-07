@@ -23,8 +23,12 @@ let MessageController = class MessageController {
     constructor(messageService) {
         this.messageService = messageService;
     }
-    async sendMessage(cr_id, sendMessageRequestDto) { }
-    async getMessages(cr_id) { }
+    async sendMessage(cr_id, sendMessageRequestDto) {
+        return this.messageService.sendMessage(cr_id, sendMessageRequestDto);
+    }
+    async getMessages(cr_id) {
+        return this.messageService.getMessage(cr_id);
+    }
 };
 exports.MessageController = MessageController;
 __decorate([
@@ -33,7 +37,7 @@ __decorate([
     __param(0, (0, common_1.Param)('cr_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, req_dto_1.SendMessageRequestDto]),
+    __metadata("design:paramtypes", [Number, req_dto_1.SendMessageRequestDTO]),
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "sendMessage", null);
 __decorate([
@@ -41,13 +45,13 @@ __decorate([
     (0, swagger_decorator_1.ApiGetResponse)(res_dto_1.MessageResDTo),
     __param(0, (0, common_1.Param)('cr_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [req_dto_1.getMessageRequestDTO]),
     __metadata("design:returntype", Promise)
 ], MessageController.prototype, "getMessages", null);
 exports.MessageController = MessageController = __decorate([
     (0, swagger_1.ApiTags)('message'),
     (0, swagger_1.ApiExtraModels)(res_dto_1.MessageResDTo),
-    (0, common_1.Controller)('message'),
+    (0, common_1.Controller)('api/message'),
     __metadata("design:paramtypes", [message_service_1.MessageService])
 ], MessageController);
 //# sourceMappingURL=message.controller.js.map

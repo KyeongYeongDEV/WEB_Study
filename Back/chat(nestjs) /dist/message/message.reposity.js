@@ -17,6 +17,26 @@ let MessageRepository = class MessageRepository extends typeorm_1.Repository {
     constructor(dataSource) {
         super(message_entity_1.MessageEntity, dataSource.createEntityManager());
     }
+    async getMessagesByChatRoomId(cr_id) {
+        const messages = await this.find({
+            where: { chatRoom: { cr_id } },
+            relations: ['chatRoom'],
+        });
+        console.log(messages);
+        return messages;
+    }
+    async createMessage(cr_id, { sender_id, content }) {
+        try {
+            const newMessage = new message_entity_1.MessageEntity();
+            newMessage.sender_id = sender_id;
+            newMessage.content = content;
+            await this.save(newMessage);
+            return newMessage;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
 };
 exports.MessageRepository = MessageRepository;
 exports.MessageRepository = MessageRepository = __decorate([

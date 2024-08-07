@@ -8,6 +8,6 @@ export declare class ChatService {
     constructor(chatRepository: ChatRepository, userRepository: UserRepository);
     findAllChatRoomByUid(u_id: number): Promise<ChatRoomEntity[]>;
     findOneChatRoomByRoomId(cr_id: number): Promise<void>;
-    createChatRoom({ u_id, title }: CreateChatRoomRequestDTO): Promise<void>;
-    deleteChatRoom(u_id: number): Promise<void>;
+    createChatRoom(u_id: number, createChatRoomRequestDTO: CreateChatRoomRequestDTO): Promise<any>;
+    deleteChatRoom(u_id: number, cr_id: number): Promise<any>;
 }

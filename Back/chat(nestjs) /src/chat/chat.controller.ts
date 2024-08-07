@@ -3,7 +3,7 @@ import { ApiExtraModels, ApiTags } from '@nestjs/swagger';
 import { ApiDeleteResponse, ApiGetResponse, ApiPostResponse } from 'src/common/decorator/swagger.decorator';
 import { ChatRoomEntity } from 'src/domain/entity/chat.entity';
 import { ChatService } from './chat.service';
-import { GetChatRoomRequestDTO } from './dto/req.dto';
+import { CreateChatRoomRequestDTO, GetChatRoomRequestDTO } from './dto/req.dto';
 import { ChatRoomResponseDTO, GetChatRoomListDTO } from './dto/res.dto';
 
 @ApiTags('chat')
@@ -17,10 +17,16 @@ export class ChatController {
     @Post(":u_id/rooms")
     @ApiPostResponse(ChatRoomResponseDTO)
     async createChatroom (
-        @Body() title : string,
+        @Body() createChatRoomRequestDTO : CreateChatRoomRequestDTO,
         @Param('u_id') u_id : number
-        ) {
-            this.chatService.createChatRoom({u_id, title});
+        ) : Promise<void> {
+            return this.chatService.createChatRoom(u_id, createChatRoomRequestDTO,);
+    }
+
+    @Post(':u_id/rooms/:cr_id')
+    //@ApiPostResponse()
+    async joinChatRoom(){
+
     }
 
     @Get(':u_id/rooms')
@@ -29,9 +35,9 @@ export class ChatController {
         return this.chatService.findAllChatRoomByUid(u_id)
     }
 
-    @Delete(':u_id/rooms/r_id')
+    @Delete(':u_id/rooms/:cr_id')
     @ApiDeleteResponse(ChatRoomEntity)
-    async deleteChatRoom(@Param() u_id : number, r_id : number) :Promise<void> {
-        
+    async deleteChatRoom(@Param() u_id : number, cr_id : number) :Promise<void> {
+        return this.chatService.deleteChatRoom(u_id, cr_id);
     }
 }

@@ -36,6 +36,17 @@ let UserRepository = class UserRepository extends typeorm_1.Repository {
             throw new Error(error);
         }
     }
+    async findUserByUserId(u_id) {
+        try {
+            const foundUser = await this.findOne({ where: { u_id: u_id } });
+            if (!foundUser)
+                throw new common_1.NotFoundException("존재하지 않는 회원입니다");
+            return foundUser;
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
     async findAllChatRoomsByUserId(u_id) {
         try {
             const foundUser = await this.findOne({ where: { u_id }, relations: ['chatRooms'] });

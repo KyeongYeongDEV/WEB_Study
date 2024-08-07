@@ -30,15 +30,28 @@ let ChatService = class ChatService {
     }
     async findOneChatRoomByRoomId(cr_id) {
     }
-    async createChatRoom({ u_id, title }) {
+    async createChatRoom(u_id, createChatRoomRequestDTO) {
         const user = await this.userRepository.findOne({ where: { u_id: u_id } });
         if (!user)
             throw new common_1.NotFoundException('사용자를 찾지 못했습니다.');
-        const newChatRoom = await this.chatRepository.createChatRoom({ u_id, title }, user);
-        user.chatRooms.push(await newChatRoom);
+        const newChatRoom = await this.chatRepository.createChatRoom(createChatRoomRequestDTO, user);
+        user.chatRooms.push(newChatRoom);
         await this.userRepository.save(user);
+        return {
+            message: "성공적으로 채팅방을 생성했습니다"
+        };
     }
-    async deleteChatRoom(u_id) {
+    async deleteChatRoom(u_id, cr_id) {
+        const foundChatRoom = await this.chatRepository.findChatRoomByChatRoomId(cr_id);
+        if (!foundChatRoom)
+            throw new common_1.NotFoundException("일치하는 채팅방이 없습니다");
+        const chatRoomUser = foundChatRoom.participants.find(user => user.u_id === u_id);
+        if (!chatRoomUser)
+            throw new common_1.NotFoundException("해당 채팅방에 접근 권한이 없습니다");
+        await this.chatRepository.deleteChatRoom(cr_id);
+        return {
+            message: "성공적으로 채팅방을 삭제했습니다"
+        };
     }
 };
 exports.ChatService = ChatService;

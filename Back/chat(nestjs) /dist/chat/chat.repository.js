@@ -22,8 +22,9 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
         super(chat_entity_1.ChatRoomEntity, chatRoomRepository.manager);
         this.chatRoomRepository = chatRoomRepository;
     }
-    async createChatRoom({ u_id, title }, user) {
+    async createChatRoom(createChatRoomDTO, user) {
         try {
+            const title = createChatRoomDTO.title;
             const newChatRoom = new chat_entity_1.ChatRoomEntity();
             newChatRoom.title = title;
             newChatRoom.createdAt = new Date();
@@ -35,7 +36,7 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
             throw new common_1.BadRequestException(error);
         }
     }
-    async findChatRoom(cr_id) {
+    async findChatRoomByChatRoomId(cr_id) {
         try {
             const foundChatRoom = await this.findOne({ where: {
                     cr_id: cr_id
@@ -50,7 +51,7 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
     }
     async deleteChatRoom(cr_id) {
         try {
-            const foundChatRoom = await this.findChatRoom(cr_id);
+            const foundChatRoom = await this.findChatRoomByChatRoomId(cr_id);
             this.remove(foundChatRoom);
             return;
         }
