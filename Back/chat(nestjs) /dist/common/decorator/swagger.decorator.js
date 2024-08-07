@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiDeleteResponse = exports.ApiPostResponse = exports.ApiGetResponse = void 0;
+exports.ApiPatchResponse = exports.ApiDeleteResponse = exports.ApiPostResponse = exports.ApiGetResponse = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 const ApiGetResponse = (model) => {
@@ -25,4 +25,10 @@ const ApiDeleteResponse = (model) => {
     }));
 };
 exports.ApiDeleteResponse = ApiDeleteResponse;
+const ApiPatchResponse = (model) => {
+    return (0, common_1.applyDecorators)((0, swagger_1.ApiNoContentResponse)({
+        description: `${model.name} deleted successfully`,
+    }));
+};
+exports.ApiPatchResponse = ApiPatchResponse;
 //# sourceMappingURL=swagger.decorator.js.map

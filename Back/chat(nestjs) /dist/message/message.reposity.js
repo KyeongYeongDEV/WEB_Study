@@ -22,7 +22,6 @@ let MessageRepository = class MessageRepository extends typeorm_1.Repository {
             where: { chatRoom: { cr_id } },
             relations: ['chatRoom'],
         });
-        console.log(messages);
         return messages;
     }
     async createMessage(cr_id, { sender_id, content }) {

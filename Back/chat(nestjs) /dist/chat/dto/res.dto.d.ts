@@ -4,7 +4,3 @@ export declare class ChatRoomResponseDTO {
     participants: string[];
     createdAt: Date;
 }
-export declare class GetChatRoomListDTO {
-    r_id: number;
-    roomName: string[];
-}

@@ -27,3 +27,11 @@ export const ApiDeleteResponse = <TModel extends Type<any>>(model : TModel) =>{
         })
     )
 }
+
+export const ApiPatchResponse = <TModel extends Type<any>>(model : TModel) =>{
+    return applyDecorators(
+        ApiNoContentResponse({
+            description : `${model.name} deleted successfully`,
+        })
+    )
+}

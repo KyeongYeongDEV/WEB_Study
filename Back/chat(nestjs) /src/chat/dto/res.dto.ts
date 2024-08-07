@@ -4,8 +4,3 @@ export class ChatRoomResponseDTO {
     participants : string[];
     createdAt : Date;
 }
-
-export class GetChatRoomListDTO {
-    r_id : number;
-    roomName : string[]
-}

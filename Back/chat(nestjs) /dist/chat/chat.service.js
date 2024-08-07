@@ -28,7 +28,20 @@ let ChatService = class ChatService {
             throw new common_1.NotFoundException("사용자가 속한 채팅방이 없습니다");
         return founUser.chatRooms;
     }
-    async findOneChatRoomByRoomId(cr_id) {
+    async findOneChatRoomByChatRoomId(cr_id) {
+        return this.chatRepository.findChatRoomByChatRoomId(cr_id);
+    }
+    async joinChatRoom(cr_id, u_id) {
+        const foundUser = await this.userRepository.findUserByUserId(u_id);
+        const foundChatRoom = await this.chatRepository.findChatRoomByChatRoomId(cr_id);
+        if (foundChatRoom.participants.some(participant => participant.u_id === u_id)) {
+            throw new common_1.BadRequestException('이미 채팅방에 참여중입니다.');
+        }
+        foundChatRoom.participants.push(foundUser);
+        await this.chatRepository.save(foundChatRoom);
+        return {
+            message: "성공적으로 채팅방에 참여했습니다",
+        };
     }
     async createChatRoom(u_id, createChatRoomRequestDTO) {
         const user = await this.userRepository.findOne({ where: { u_id: u_id } });

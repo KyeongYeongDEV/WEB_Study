@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ChatRoomEntity } from 'src/domain/entity/chat.entity';
 import { UserEntity } from 'src/domain/entity/user.entity';
@@ -23,10 +23,25 @@ export class ChatService {
         return founUser.chatRooms;
     }
 
-    async findOneChatRoomByRoomId(cr_id : number) : Promise<void> {
-
+    async findOneChatRoomByChatRoomId (cr_id : number) : Promise<ChatRoomEntity>{
+        return this.chatRepository.findChatRoomByChatRoomId(cr_id);
     }
 
+    async joinChatRoom(cr_id : number, u_id : number) : Promise<any> {
+        const foundUser : UserEntity = await this.userRepository.findUserByUserId(u_id);
+        const foundChatRoom : ChatRoomEntity = await this.chatRepository.findChatRoomByChatRoomId(cr_id);
+
+        if (foundChatRoom.participants.some(participant => participant.u_id === u_id)) {
+            throw new BadRequestException('이미 채팅방에 참여중입니다.');
+        }
+
+        foundChatRoom.participants.push(foundUser);
+        await this.chatRepository.save(foundChatRoom);
+
+        return {
+            message: "성공적으로 채팅방에 참여했습니다",
+        }
+    }
     async createChatRoom (u_id : number, createChatRoomRequestDTO : CreateChatRoomRequestDTO) : Promise <any> {
         const user : UserEntity = await this.userRepository.findOne({where : {u_id : u_id}});
 

@@ -15,7 +15,6 @@ export class MessageRepository extends Repository<MessageEntity> {
             relations: ['chatRoom'],
         });
 
-        console.log(messages)
         return messages;
     }
 

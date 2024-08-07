@@ -33,9 +33,10 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
 
     async findChatRoomByChatRoomId(cr_id : number): Promise<ChatRoomEntity>{
         try{
-            const foundChatRoom : ChatRoomEntity= await this.findOne({where : {
-                cr_id : cr_id
-            }});
+            const foundChatRoom : ChatRoomEntity= await this.findOne({where : 
+                {cr_id : cr_id},
+                relations: ['participants']
+            });
 
             if (!foundChatRoom) throw new NotFoundException('채팅방을 찾지 못 했습니다');
 

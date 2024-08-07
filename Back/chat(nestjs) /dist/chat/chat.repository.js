@@ -38,9 +38,9 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
     }
     async findChatRoomByChatRoomId(cr_id) {
         try {
-            const foundChatRoom = await this.findOne({ where: {
-                    cr_id: cr_id
-                } });
+            const foundChatRoom = await this.findOne({ where: { cr_id: cr_id },
+                relations: ['participants']
+            });
             if (!foundChatRoom)
                 throw new common_1.NotFoundException('채팅방을 찾지 못 했습니다');
             return foundChatRoom;
