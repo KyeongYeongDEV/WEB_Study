@@ -1,9 +1,7 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common"
-import { NotFoundError } from "rxjs"
+import { BadRequestException, NotFoundException, Injectable } from "@nestjs/common"
 import { ChatRoomEntity } from "src/domain/entity/chat.entity"
-import { UserEntity } from "src/domain/entity/user.entity"
 import { DataSource, Repository } from "typeorm"
-import { CreateChatRoomRequestDTO, DeleteChatRoomDTO } from "./dto/req.dto"
+import { CreateChatRoomRequestDTO,  } from "./dto/req.dto"
 
 @Injectable()
 export class ChatRepository extends Repository<ChatRoomEntity> {
@@ -11,12 +9,17 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
         super(ChatRepository, dataSource.createEntityManager())
     }
 
-    async createChatRoom({cr_id, u_id, title} : CreateChatRoomRequestDTO) : Promise <void>{
+ 
+    async createChatRoom({ u_id, title} : CreateChatRoomRequestDTO) : Promise<ChatRoomEntity>{
         try{
-            const newChatRoom = this.create({cr_id, u_id, title});
+            const newChatRoom =new ChatRoomEntity();
+            newChatRoom.title = title;
+            newChatRoom.createdAt = new Date();
+            newChatRoom.user.push(u_id);
+
             await this.save(newChatRoom);
 
-            return ;
+            return newChatRoom;
         }catch(error){
             throw new BadRequestException(error);
         }
@@ -24,7 +27,11 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
 
     async findChatRoom(cr_id : number): Promise<ChatRoomEntity>{
         try{
-            const foundChatRoom = await this.findOne({where : {cr_id : cr_id}});
+            const foundChatRoom : ChatRoomEntity= await this.findOne({where : {
+                cr_id : cr_id
+            }});
+
+            if (!foundChatRoom) throw new NotFoundException('채팅방을 찾지 못 했습니다');
 
             return foundChatRoom;
         }catch(error){
@@ -34,7 +41,7 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
 
     async deleteChatRoom(cr_id :number) : Promise<void> {
         try{
-            const foundChatRoom = await this.findOne({where : {cr_id : cr_id}});
+            const foundChatRoom : ChatRoomEntity= await this.findChatRoom(cr_id);
             this.remove(foundChatRoom);
 
             return;
@@ -42,19 +49,4 @@ export class ChatRepository extends Repository<ChatRoomEntity> {
             throw new BadRequestException(error);
         }
     }
-
-    //async findAllChatroomByUserId(u_id : number) : Promise<ChatRoomEntity[]> {
-        // try{    
-        //     const foundChatRooms : UserEntity = await this.findOne({
-        //         where : {u_id : u_id},
-        //         relations : ['chatRooms'],
-        //     });
-
-        //     if(!foundChatRooms) throw new NotFoundException("해당 사용자의 채팅방을 찾지 못했습니다")
-
-        //     return foundChatRooms.chatRooms;
-        // }catch(error){
-        //     throw new Error(error)
-        // }
-   // }
 }  

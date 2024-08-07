@@ -5,7 +5,6 @@ export class GetChatRoomRequestDTO {
 }
 
 export class CreateChatRoomRequestDTO {
-    cr_id : number;
     u_id : number; //방장
     title : string;
 }

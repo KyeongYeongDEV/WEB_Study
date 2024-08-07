@@ -1,24 +1,21 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ChatRoomEntity } from "./chat.entity";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ChatRoomEntity } from './chat.entity';
 
-@Entity()
-export class MessageEntity extends BaseEntity{
+@Entity('messages')
+export class MessageEntity extends BaseEntity {
     @PrimaryGeneratedColumn()
-    m_id : number;
-    
-    @Column({nullable : false})
-    cr_id : number;
-    
-    @Column({nullable : false})
-    sender_id : number;
+    m_id: number;
 
-    @Column({nullable : false})
-    content : string;
+    @Column({ nullable: false })
+    sender_id: number;
 
-    @Column()
-    create_at : Date;
+    @Column({ nullable: false })
+    content: string;
 
-    @ManyToOne(type => ChatRoomEntity, chatRoom => chatRoom.messages)
-    chatRoom : ChatRoomEntity
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
+    @ManyToOne(() => ChatRoomEntity, chatRoom => chatRoom.messages)
+    @JoinColumn({ name: 'cr_id' })
+    chatRoom: ChatRoomEntity;
 }

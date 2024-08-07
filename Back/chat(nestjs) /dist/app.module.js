@@ -10,25 +10,28 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const auth_controller_1 = require("./auth/auth.controller");
-const chat_controller_1 = require("./chat/chat.controller");
-const auth_service_1 = require("./auth/auth.service");
 const auth_module_1 = require("./auth/auth.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_config_1 = require("./configs/typeorm.config");
+const user_controller_1 = require("./user/user.controller");
+const user_service_1 = require("./user/user.service");
+const chat_module_1 = require("./chat/chat.module");
+const message_module_1 = require("./message/message.module");
+const user_module_1 = require("./user/user.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRootAsync({
-                useFactory: async () => typeorm_config_1.typeORMConfig
-            }),
-            auth_module_1.AuthModule
+            typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeORMConfig),
+            auth_module_1.AuthModule,
+            chat_module_1.ChatModule,
+            message_module_1.MessageModule,
+            user_module_1.UserModule
         ],
-        controllers: [app_controller_1.AppController, auth_controller_1.AuthController, chat_controller_1.ChatController],
-        providers: [app_service_1.AppService, auth_service_1.AuthService],
+        controllers: [app_controller_1.AppController, user_controller_1.UserController],
+        providers: [app_service_1.AppService, user_service_1.UserService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

@@ -7,16 +7,15 @@ import { UserEntity } from '../domain/entity/user.entity';
 import { UserRepository } from 'src/user/user.repository';
 
 @Module({
-    imports : [
-        TypeOrmModule.forFeature([UserEntity, UserRepository]),
-        JwtModule.register({
-            secret: 'secret',
-            signOptions: { expiresIn: '60m' },
-        }),
-    ],
-    controllers : [AuthController],
-    providers : [
-        AuthService,
-    ]
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    JwtModule.register({
+      secret: 'yourSecretKey', 
+      signOptions: { expiresIn: '60m' },
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [AuthService, UserRepository],
+  exports: [AuthService],
 })
 export class AuthModule {}
