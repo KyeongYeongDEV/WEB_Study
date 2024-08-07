@@ -8,22 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var ChatRepository_1;
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChatRepository = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
 const chat_entity_1 = require("../domain/entity/chat.entity");
-const typeorm_1 = require("typeorm");
-let ChatRepository = ChatRepository_1 = class ChatRepository extends typeorm_1.Repository {
-    constructor(dataSource) {
-        super(ChatRepository_1, dataSource.createEntityManager());
+const typeorm_2 = require("typeorm");
+let ChatRepository = class ChatRepository extends typeorm_2.Repository {
+    constructor(chatRoomRepository) {
+        super(chat_entity_1.ChatRoomEntity, chatRoomRepository.manager);
+        this.chatRoomRepository = chatRoomRepository;
     }
-    async createChatRoom({ u_id, title }) {
+    async createChatRoom({ u_id, title }, user) {
         try {
             const newChatRoom = new chat_entity_1.ChatRoomEntity();
             newChatRoom.title = title;
             newChatRoom.createdAt = new Date();
-            newChatRoom.user.push(u_id);
+            newChatRoom.participants = [user];
             await this.save(newChatRoom);
             return newChatRoom;
         }
@@ -56,8 +60,9 @@ let ChatRepository = ChatRepository_1 = class ChatRepository extends typeorm_1.R
     }
 };
 exports.ChatRepository = ChatRepository;
-exports.ChatRepository = ChatRepository = ChatRepository_1 = __decorate([
+exports.ChatRepository = ChatRepository = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeorm_1.DataSource])
+    __param(0, (0, typeorm_1.InjectRepository)(chat_entity_1.ChatRoomEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], ChatRepository);
 //# sourceMappingURL=chat.repository.js.map

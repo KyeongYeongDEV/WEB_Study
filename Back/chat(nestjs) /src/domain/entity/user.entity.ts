@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ChatRoomEntity } from './chat.entity';
 
 
@@ -16,6 +16,6 @@ export class UserEntity extends BaseEntity {
     @Column({ nullable: false })
     password: string;
 
-    @OneToMany(() => ChatRoomEntity, chatRoom => chatRoom.user, { eager: true })
+    @ManyToMany(() => ChatRoomEntity, chatRoom => chatRoom.participants, { eager: true })
     chatRooms: ChatRoomEntity[];
 }

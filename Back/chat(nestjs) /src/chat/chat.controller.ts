@@ -17,10 +17,10 @@ export class ChatController {
     @Post(":u_id/rooms")
     @ApiPostResponse(ChatRoomResponseDTO)
     async createChatroom (
-        @Body() getChatRoomRequestDTO : GetChatRoomRequestDTO,
+        @Body() title : string,
         @Param('u_id') u_id : number
         ) {
-            
+            this.chatService.createChatRoom({u_id, title});
     }
 
     @Get(':u_id/rooms')
@@ -32,6 +32,6 @@ export class ChatController {
     @Delete(':u_id/rooms/r_id')
     @ApiDeleteResponse(ChatRoomEntity)
     async deleteChatRoom(@Param() u_id : number, r_id : number) :Promise<void> {
-         
+        
     }
 }

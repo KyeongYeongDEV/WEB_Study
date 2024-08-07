@@ -32,7 +32,7 @@ export class ChatService {
 
         if(!user) throw new NotFoundException('사용자를 찾지 못했습니다.')
 
-        const newChatRoom : Promise<ChatRoomEntity> = this.chatRepository.createChatRoom({u_id, title});
+        const newChatRoom : ChatRoomEntity = await this.chatRepository.createChatRoom({u_id, title}, user);
         user.chatRooms.push(await newChatRoom);
 
         await this.userRepository.save(user);

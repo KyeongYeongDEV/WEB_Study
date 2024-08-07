@@ -29,10 +29,14 @@ __decorate([
     __metadata("design:type", Date)
 ], ChatRoomEntity.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinTable)({
+        name: 'chat_room_participants',
+        joinColumn: { name: 'chat_room_id', referencedColumnName: 'cr_id' },
+        inverseJoinColumn: { name: 'user_id', referencedColumnName: 'u_id' }
+    }),
     __metadata("design:type", Array)
-], ChatRoomEntity.prototype, "user", void 0);
+], ChatRoomEntity.prototype, "participants", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => message_entity_1.MessageEntity, message => message.chatRoom, { eager: true }),
     __metadata("design:type", Array)

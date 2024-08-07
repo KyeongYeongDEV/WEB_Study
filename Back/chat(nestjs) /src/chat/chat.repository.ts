@@ -1,26 +1,31 @@
 import { BadRequestException, NotFoundException, Injectable } from "@nestjs/common"
+import { InjectRepository } from "@nestjs/typeorm"
 import { ChatRoomEntity } from "src/domain/entity/chat.entity"
+import { UserEntity } from "src/domain/entity/user.entity"
 import { DataSource, Repository } from "typeorm"
 import { CreateChatRoomRequestDTO,  } from "./dto/req.dto"
 
 @Injectable()
 export class ChatRepository extends Repository<ChatRoomEntity> {
-    constructor(dataSource : DataSource) {
-        super(ChatRepository, dataSource.createEntityManager())
+    constructor(
+        @InjectRepository(ChatRoomEntity)
+        private readonly chatRoomRepository: Repository<ChatRoomEntity>,
+    ) {
+        super(ChatRoomEntity, chatRoomRepository.manager);
     }
 
  
-    async createChatRoom({ u_id, title} : CreateChatRoomRequestDTO) : Promise<ChatRoomEntity>{
-        try{
-            const newChatRoom =new ChatRoomEntity();
+    async createChatRoom({ u_id, title} : CreateChatRoomRequestDTO, user : UserEntity) : Promise<ChatRoomEntity>{
+        try {
+            const newChatRoom = new ChatRoomEntity();
             newChatRoom.title = title;
             newChatRoom.createdAt = new Date();
-            newChatRoom.user.push(u_id);
+            newChatRoom.participants = [user];
 
             await this.save(newChatRoom);
 
             return newChatRoom;
-        }catch(error){
+        } catch (error) {
             throw new BadRequestException(error);
         }
     }

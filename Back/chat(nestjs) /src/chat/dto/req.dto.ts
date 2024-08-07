@@ -1,7 +1,6 @@
 export class GetChatRoomRequestDTO {
-    cr_id : number;
-    title : string
-    participants : string[] //사용자 ID 목록
+    u_id : number;
+    title : string;
 }
 
 export class CreateChatRoomRequestDTO {

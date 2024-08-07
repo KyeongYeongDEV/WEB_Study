@@ -34,7 +34,7 @@ let ChatService = class ChatService {
         const user = await this.userRepository.findOne({ where: { u_id: u_id } });
         if (!user)
             throw new common_1.NotFoundException('사용자를 찾지 못했습니다.');
-        const newChatRoom = this.chatRepository.createChatRoom({ u_id, title });
+        const newChatRoom = await this.chatRepository.createChatRoom({ u_id, title }, user);
         user.chatRooms.push(await newChatRoom);
         await this.userRepository.save(user);
     }

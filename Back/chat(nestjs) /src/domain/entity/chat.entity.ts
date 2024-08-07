@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, NumericType, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, NumericType, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { MessageEntity } from './message.entity';
 import { UserEntity } from './user.entity';
 
@@ -13,9 +13,13 @@ export class ChatRoomEntity extends BaseEntity {
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @ManyToOne(() => UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'user_id' }) // 외래 키 컬럼 이름을 'user_id'로 지정
-    user: number[];
+    @ManyToMany(() => UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' })
+    @JoinTable({
+        name: 'chat_room_participants', // 조인 테이블의 이름
+        joinColumn: { name: 'chat_room_id', referencedColumnName: 'cr_id' },
+        inverseJoinColumn: { name: 'user_id', referencedColumnName: 'u_id' }
+    })
+    participants: UserEntity[];
 
     @OneToMany(() => MessageEntity, message => message.chatRoom, { eager: true })
     messages: MessageEntity[];

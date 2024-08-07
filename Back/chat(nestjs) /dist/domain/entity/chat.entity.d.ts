@@ -1,9 +1,10 @@
 import { BaseEntity } from 'typeorm';
 import { MessageEntity } from './message.entity';
+import { UserEntity } from './user.entity';
 export declare class ChatRoomEntity extends BaseEntity {
     cr_id: number;
     title: string;
     createdAt: Date;
-    user: number[];
+    participants: UserEntity[];
     messages: MessageEntity[];
 }

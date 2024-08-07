@@ -24,7 +24,8 @@ let ChatController = class ChatController {
     constructor(chatService) {
         this.chatService = chatService;
     }
-    async createChatroom(getChatRoomRequestDTO, u_id) {
+    async createChatroom(title, u_id) {
+        this.chatService.createChatRoom({ u_id, title });
     }
     async getChatRoom(u_id) {
         return this.chatService.findAllChatRoomByUid(u_id);
@@ -39,7 +40,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)('u_id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [req_dto_1.GetChatRoomRequestDTO, Number]),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", Promise)
 ], ChatController.prototype, "createChatroom", null);
 __decorate([

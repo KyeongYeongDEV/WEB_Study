@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => chat_entity_1.ChatRoomEntity, chatRoom => chatRoom.user, { eager: true }),
+    (0, typeorm_1.ManyToMany)(() => chat_entity_1.ChatRoomEntity, chatRoom => chatRoom.participants, { eager: true }),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "chatRooms", void 0);
 exports.UserEntity = UserEntity = __decorate([
