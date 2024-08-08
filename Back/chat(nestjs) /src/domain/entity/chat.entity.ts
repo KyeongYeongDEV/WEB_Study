@@ -13,9 +13,9 @@ export class ChatRoomEntity extends BaseEntity {
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @ManyToMany(() => UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' })
+    @ManyToMany(() => UserEntity, user => user.chatRooms, { cascade: true })
     @JoinTable({
-        name: 'chat_room_participants', // 조인 테이블의 이름
+        name: 'chat_room_participants', 
         joinColumn: { name: 'chat_room_id', referencedColumnName: 'cr_id' },
         inverseJoinColumn: { name: 'user_id', referencedColumnName: 'u_id' }
     })

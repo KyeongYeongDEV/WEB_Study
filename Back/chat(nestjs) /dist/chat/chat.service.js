@@ -23,10 +23,10 @@ let ChatService = class ChatService {
         this.userRepository = userRepository;
     }
     async findAllChatRoomByUid(u_id) {
-        const founUser = await this.userRepository.findOne({ where: { u_id: u_id } });
-        if (!founUser.chatRooms.length)
+        const foundUser = await this.userRepository.findOne({ where: { u_id }, relations: ['chatRooms'] });
+        if (!foundUser.chatRooms.length)
             throw new common_1.NotFoundException("사용자가 속한 채팅방이 없습니다");
-        return founUser.chatRooms;
+        return foundUser.chatRooms;
     }
     async findOneChatRoomByChatRoomId(cr_id) {
         return this.chatRepository.findChatRoomByChatRoomId(cr_id);
@@ -39,12 +39,14 @@ let ChatService = class ChatService {
         }
         foundChatRoom.participants.push(foundUser);
         await this.chatRepository.save(foundChatRoom);
+        foundUser.chatRooms.push(foundChatRoom);
+        await this.userRepository.save(foundUser);
         return {
             message: "성공적으로 채팅방에 참여했습니다",
         };
     }
     async createChatRoom(u_id, createChatRoomRequestDTO) {
-        const user = await this.userRepository.findOne({ where: { u_id: u_id } });
+        const user = await this.userRepository.findOne({ where: { u_id } });
         if (!user)
             throw new common_1.NotFoundException('사용자를 찾지 못했습니다.');
         const newChatRoom = await this.chatRepository.createChatRoom(createChatRoomRequestDTO, user);

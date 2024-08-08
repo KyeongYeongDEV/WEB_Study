@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ChatRoomEntity.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.UserEntity, user => user.chatRooms, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.UserEntity, user => user.chatRooms, { cascade: true }),
     (0, typeorm_1.JoinTable)({
         name: 'chat_room_participants',
         joinColumn: { name: 'chat_room_id', referencedColumnName: 'cr_id' },

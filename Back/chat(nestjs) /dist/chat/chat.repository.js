@@ -38,7 +38,8 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
     }
     async findChatRoomByChatRoomId(cr_id) {
         try {
-            const foundChatRoom = await this.findOne({ where: { cr_id: cr_id },
+            const foundChatRoom = await this.findOne({
+                where: { cr_id },
                 relations: ['participants']
             });
             if (!foundChatRoom)
@@ -52,7 +53,7 @@ let ChatRepository = class ChatRepository extends typeorm_2.Repository {
     async deleteChatRoom(cr_id) {
         try {
             const foundChatRoom = await this.findChatRoomByChatRoomId(cr_id);
-            this.remove(foundChatRoom);
+            await this.remove(foundChatRoom);
             return;
         }
         catch (error) {
