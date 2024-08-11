@@ -1,14 +1,16 @@
 package com.example.hello;
 
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@Service
 public class PaymentService {
     private final ExRateProvider exRateProvider;
-    public PaymentService() {
-        this.exRateProvider = new SimpleExRateProvider();
+    public PaymentService(ExRateProvider exRateProvider) {
+        this.exRateProvider = exRateProvider;
     }
 
 
