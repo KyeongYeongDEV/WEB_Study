@@ -1,7 +1,8 @@
-package com.example.hello;
+package exrate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
+import payment.ExRateProvider;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -12,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 @Component
-public class WebApiExRateProvider implements ExRateProvider{
+public class WebApiExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExrate(String currency) throws IOException {
         URL url = new URL("https://open.er-api.com/v6/latest/" + currency);

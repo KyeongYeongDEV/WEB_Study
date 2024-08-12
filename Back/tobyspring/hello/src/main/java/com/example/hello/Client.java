@@ -2,6 +2,8 @@ package com.example.hello;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import payment.Payment;
+import payment.PaymentService;
 
 import java.io.IOException;
 import java.math.BigDecimal;

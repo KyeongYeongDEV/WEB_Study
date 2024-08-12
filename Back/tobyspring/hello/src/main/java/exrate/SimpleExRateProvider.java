@@ -1,12 +1,13 @@
-package com.example.hello;
+package exrate;
 
 import org.springframework.stereotype.Component;
+import payment.ExRateProvider;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
 @Component
-public class SimpleExRateProvider implements ExRateProvider{
+public class SimpleExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExrate(String currency) throws IOException {
         if (currency.equals("USD")) return BigDecimal.valueOf(1000);
