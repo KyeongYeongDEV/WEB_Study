@@ -1,16 +1,17 @@
 package payment;
 
 import java.math.BigDecimal;
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 public class Payment {
-    private Long orderId;
-    private String currency;
+    private final Long orderId;
+    private final String currency;
     // 돈 같은 것은 부동소수점인 Double, Flout으로 하면 액수가 달라질 수 있기 때문에 BigDecimal이라는 타입을 사용한다.
-    private BigDecimal foreignCurrencyAmount;
-    private BigDecimal exRate;
-    private BigDecimal convertedAmount;
-    private LocalDateTime validUntil;
+    private final BigDecimal foreignCurrencyAmount;
+    private final BigDecimal exRate;
+    private final BigDecimal convertedAmount;
+    private final LocalDateTime validUntil;
 
     public Payment(Long orderId, String currency, BigDecimal foreignCurrencyAmount, BigDecimal exRate, BigDecimal convertedAmount, LocalDateTime validUntil) {
         this.orderId = orderId;
@@ -21,6 +22,17 @@ public class Payment {
         this.validUntil = validUntil;
     }
 
+    public static Payment createPrepared(Long orderId, String currency, BigDecimal foreignCurrencyAmount,
+                                         BigDecimal exRate, LocalDateTime now){
+        BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
+        LocalDateTime validUntil = now.plusMinutes(30);
+
+        return new Payment(orderId, currency, foreignCurrencyAmount, exRate, convertedAmount, validUntil);
+    }
+
+    public  boolean isValid(Clock clock) {
+        return LocalDateTime.now(clock).isBefore((this.validUntil));
+    }
     public Long getOrderId() {
         return orderId;
     }
